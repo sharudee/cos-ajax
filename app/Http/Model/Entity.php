@@ -12,13 +12,12 @@ class Entity extends Model {
 	 	'cust_grp',
 	 	'tax_rate',
 	 	'ent_ctrl',
+	 	'cos_no',
 	 	'dsgrp_type',
 	 	'sale_type',
 	 	'ret_type',
 	 	'craeted_by',
-	 	'created_at',
-	 	'updated_by',
-	 	'updated_at'
+	 	'updated_by'
 	 ];
 
 }

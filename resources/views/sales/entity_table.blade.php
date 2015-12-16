@@ -25,7 +25,7 @@
 
 			<td>
 				<button type="button" class="btn btn-info solsoShowModal"  
-				data-toggle="modal" data-target="#solsoCrudModal" data-href="{{URL::to('entity/'.$v->id)}}" data-modal-title="Show Entity">
+				data-toggle="modal" data-target="#solsoCrudModal" data-href="{{URL::to('entity/'.$v->id)}}" data-modal-title="Show Entity" >
 				<i class="fa fa-eye"></i> Show</button>
 				</td>
 			<td>

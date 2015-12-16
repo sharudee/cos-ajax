@@ -24,6 +24,7 @@
 
 					<div class="col-sm-2">
 						<input type="text" name="cos_no" id="input" class="form-control required">
+						{!!$errors->first('cos_no','<p class="error">:message</p>')!!}
 					</div>
 					
 				</div>
@@ -34,6 +35,7 @@
 					</div>
 					<div class="col-sm-7">
 						<input type="text" name="entity_tname" id="input" class="form-control required">
+						{!!$errors->first('entity_tname','<p class="error">:message</p>')!!}
 					</div>
 				</div>	
 				<div class="row form-group">
@@ -42,6 +44,7 @@
 					</div>
 					<div class="col-sm-7">
 						<input type="text" name="entity_ename" id="input" class="form-control input-sm">
+						{!!$errors->first('entity_ename','<p class="error">:message</p>')!!}
 					</div>
 				</div>	
 
@@ -51,7 +54,7 @@
 					</div>
 					<div class="col-sm-2">
 						<input type="text" name="cust_grp" id="input" class="form-control required">
-						
+						{!!$errors->first('cust_grp','<p class="error">:message</p>')!!}
 					
 						
 
@@ -62,6 +65,7 @@
 
 					<div class="col-sm-2">
 						<input type="text" name="tax_rate" id="input" class="form-control required">
+						{!!$errors->first('tax_rate','<p class="error">:message</p>')!!}
 					</div>
 				</div>
 
@@ -71,6 +75,7 @@
 					</div>
 					<div class="col-sm-2">
 						<input type="text" name="ent_ctrl" id="input" class="form-control input-sm">
+						{!!$errors->first('ent_ctrl','<p class="error">:message</p>')!!}
 					</div>
 					<div class="col-sm-2 col-sm-offset-1">
 						<label>ประเภทการ Group Bill</label>
@@ -102,7 +107,8 @@
 					</div>
 
 					<div class="col-sm-2">
-						<input type="text" name="" id="input" class="form-control required"  name="ret_type">
+						<input type="text" name="ret_type" id="input" class="form-control required" >
+						{!!$errors->first('ret_type','<p class="error">:message</p>')!!}
 					</div>
 				</div>
 
