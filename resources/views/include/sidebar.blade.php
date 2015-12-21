@@ -68,7 +68,7 @@
 	                            <a href="#"><i class="fa fa-th-list"></i> Transaction<span class="fa arrow"></span></a>
 	                            <ul class="nav nav-second-level">
 	                                <li>
-	                                    <a href="{{URL::to('sales/addsales')}}">บันทึกขายสินค้า</a>
+	                                    <a href="{{URL::to('sales/sales')}}">บันทึกขายสินค้า</a>
 	                                </li>
 	                                <li>
 	                                    <a href="{{URL::to('sales/addremand')}}">ส่งคืนสินค้า</a>

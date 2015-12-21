@@ -1,19 +1,19 @@
 @extends('include.index')
-@section('title_page') Entity - @stop
+@section('title_page') Document Control - @stop
 
 @section('content')
 
 	<div class="col-md-12">
-		<h1><i class="fa fa-list"></i> Entity</h1>	
+		<h1><i class="fa fa-list"></i> Document Control</h1>	
 	
 
-		<button type="button" class="btn btn-primary solsoShowModal"  data-toggle="modal" data-target="#solsoCrudModal" data-href="{{URL::to('entity/create')}}" data-modal-title="Create Entity">
-		<i class="fa fa-plus"></i> New entity</button>
+		<button type="button" class="btn btn-primary solsoShowModal"  data-toggle="modal" data-target="#solsoCrudModal" data-href="{{URL::to('entity/create')}}" data-modal-title="Create Doc Cde">
+		<i class="fa fa-plus"></i> New Doc Code</button>
 
 		<div class="col-md-12 top40">
-			<h3>Entity</h3>
+			<h3>Document Control</h3>
 			<div id="ajaxTable" class="table-responsive">
-				@include('sales.entity_table')
+				@include('sales.doc_table')
 			</div> 
 		</div>
 

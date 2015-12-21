@@ -18,6 +18,7 @@
 	<link rel="stylesheet" type="text/css" href="{{ url('resources/assets/css/bootstrap.min.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ url('resources/assets/css/font-awesome.min.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ url('resources/assets/vendor/growl/jquery.growl.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url('resources/assets/css/sweetalert.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ url('resources/assets/css/design.css') }}">
 	<!-- END CSS -->	
 </head>

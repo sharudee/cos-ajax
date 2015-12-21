@@ -269,7 +269,10 @@
 
 /* === MODALS === */
 	.modal {
-		
+		/*position: absolute;
+		max-height: 90%;*/
+		overflow-y: auto; 
+
 	}
 	.modal-backdrop {
 	   background-color: #FFF;
