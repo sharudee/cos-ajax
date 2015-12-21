@@ -105,7 +105,7 @@
 					<div class="col-sm-2 col-sm-offset-1">
 						<label>ประเภทรับคืน</label>
 					</div>
-
+					
 					<div class="col-sm-2">
 						<input type="text" name="ret_type" id="input" class="form-control required" >
 						{!!$errors->first('ret_type','<p class="error">:message</p>')!!}

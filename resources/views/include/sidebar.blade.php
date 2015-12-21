@@ -1,6 +1,11 @@
  <div class="solso-sidebar">
 	<div id="grey-sidebar" class="list-group">
-		
+		<a href="#" class="list-group-item active">
+			<div class="input-group">
+				<p><i class="fa fa-university"> เซ็นทรัล ชิดลม</i></p>
+				<p><i class="fa fa-user">  Admin</i></p>	
+			</div>	  
+		</a>
 
 		  <ul class="nav" id="side-menu">
                        

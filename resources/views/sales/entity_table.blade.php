@@ -31,14 +31,14 @@
 			<td>
 				<button type="button" class="btn btn-primary solsoShowModal"  
 				data-toggle="modal" data-target="#solsoCrudModal" 
-				data-href="{{URL::to('entityt/'.$v->id.'/edit')}}" data-modal-title="Edit Entity">
+				data-href="{{URL::to('entity/'.$v->id.'/edit')}}" data-modal-title="Edit Entity">
 				<i class="fa fa-pencil"></i> Edit</button>
 				</td>
 			</td>
 			<td>
 				<button type="button" class="btn btn-danger solsoConfirm" 
 				data-toggle="modal" data-target="#solsoDeleteModal" 
-				data-href="{{ URL::to('entity/'.$v->id)}}">
+				data-href="{{ URL::to('entity/'.$v->id) }}">
 					<i class="fa fa-trash"></i> Delete
 				</button>	
 			</td>

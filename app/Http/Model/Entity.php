@@ -16,7 +16,7 @@ class Entity extends Model {
 	 	'dsgrp_type',
 	 	'sale_type',
 	 	'ret_type',
-	 	'craeted_by',
+	 	'created_by',
 	 	'updated_by'
 	 ];
 
