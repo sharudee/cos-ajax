@@ -11,17 +11,36 @@
 					<div class="checkbox">
 						<label>
 							<input type="checkbox" name="product[]" 
-							data-proname="Mattress" 
+							data-proname="EVEREST" 
 							data-qty="1"
 							data-price="12000"
-							value="SLMTXXX">
-							SLMTXXX
+							value="SET01">
+							SET01
 						</label>
 					</div>
 				</td>
-				<td>Mattress</td>
+				<td>EVEREST</td>
 				<td><input type="text" name="pqty[]" id="pqty" class="form-control" value="1"></td>
 				<td><input type="text" name="pprice[]" id="pprice" class="form-control" value="12000"></td>
+				
+			</tr>
+
+			<tr>
+				<td>
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" name="product[]" 
+							data-proname="KINGDOM" 
+							data-qty="1"
+							data-price="12000"
+							value="SET02">
+							SET02
+						</label>
+					</div>
+				</td>
+				<td>KINGDOM</td>
+				<td><input type="text" name="pqty[]" id="pqty" class="form-control" value="1"></td>
+				<td><input type="text" name="pprice[]" id="pprice" class="form-control" value="15000"></td>
 				
 			</tr>
 			

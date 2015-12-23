@@ -172,20 +172,15 @@ class EntityController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		$delete =Entity::where('id',$id)->delete();
-		//return "Ok";
-		/*$delete = Entity::find($id);
+		$delete = Entity::find($id);
 		$delete->delete();
 		
-		$data_entity = array(
-			'entity' 		=> Entity::orderBy('entity_code', 'asc')->get(),
+		$data = array(
+			'entity' 	=> Entity::orderBy('entity_code', 'asc')->get(),
 			'refresh'	=> true
 		);
-	
-		return view('sales.entity_table')->with($data_entity);
-		*/
 
-		//return view('sales.entity')->with('entity',$data_entity);
+		return View::make('sales.entity_table', $data);
 	}
 
 }

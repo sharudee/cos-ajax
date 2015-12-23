@@ -28,7 +28,15 @@ class SaleController extends Controller {
 		//$cust_group = DB::table('customers')->groupBy('CustGroup')->get(['CustGroup']);
 		//dd($cust_group);
 		//return view('pages.addpoform')->with('cust_group',$cust_group);
-		return view('sales.productform');
+		return view('sales.salesproductform');
+	}
+
+	public function salespromotionform()
+	{
+		//$cust_group = DB::table('customers')->groupBy('CustGroup')->get(['CustGroup']);
+		//dd($cust_group);
+		//return view('pages.addpoform')->with('cust_group',$cust_group);
+		return view('sales.salespromotionform');
 	}
 
 }

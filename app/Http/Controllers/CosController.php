@@ -212,7 +212,7 @@ class CosController extends Controller {
 
 	// ---------------------------  Sales ---------------------------//
 
-	public function getSales()
+	/*public function getSales()
 	{
 		//return "Ok";
 
@@ -233,7 +233,7 @@ class CosController extends Controller {
 		//dd($cust_group);
 		//return view('pages.addpoform')->with('cust_group',$cust_group);
 		return view('sales.productform');
-	}
+	}*/
 	
 
 	public function getAddreturn()

@@ -14,13 +14,16 @@
 			<div class="modal-body">
 				<p>You are about to delete this item this procedure is irreversible !</p>
             				<p>Do you want to proceed ?<p>
+
 			</div>
 			<div class="modal-footer">
-				{!! Form::open(array('id' => 'solsoDeletForm')) !!}
+				
+				 {!! Form::open(array('id' => 'solsoDeleteForm')) !!}  
+				
 					<button type="button" class="btn btn-primary" data-dismiss="modal">NO</button>
-
 					<button class="btn btn-danger solsoDelete" data-message-title="Delete notification" data-message-success="Data was deleted">YES</button>
-				{!! Form::close() !!}
+					
+				{!! Form::close() !!} 
 			</div>
 		</div>
 	</div>

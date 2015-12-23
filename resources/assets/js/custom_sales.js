@@ -18,6 +18,15 @@ $(function(){
 		});
 	});
 
+	// Event Add Promotion Form
+	$('body').on('click','a[rel=addpromotion]',function(){
+		$.get('salespromotionform',function(data){
+			$("#custmodal").html(data);
+			// เปิด modal
+			$(".custmodal").modal('show');
+		});
+	});
+
 	// Event submit Customer
 	$('body').on('click','button#submitcust',function(){
 		var cuscode = $('input[name=radcus]:checked').val();
@@ -27,10 +36,19 @@ $(function(){
 		$(".custmodal").modal('hide');
 	});
 
+	// Event submit promotion
+	$('body').on('click','button#submitpmt',function(){
+		var pmt_no = $('input[name=radcus]:checked').val();
+		//var cusname = $('input[name=radcus]:checked').attr('data-custname');
+		$('input[name=pmt_no]').val(pmt_no);
+		//$('input[name=cust_name]').val(cusname);
+		$(".custmodal").modal('hide');
+	});
+
 
 	// Event Add Product Form
 	$('body').on('click','a[rel=addproduct]',function(){
-		$.get('productform',function(data){
+		$.get('salesproductform',function(data){
 			$("#productmodal").html(data);
 			// เปิด modal
 			$(".productmodal").modal('show');

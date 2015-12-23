@@ -67,3 +67,12 @@ $( document ).on('click', '.solsoSave', function(e){
 		}
 	});
 });
+
+
+$( document ).on('click', '.solsoDelete', function(e){
+	e.preventDefault();
+	var id = $('.solsoDelete').attr('data-form');
+	$(id).submit();
+	alert(id);
+	$('#solsoDeleteModal').modal('hide');
+});

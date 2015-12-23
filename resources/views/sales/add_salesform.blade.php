@@ -11,7 +11,7 @@
 					<div class="col-sm-2">
 						<input type="text" name="" id="input" class="form-control input-sm">
 					</div>
-					<div class="col-sm-1 col-sm-offset-1">
+					<div class="col-sm-1 ">
 						<label >วันที่</label>
 					</div>
 
@@ -22,8 +22,18 @@
 					<div class="col-sm-1">
 						<label>Promotion</label>
 					</div>
-					<div class="col-sm-1">
-						<input type="text" name="" id="input" class="form-control input-sm">
+					<div class="col-sm-2">
+					<div class="input-group ">
+
+						
+						<input type="text" name="pmt_no" id="pmt_no" class="form-control input-sm">
+						
+						<span class="input-group-btn">
+						<a  href="#addpmt" rel="addpromotion" class="btn btn-sm btn-primary"><sapn class="glyphicon glyphicon-triangle-bottom"></span></a>
+						</sapn>
+						
+
+					</div>
 					</div>
 				</div>
 

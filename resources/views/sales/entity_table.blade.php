@@ -25,7 +25,8 @@
 
 			<td>
 				<button type="button" class="btn btn-info solsoShowModal"  
-				data-toggle="modal" data-target="#solsoCrudModal" data-href="{{URL::to('entity/'.$v->id)}}" data-modal-title="Show Entity" >
+				data-toggle="modal" data-target="#solsoCrudModal" 
+				data-href="{{URL::to('entity/'.$v->id)}}" data-modal-title="Show Entity" >
 				<i class="fa fa-eye"></i> Show</button>
 				</td>
 			<td>
@@ -36,12 +37,18 @@
 				</td>
 			</td>
 			<td>
+
+				
 				<button type="button" class="btn btn-danger solsoConfirm" 
 				data-toggle="modal" data-target="#solsoDeleteModal" 
 				data-href="{{ URL::to('entity/'.$v->id) }}">
-					<i class="fa fa-trash"></i> Delete
-				</button>	
+				<i class="fa fa-trash"></i> Delete
+				</button>
+				
+				
+					
 			</td>
+				
 		</tr>
 		@endforeach
 	</tbody>

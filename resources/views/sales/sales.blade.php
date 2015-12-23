@@ -81,7 +81,7 @@
 	<!-- Modal Customer -->
 
 	<div class="modal fade custmodal" data-backdrop="static">
-		<div class="modal-dialog modal-sm">
+		<div class="modal-dialog modal-md">
 			<div class="modal-content" id="custmodal">
 				
 			</div>
