@@ -18,10 +18,11 @@
 			</div>
 			<div class="modal-footer">
 				
-				 {!! Form::open(array('id' => 'solsoDeleteForm')) !!}  
+				 {!! Form::open(array('id' => 'solsoDeleteForm' )) !!}  
 				
 					<button type="button" class="btn btn-primary" data-dismiss="modal">NO</button>
-					<button class="btn btn-danger solsoDelete" data-message-title="Delete notification" data-message-success="Data was deleted">YES</button>
+					<input type ="hidden" name="_token"  value="{{csrf_token()}}">
+					<button class="btn btn-danger solsoDelete" data-message-title="Delete notification" data-message-success="Data was deleted" data-message-error="Validation error messages" >YES</button>
 					
 				{!! Form::close() !!} 
 			</div>

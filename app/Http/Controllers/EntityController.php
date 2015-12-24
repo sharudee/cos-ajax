@@ -10,6 +10,8 @@ use Validator;
 
 // Model
 use App\Http\Model\Entity;
+use App\Http\Model\Custgrp;
+
 
 class EntityController extends Controller {
 
@@ -23,7 +25,10 @@ class EntityController extends Controller {
 		//return "ok";
 		//return view('sales.entity');
 		$data_entity = Entity::orderBy('entity_code','asc')->get();
+
+		
 		return view('sales.entity')->with('entity',$data_entity);
+							
 	}
 
 	/**
@@ -33,7 +38,9 @@ class EntityController extends Controller {
 	 */
 	public function create()
 	{
-		return view('sales.entity_create');
+		$data_grp = Custgrp::orderBy('custgrp_code','asc')->get();
+
+		return view('sales.entity_create')->with('custgrp',$data_grp);
 	}
 
 	/**
@@ -137,9 +144,9 @@ class EntityController extends Controller {
 	 */
 	public function show($id)
 	{
-		$show_data = Entity::find($id);
+		$entity = Entity::find($id);
 
-		return view('sales.entity_create')->with('show_data',$show_data); 
+		return view('sales.entity_show')->with('entity',$entity); 
 	}
 
 	/**
@@ -150,7 +157,9 @@ class EntityController extends Controller {
 	 */
 	public function edit($id)
 	{
-		//
+		$data_grp = Custgrp::orderBy('custgrp_code','asc')->get();
+
+		return view('sales.entity_edit')->with('custgrp',$data_grp);
 	}
 
 	/**
@@ -172,15 +181,19 @@ class EntityController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		$delete = Entity::find($id);
+		/*$delete = Entity::find($id);
 		$delete->delete();
-		
-		$data = array(
-			'entity' 	=> Entity::orderBy('entity_code', 'asc')->get(),
-			'refresh'	=> true
-		);
+		*/
+		$delete=Entity::where('id',$id)->delete();
 
-		return View::make('sales.entity_table', $data);
+		$data_entity = array(
+				'entity' 		=> Entity::orderBy('entity_code', 'asc')->get(),
+				'refresh'	=> true
+			);
+	
+			return view('sales.entity_table')->with($data_entity);
 	}
+
+
 
 }

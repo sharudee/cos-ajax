@@ -10,6 +10,7 @@ use App\Http\Model\custgrpmast;
 use Illuminate\Html\HtmlFacade;
 use Illuminate\Html\FormFacade;
 
+use App\Http\Model\Custgrp;
 
 
 
@@ -257,6 +258,5 @@ class CosController extends Controller {
 		return view('sales.add_custorder');
 	}
 
-	
 
 }

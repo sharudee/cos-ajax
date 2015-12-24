@@ -41,7 +41,8 @@
 				
 				<button type="button" class="btn btn-danger solsoConfirm" 
 				data-toggle="modal" data-target="#solsoDeleteModal" 
-				data-href="{{ URL::to('entity/'.$v->id) }}">
+				data-href="{{ URL::to('entity/'.$v->id) }}"
+				data-id={{$v->id}}>
 				<i class="fa fa-trash"></i> Delete
 				</button>
 				
