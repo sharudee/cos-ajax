@@ -157,9 +157,14 @@ class EntityController extends Controller {
 	 */
 	public function edit($id)
 	{
+		$edit_data = Entity::find($id);
+
 		$data_grp = Custgrp::orderBy('custgrp_code','asc')->get();
 
-		return view('sales.entity_edit')->with('custgrp',$data_grp);
+		return view('sales.entity_edit')->with([
+							'custgrp' 	=> $data_grp ,
+							'entity' 		=> $edit_data
+							]);
 	}
 
 	/**
@@ -170,7 +175,99 @@ class EntityController extends Controller {
 	 */
 	public function update($id)
 	{
-		//
+		$message = [
+			'required'	=> 'กรุณาใส่ข้อมูล',
+			'unique'	=> 'ข้อมูลซ้ำ',
+			'numeric'	=> 'ต้องเป็นตัวเลขเท่านั้น',
+			'max'		=> 'ข้อมูลเกิน :max ตัวอักษร'
+		];
+
+
+		$rules = array(
+			'entity_code'     	=> 'required|unique:entity|Max:8',
+			'entity_tname'		=> 'required|Max:50',
+			'entity_ename'		=> 'Max:50',
+			'ent_ctrl'		=> 'Max:8',
+			'cos_no'		=> 'required|Max:2',
+			'tax_rate'		=> 'required|Numeric',
+			'cust_grp'		=> 'required|Max:4',
+			'dsgrp_type'		=> 'required',
+			'sale_type'		=> 'required|Max:8',
+			'ret_type'		=> 'required|Max:8'
+			
+		);
+
+		$validator = Validator::make(Request::all(), $rules,$message);
+
+		if ($validator->passes())
+		{
+			
+			/* กรณี Save ทุก Field จาก Form 
+ 			$store	= new Entity;
+			
+			$store->fill(Request::all());
+			$store->save();
+			*/
+
+			/* **********  Save Data ************ */	
+
+			
+			//$modified = date('Y-m-d H:i:s')
+
+			$data_entity = array(
+				'entity_code' => Request::get('entity_code'),			
+				'entity_tname' => Request::get('entity_tname'),
+				'entity_ename' => Request::get('entity_ename'),
+				'cust_grp' => Request::get('cust_grp'),
+				'tax_rate' => Request::get('tax_rate'),
+				'ent_ctrl' => Request::get('ent_ctrl'),
+				'cos_no' => Request::get('cos_no'),
+				'dsgrp_type' => Request::get('dsgrp_type'),
+				'sale_type' => Request::get('sale_type'),
+				'ret_type' => Request::get('ret_type'),
+				'created_by' => 'admin',
+				'updated_by' => 'admin'
+			);
+
+			
+		
+			//Edit data to model Entity
+			/*$update = Entity::find($id);
+			$update->fill(Input::all());
+			$update->save();
+			*/
+			//$update=Request::all();
+			$entity 	=Entity::find($id);
+			$entity->update($data_entity);
+
+			//dd($data_entity);
+			
+
+			/* **********  Save Data ************ */	
+
+
+			// Reload Table Data
+			$entity = array(
+				'entity' 		=> Entity::orderBy('entity_code', 'asc')->get(),
+				'refresh'	=> true
+			);
+	
+			return view('sales.entity_table')->with($entity);
+			/*return view('sales.entity_edit')->with([
+							'custgrp' 	=> $data_grp ,
+							'entity' 		=> $entity
+							]);
+			*/
+		}
+		else{
+			if( Request::ajax() ) 
+			{
+				
+				return view('sales.entity_edit')->withErrors($validator)->withInput(Request::all());				
+			}
+
+			return 0;
+		}
 	}
 
 	/**

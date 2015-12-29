@@ -32,7 +32,8 @@
 			<td>
 				<button type="button" class="btn btn-primary solsoShowModal"  
 				data-toggle="modal" data-target="#solsoCrudModal" 
-				data-href="{{URL::to('entity/'.$v->id.'/edit')}}" data-modal-title="Edit Entity">
+				data-href="{{URL::to('entity/'.$v->id.'/edit')}}" data-modal-title="Edit Entity"
+				data-id={{$v->id}}>
 				<i class="fa fa-pencil"></i> Edit</button>
 				</td>
 			</td>

@@ -126,3 +126,50 @@ $( document ).on('click', '.solsoDelete', function(e){
 
 	
 });
+
+
+
+$( document ).on('click', '.solsoEdit', function(e){
+	e.preventDefault();
+	//var solsoSelector 	= $('.solsoEdit');
+	var solsoSelector 	= $(this);
+	var solsoFormAction   = $('.solsoForm').attr('action');
+	//var solsoFormMethod = $('.solsoForm').attr('method');
+	var solsoFormData	= $('.solsoForm').serialize();
+	//var name = $('.solsoForm').attr('name').val();
+	//alert(solsoSelector);
+	//alert(solsoFormAction);
+	//alert(solsoFormData);
+
+	$.ajax({
+		url: solsoFormAction,
+		type: 'PUT',
+		data: solsoFormData,
+		cache: 	false,
+		dataType: 'html',
+		success:function(data) {
+			/*if (data == 0) {
+				console.log('error');
+			}else{*/
+				if ($(data).filter('table.solsoRefresh').length == 1) {
+					alert("OK");
+					$('#solsoCrudModal').modal('hide'); // ปิด modal
+					$('#ajaxTable').html(data);
+					$('#countClients').text( $('.solsoTable').attr('data-all') ); // นับจำนวน Record ในตารางใหม่
+					$.growl.notice({ 
+						title: solsoSelector.attr('data-message-title'), 
+					 	message: solsoSelector.attr('data-message-success') 
+					});
+				}else {
+					$('.solsoShowForm').html(data);
+					$.growl.error({ 
+						title: solsoSelector.attr('data-message-title'), 
+					 	message: solsoSelector.attr('data-message-error') 
+					});
+				}
+
+				
+			//}
+		}
+	});
+});
