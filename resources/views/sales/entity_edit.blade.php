@@ -5,8 +5,8 @@
 */
 -->
 
-{!! Form::open(array('url'=>'entity','role' => 'form','class' => 'solsoForm'))!!} 
-<!--{!! Form::open(array('url' => 'entity/' . Request::segment(2) , 'role' => 'form', 'method' => 'PUT', 'class' => 'solsoForm')) !!} -->
+<!-- {!! Form::open(array('url'=>'entity','role' => 'form','class' => 'solsoForm'))!!}  -->
+{!! Form::open(array('url' => 'entity/' . Request::segment(2) , 'role' => 'form', 'method' => 'PUT', 'class' => 'solsoForm')) !!} 
 	<div class="col-sm-12">
 	
 			<div class="container">
@@ -122,13 +122,14 @@
 
 			</div>
 
-			
+			<input type ="hidden" name="_token"  value="{{csrf_token()}}">
 				
 			<div class="form-group col-md-12">
 				<button type="button" class="btn btn-success btn-lg solsoEdit" 
 				data-message-title="Edit notification" 
 				data-message-error="Validation error messages" 
-				data-message-success="Data was updated">
+				data-message-success="Data was updated"
+				data-id = "{{$entity->id}}">
 				<i class="fa fa-save"></i> Save
 				</button>
 			</div>

@@ -197,8 +197,11 @@ class EntityController extends Controller {
 			
 		);
 
+		//dd($rules);
+
 		$validator = Validator::make(Request::all(), $rules,$message);
 
+		//dd(Request::all());
 		if ($validator->passes())
 		{
 			
@@ -260,10 +263,19 @@ class EntityController extends Controller {
 			*/
 		}
 		else{
+			$edit_data = Entity::find($id);
+			//$edit_data=Request::all();
+			//dd($edit_data);
+			
+			//dd($data_entity);
+			$data_grp = Custgrp::orderBy('custgrp_code','asc')->get();
 			if( Request::ajax() ) 
 			{
 				
-				return view('sales.entity_edit')->withErrors($validator)->withInput(Request::all());				
+				return view('sales.entity_edit')->with([
+							'custgrp' 	=> $data_grp ,
+							'entity' 		=> $edit_data
+							]) ->withErrors($validator)->withInput(Request::all());				
 			}
 
 			return 0;
