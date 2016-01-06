@@ -13,6 +13,8 @@ Route::get('salespromotionform','SaleController@salespromotionform');
 
 
 Route::resource('entity', 'EntityController');
+Route::resource('docmast', 'DocController');
+Route::resource('whmast', 'WhController');
 Route::controller('sales','CosController');
 
 Route::controllers([

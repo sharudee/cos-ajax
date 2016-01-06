@@ -7,13 +7,13 @@
 		<h1><i class="fa fa-list"></i> Document Control</h1>	
 	
 
-		<button type="button" class="btn btn-primary solsoShowModal"  data-toggle="modal" data-target="#solsoCrudModal" data-href="{{URL::to('entity/create')}}" data-modal-title="Create Doc Cde">
+		<button type="button" class="btn btn-primary solsoShowModal"  data-toggle="modal" data-target="#solsoCrudModal" data-href="{{URL::to('docmast/create')}}" data-modal-title="Create Doc Code">
 		<i class="fa fa-plus"></i> New Doc Code</button>
 
 		<div class="col-md-12 top40">
 			<h3>Document Control</h3>
 			<div id="ajaxTable" class="table-responsive">
-				@include('sales.doc_table')
+				@include('sales.docmast_table')
 			</div> 
 		</div>
 

@@ -13,7 +13,7 @@
 		<div class="col-md-12 top40">
 			<h3>Warehouse</h3>
 			<div id="ajaxTable" class="table-responsive">
-				@include('sales.wh_table')
+				@include('sales.whmast_table')
 			</div> 
 		</div>
 

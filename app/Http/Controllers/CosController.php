@@ -83,7 +83,7 @@ class CosController extends Controller {
 
 	// ---------------------------  Entity  ---------------------------//
 
-	public function getEntity()
+	/*public function getEntity()
 	{
 		//return "Ok";
 
@@ -131,7 +131,7 @@ class CosController extends Controller {
 		//return "Ok";
 
 		return view('sales.add_docmast');
-	}
+	}*/
 
 	// ---------------------------  Wh Mast ---------------------------//
 

@@ -16,10 +16,10 @@
 	                                    <a href="{{URL::to('entity')}}">รหัสลูกค้า (Entity)</a>
 	                                </li>
 	                                <li>
-	                                    <a href="{{URL::to('sales/docmast')}}">รหัสเอกสาร</a>
+	                                    <a href="{{URL::to('docmast')}}">รหัสเอกสาร</a>
 	                                </li>
 	                                <li>
-	                                    <a href="{{URL::to('sales/whmast')}}">รหัสคลังสินค้า</a>
+	                                    <a href="{{URL::to('whmast')}}">รหัสคลังสินค้า</a>
 	                                </li>
 	                                <li>
 	                                    <a href="{{URL::to('sales/commission')}}">กำหนดข้อมูล Commission</a>

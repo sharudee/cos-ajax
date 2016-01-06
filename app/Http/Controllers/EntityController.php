@@ -23,8 +23,7 @@ class EntityController extends Controller {
 	 */
 	public function index()
 	{
-		//return "ok";
-		//return view('sales.entity');
+
 		$data_entity = Entity::orderBy('entity_code','asc')->get();
 
 		
