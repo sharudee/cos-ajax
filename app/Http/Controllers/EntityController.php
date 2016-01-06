@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 use Request;
 use Validator;
+use Input;
 
 // Model
 use App\Http\Model\Entity;
@@ -184,7 +185,7 @@ class EntityController extends Controller {
 
 
 		$rules = array(
-			'entity_code'     	=> 'required|unique:entity|Max:8',
+			'entity_code'     	=> 'required|Max:8',
 			'entity_tname'		=> 'required|Max:50',
 			'entity_ename'		=> 'Max:50',
 			'ent_ctrl'		=> 'Max:8',
@@ -263,19 +264,43 @@ class EntityController extends Controller {
 			*/
 		}
 		else{
-			$edit_data = Entity::find($id);
+			//$edit_data = Entity::find($id);
 			//$edit_data=Request::all();
 			//dd($edit_data);
 			
 			//dd($data_entity);
+
+			$edit_data = array(
+				'entity_code' => Request::input('entity_code'),			
+				'entity_tname' => Request::get('entity_tname'),
+				'entity_ename' => Request::get('entity_ename'),
+				'cust_grp' => Request::get('cust_grp'),
+				'tax_rate' => Request::get('tax_rate'),
+				'ent_ctrl' => Request::get('ent_ctrl'),
+				'cos_no' => Request::get('cos_no'),
+				'dsgrp_type' => Request::get('dsgrp_type'),
+				'sale_type' => Request::get('sale_type'),
+				'ret_type' => Request::get('ret_type'),
+				//'created_by' => 'admin',
+				//'updated_by' => 'admin'
+			);
+
+			//dd($edit_data);
+
 			$data_grp = Custgrp::orderBy('custgrp_code','asc')->get();
 			if( Request::ajax() ) 
 			{
 				
-				return view('sales.entity_edit')->with([
-							'custgrp' 	=> $data_grp ,
+				/*return view('sales.entity_edit')->with([
+							'custgrp' 	=> $data_grp, 
 							'entity' 		=> $edit_data
 							]) ->withErrors($validator)->withInput(Request::all());				
+				*/
+				//return view('sales.entity_edit')->withErrors($validator)->withInput(Request::all());
+				return view('sales.entity_edit')->withErrors($validator)->with([
+							'custgrp' 	=> $data_grp, 
+							'entity' 		=> $edit_data
+							]);
 			}
 
 			return 0;

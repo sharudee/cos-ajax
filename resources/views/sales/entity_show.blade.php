@@ -85,7 +85,7 @@
 							
 						        <select class="form-control " id="select" name="dsgrp_type" disabled>
 						          <option value="SKU" <?php if($entity->dsgrp_type=='SKU') { echo "selected"; } ?>>SKU - ตามรหัสสินค้าลูกค้า</option>
-						          <option value="DISC" <?php if($entity->sale_type=='DISC') { echo "selected"; } ?>>DISC - ตามส่วนลดลูกค้า + GP ห้าง</option>
+						          <option value="DISC" <?php if($entity->dsgrp_type=='DISC') { echo "selected"; } ?>>DISC - ตามส่วนลดลูกค้า + GP ห้าง</option>
 						        </select>
 						
 					</div>

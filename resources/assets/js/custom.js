@@ -82,7 +82,7 @@ $( document ).on('click', '.solsoDelete', function(e){
 
 	var id = $('.solsoConfirm').data("id");
 	var solsoFormData	= $('.solsoForm').serialize();
-        
+        	
 
 	$.ajax(
 	        {
@@ -138,7 +138,7 @@ $( document ).on('click', '.solsoEdit', function(e){
 	var solsoFormData	= $('.solsoForm').serialize();
 	var id 			= $('.solsoForm').data("id");	
 	var token = $('input[name="_token"]').val();
-	var entity
+	//var entity
 	//var name = $('.solsoForm').attr('name').val();
 	//alert(solsoSelector);
 	//alert(solsoFormAction);
@@ -147,14 +147,10 @@ $( document ).on('click', '.solsoEdit', function(e){
 	$.ajax({
 		url: solsoFormAction,
 		type: 'PUT',
-		data: {
-	                "_token": token,
-	                "id": id,
-
-	                "table_data" : solsoFormData,
+		data: solsoFormData,
 	              
 
-	            },
+	            
 		cache: 	false,
 		dataType: 'html',
 		success:function(data) {
@@ -162,7 +158,7 @@ $( document ).on('click', '.solsoEdit', function(e){
 				console.log('error');
 			}else{*/
 				if ($(data).filter('table.solsoRefresh').length == 1) {
-					alert("OK");
+					//alert("OK");
 					$('#solsoCrudModal').modal('hide'); // ปิด modal
 					$('#ajaxTable').html(data);
 					$('#countClients').text( $('.solsoTable').attr('data-all') ); // นับจำนวน Record ในตารางใหม่
