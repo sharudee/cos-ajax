@@ -1,41 +1,45 @@
-<table class="table solsoTable table-hover ">
+<table class="table solsoTable table-hover {{!empty($refresh) ? 'solsoRefresh' : '' }}" data-all="{{sizeof($whmast)}}">
 	<thead>
 		<tr>
 			<th>WH   Code</th>
 			<th>Description</th>
 			<th>Action</th>
+			
 		</tr>
 	</thead>
 	<tbody>
+		@foreach($whmast as $dbwh)
 		<tr>
-			<td>FB</td>
-			<td>FG - Bedding</td>
+			<td>{{$dbwh->wh_code}}</td>
+			<td>{{$dbwh->wh_tdesc}}</td>
 			<td>
-				<a href="#" class="btn btn-sm btn-primary"> Read </a>
-				<a href="#" class="btn btn-sm btn-warning"> Update </a>
-				<form method="POST" action ="#" style="display:inline-block">
-					<input  name="_method" type="hidden"  value="DELETE">
-					<input type ="hidden" name="_token"  value="{{csrf_token()}}">
-					<button class="btn btn-sm btn-danger"> Delete </button>
-				</form>
+				<button type="button" class="btn btn-info solsoShowModal"  
+				data-toggle="modal" data-target="#solsoCrudModal" 
+				data-href="{{URL::to('whmast/'.$dbwh->id)}}" data-modal-title="Show Warehouse" >
+				<i class="fa fa-eye"></i> Show</button>
 				
+				<button type="button" class="btn btn-primary solsoShowModal"  
+				data-toggle="modal" data-target="#solsoCrudModal" 
+				data-href="{{URL::to('whmast/'.$dbwh->id.'/edit')}}" data-modal-title="Edit Warehouse"
+				data-id={{$dbwh->id}}>
+				<i class="fa fa-pencil"></i> Edit</button>
+				
+
+				
+				<button type="button" class="btn btn-danger solsoConfirm" 
+				data-toggle="modal" data-target="#solsoDeleteModal" 
+				data-href="{{ URL::to('whmast/'.$dbwh->id) }}"
+				data-id={{$dbwh->id}}>
+				<i class="fa fa-trash"></i> Delete
+				</button>
+				
+				
+					
 			</td>
 		</tr>
+		@endforeach
 
-		<tr>
-			<td>FH</td>
-			<td>FG - Home Fashion</td>
-			<td>
-				<a href="#" class="btn btn-sm btn-primary"> Read </a>
-				<a href="#" class="btn btn-sm btn-warning"> Update </a>
-				<form method="POST" action ="#" style="display:inline-block">
-					<input  name="_method" type="hidden"  value="DELETE">
-					<input type ="hidden" name="_token"  value="{{csrf_token()}}">
-					<button class="btn btn-sm btn-danger"> Delete </button>
-				</form>
-			</td>
-		</tr>
-
+		
 		
 	</tbody>
 </table>

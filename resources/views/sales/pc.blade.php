@@ -1,19 +1,19 @@
 @extends('include.index')
-@section('title_page') Warehouse - @stop
+@section('title_page') PC - @stop
 
 @section('content')
 
 	<div class="col-md-12">
-		<h1><i class="fa fa-list"></i> Warehouse</h1>	
+		<h1><i class="fa fa-list"></i> พนักงานขาย</h1>	
 	
 
-		<button type="button" class="btn btn-primary solsoShowModal"  data-toggle="modal" data-target="#solsoCrudModal" data-href="{{URL::to('whmast/create')}}" data-modal-title="Create Warehouse">
-		<i class="fa fa-plus"></i> New Warehose</button>
+		<button type="button" class="btn btn-primary solsoShowModal"  data-toggle="modal" data-target="#solsoCrudModal" data-href="{{URL::to('pc/create')}}" data-modal-title="Create PC">
+		<i class="fa fa-plus"></i> New PC</button>
 
 		<div class="col-md-12 top40">
-			<h3>Warehouse</h3>
+			<h3>พนักงานขาย</h3>
 			<div id="ajaxTable" class="table-responsive">
-				@include('sales.whmast_table')
+				@include('sales.pc_table')
 			</div> 
 		</div>
 

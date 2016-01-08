@@ -70,9 +70,88 @@ $( document ).on('click', '.solsoSave', function(e){
 
 
 /* ==== Event Delete data ===*/
+
+
+
+/*$('#solsoDeleteModal').on('show.bs.modal', function (e) {
+	
+//alert("ok");		
+      $message = $(e.relatedTarget).attr('data-message');
+      $(this).find('.modal-body p').text($message);
+      $title = $(e.relatedTarget).attr('data-title');
+      $(this).find('.modal-title').text($title);
+
+      // Pass form reference to modal for submission on yes/ok
+      var form = $(e.relatedTarget).closest('form');
+      $(this).find('.modal-footer #solsoDelete').data('form', form);
+
+      
+  });
+
+  <!-- Form confirm (yes/ok) handler, submits form -->
+ $('#solsoDeleteModal').find('.modal-footer #solsoDelete').on('click', function(){
+         $(this).data('form').submit();
+
+});
+/*     	var url = $('#solsoDeleteModal').attr('data-href');
+	//$(id).submit();
+	//$.ajax({
+	var token = $('input[name="_token"]').val();
+
+	var id = $('.solsoConfirm').attr('data-id');
+	var solsoFormData	= $('.solsoForm').serialize();
+        	
+        	alert(solsoFormData);
+        	alert(id);
+
+	$.ajax(
+	        {
+	            url: url,
+	            type: 'DELETE',
+	            dataType: "html",
+	            data: {
+	              "_token": token,
+	                "id": id,
+	                "table_data" : solsoFormData,
+	              
+
+	            },
+	            success: function (table_data)
+	            {
+	                //console.log("it Work");
+	                	
+		                	console.log(table_data);
+			            	if ($(table_data).filter('table.solsoRefresh').length == 1) {
+							//alert("OK");
+				
+					$('#solsoDeleteModal').modal('hide');
+					$('#ajaxTable').html(table_data);
+					$('#countClients').text( $('.solsoTable').attr('data-all') ); // นับจำนวน Record ในตารางใหม่
+					$.growl.notice({ 
+						title: solsoSelector.attr('data-message-title'), 
+					 	message: solsoSelector.attr('data-message-success') 
+					});
+		 		}else {
+					//$('.solsoShowForm').html(data);
+					$.growl.error({ 
+						title: solsoSelector.attr('data-message-title'), 
+					 	message: solsoSelector.attr('data-message-error') 
+					});
+				}
+			
+	            }
+	        });
+
+        		//console.log("It failed");
+
+      
+  });
+
+*/
+
+
 $( document ).on('click', '.solsoDelete', function(e){
 	e.preventDefault();
-
 	var solsoSelector 	= $(this);
 
 	var url = $('.solsoConfirm').attr('data-href');
@@ -80,9 +159,11 @@ $( document ).on('click', '.solsoDelete', function(e){
 	//$.ajax({
 	var token = $('input[name="_token"]').val();
 
-	var id = $('.solsoConfirm').data("id");
+	var id = $('.solsoConfirm').attr('data-id');
 	var solsoFormData	= $('.solsoForm').serialize();
         	
+        	alert(url);
+        	alert(id);
 
 	$.ajax(
 	        {
@@ -179,6 +260,3 @@ $( document ).on('click', '.solsoEdit', function(e){
 		}
 	});
 });
-
-
-

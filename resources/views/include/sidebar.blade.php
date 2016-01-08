@@ -83,7 +83,7 @@
 	                            <a href="#"><i class="fa fa-money"></i> Commission<span class="fa arrow"></span></a>
 	                            <ul class="nav nav-second-level">
 	                                <li>
-	                                    <a href="{{URL::to('sales/pc')}}">บันทึกข้อมูลพนักงาน</a>
+	                                    <a href="{{URL::to('pc')}}">บันทึกข้อมูลพนักงาน</a>
 	                                </li>
 	                                <li>
 	                                    <a href="{{URL::to('sales/addpctime')}}">บันทึกเวลาทำงาน</a>

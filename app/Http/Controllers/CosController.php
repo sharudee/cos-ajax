@@ -135,7 +135,7 @@ class CosController extends Controller {
 
 	// ---------------------------  Wh Mast ---------------------------//
 
-	public function getWhmast()
+	/*public function getWhmast()
 	{
 		//return "Ok";
 
@@ -184,7 +184,7 @@ class CosController extends Controller {
 		//return "Ok";
 
 		return view('sales.add_pctime');
-	}
+	}*/
 
 
 	// --------------------------- Commission & Incentive -----------------------//

@@ -11,7 +11,6 @@ class Whmast extends Model {
 	 	'wh_edesc',
 	 	'address1',
 	 	'address2',
-	 	'doc_ctrl',
 	 	'tel',
 	 	'contact_name',
 	 	'status',
