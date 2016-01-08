@@ -4,7 +4,6 @@
 [![Build status](http://img.shields.io/travis/bobthecow/psysh/master.svg?style=flat-square)](http://travis-ci.org/bobthecow/psysh)
 [![Made out of awesome](http://img.shields.io/badge/made_out_of_awesome-✓-brightgreen.svg?style=flat-square)](http://psysh.org)
 
-
 ## About
 
 PsySH is a runtime developer console, interactive debugger and [REPL](http://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop) for PHP. Learn more at [psysh.org](http://psysh.org/). Check out the [Interactive Debugging in PHP talk from OSCON](https://presentate.com/bobthecow/talks/php-for-pirates) on Presentate.
@@ -12,22 +11,13 @@ PsySH is a runtime developer console, interactive debugger and [REPL](http://en.
 
 ## Installation
 
-Download the `psysh` phar to install:
+PsySH [is available via Composer](https://packagist.org/packages/psy/psysh), so you can use it in your project, or install it globally like this:
 
 ```
-wget psysh.org/psysh
-chmod +x psysh
-./psysh
+composer g require psy/psysh:@stable
 ```
 
-It's even awesomer if you put it somewhere in your system path (like `/usr/local/bin` or `~/bin`)!
-
-PsySH [is available via Composer](https://packagist.org/packages/psy/psysh), so you can use it in your project as well:
-
-```
-composer require psy/psysh:@stable
-./vendor/bin/psysh
-```
+If this is your first time installing something globally with Composer, [make sure you have your path set up correctly](http://getcomposer.org/doc/03-cli.md#global).
 
 Or you can use by checking out the the repository directly:
 
@@ -35,6 +25,14 @@ Or you can use by checking out the the repository directly:
 git clone https://github.com/bobthecow/psysh.git
 cd psysh
 ./bin/psysh
+```
+
+But by far the easiest way to use it is to download the precompiled phar:
+
+```
+wget psysh.org/psysh
+chmod +x psysh
+./psysh
 ```
 
 
@@ -114,7 +112,6 @@ return array(
     ),
 );
 ```
-
 
 ## Downloading the manual
 

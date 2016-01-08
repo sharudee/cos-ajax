@@ -19,15 +19,19 @@ use PhpSpec\SpecificationInterface;
 use PhpSpec\Runner\MatcherManager;
 use PhpSpec\Runner\CollaboratorManager;
 use PhpSpec\Formatter\Presenter\PresenterInterface;
+use PhpSpec\Wrapper\Unwrapper;
 use PhpSpec\Matcher;
 
 class MatchersMaintainer implements MaintainerInterface
 {
     /**
-     * @var PresenterInterface
+     * @var \PhpSpec\Formatter\Presenter\PresenterInterface
      */
     private $presenter;
-
+    /**
+     * @var \PhpSpec\Wrapper\Unwrapper
+     */
+    private $unwrapper;
     /**
      * @var MatcherInterface[]
      */
@@ -62,12 +66,9 @@ class MatchersMaintainer implements MaintainerInterface
      * @param MatcherManager         $matchers
      * @param CollaboratorManager    $collaborators
      */
-    public function prepare(
-        ExampleNode $example,
-        SpecificationInterface $context,
-        MatcherManager $matchers,
-        CollaboratorManager $collaborators
-    ) {
+    public function prepare(ExampleNode $example, SpecificationInterface $context,
+                            MatcherManager $matchers, CollaboratorManager $collaborators)
+    {
 
         $matchers->replace($this->defaultMatchers);
 
@@ -80,9 +81,7 @@ class MatchersMaintainer implements MaintainerInterface
                 $matchers->add($matcher);
             } else {
                 $matchers->add(new Matcher\CallbackMatcher(
-                    $name,
-                    $matcher,
-                    $this->presenter
+                    $name, $matcher, $this->presenter
                 ));
             }
         }
@@ -94,12 +93,9 @@ class MatchersMaintainer implements MaintainerInterface
      * @param MatcherManager         $matchers
      * @param CollaboratorManager    $collaborators
      */
-    public function teardown(
-        ExampleNode $example,
-        SpecificationInterface $context,
-        MatcherManager $matchers,
-        CollaboratorManager $collaborators
-    ) {
+    public function teardown(ExampleNode $example, SpecificationInterface $context,
+                             MatcherManager $matchers, CollaboratorManager $collaborators)
+    {
     }
 
     /**

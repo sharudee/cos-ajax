@@ -34,8 +34,7 @@
         }
     },
     "suggest": {
-        "jeremeamia/superclosure": "Required to be able to serialize closures (~2.0).",
-        "symfony/var-dumper": "Required to use the dd function (2.6.*)."
+        "jeremeamia/superclosure": "Required to be able to serialize closures (~2.0)."
     },
     "minimum-stability": "dev"
 }

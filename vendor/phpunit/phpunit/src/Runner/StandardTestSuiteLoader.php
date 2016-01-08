@@ -11,16 +11,20 @@
 /**
  * The standard test suite loader.
  *
- * @since Class available since Release 2.0.0
+ * @package    PHPUnit
+ * @subpackage Runner
+ * @author     Sebastian Bergmann <sebastian@phpunit.de>
+ * @copyright  Sebastian Bergmann <sebastian@phpunit.de>
+ * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
+ * @link       http://www.phpunit.de/
+ * @since      Class available since Release 2.0.0
  */
 class PHPUnit_Runner_StandardTestSuiteLoader implements PHPUnit_Runner_TestSuiteLoader
 {
     /**
-     * @param string $suiteClassName
-     * @param string $suiteClassFile
-     *
+     * @param  string                      $suiteClassName
+     * @param  string                      $suiteClassFile
      * @return ReflectionClass
-     *
      * @throws PHPUnit_Framework_Exception
      */
     public function load($suiteClassName, $suiteClassFile = '')
@@ -107,8 +111,7 @@ class PHPUnit_Runner_StandardTestSuiteLoader implements PHPUnit_Runner_TestSuite
     }
 
     /**
-     * @param ReflectionClass $aClass
-     *
+     * @param  ReflectionClass $aClass
      * @return ReflectionClass
      */
     public function reload(ReflectionClass $aClass)

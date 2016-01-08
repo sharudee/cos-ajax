@@ -17,49 +17,42 @@ class Event {
 	 *
 	 * @var string
 	 */
-	public $command;
+	protected $command;
 
 	/**
 	 * The cron expression representing the event's frequency.
 	 *
 	 * @var string
 	 */
-	public $expression = '* * * * * *';
+	protected $expression = '* * * * * *';
 
 	/**
 	 * The timezone the date should be evaluated on.
 	 *
 	 * @var \DateTimeZone|string
 	 */
-	public $timezone;
+	protected $timezone;
 
 	/**
 	 * The user the command should run as.
 	 *
 	 * @var string
 	 */
-	public $user;
+	protected $user;
 
 	/**
 	 * The list of environments the command should run under.
 	 *
 	 * @var array
 	 */
-	public $environments = [];
+	protected $environments = [];
 
 	/**
 	 * Indicates if the command should run in maintenance mode.
 	 *
 	 * @var bool
 	 */
-	public $evenInMaintenanceMode = false;
-
-	/**
-	 * Indicates if the command should not overlap itself.
-	 *
-	 * @var bool
-	 */
-	public $withoutOverlapping = false;
+	protected $evenInMaintenanceMode = false;
 
 	/**
 	 * The filter callback.
@@ -80,7 +73,7 @@ class Event {
 	 *
 	 * @var string
 	 */
-	public $output = '/dev/null';
+	protected $output = '/dev/null';
 
 	/**
 	 * The array of callbacks to be run after the event is finished.
@@ -94,7 +87,7 @@ class Event {
 	 *
 	 * @var string
 	 */
-	public $description;
+	protected $description;
 
 	/**
 	 * Create a new event instance.
@@ -173,27 +166,9 @@ class Event {
 	 */
 	public function buildCommand()
 	{
-		if ($this->withoutOverlapping)
-		{
-			$command = '(touch '.$this->mutexPath().'; '.$this->command.'; rm '.$this->mutexPath().') > '.$this->output.' 2>&1 &';
-		}
-		else
-		{
-			$command = $this->command.' > '.$this->output.' 2>&1 &';
-		}
-
+		$command = $this->command.' > '.$this->output.' 2>&1 &';
 
 		return $this->user ? 'sudo -u '.$this->user.' '.$command : $command;
-	}
-
-	/**
-	 * Get the mutex path for the scheduled command.
-	 *
-	 * @return string
-	 */
-	protected function mutexPath()
-	{
-		return storage_path().'/framework/schedule-'.md5($this->expression.$this->command);
 	}
 
 	/**
@@ -228,7 +203,7 @@ class Event {
 			$date->setTimezone($this->timezone);
 		}
 
-		return CronExpression::factory($this->expression)->isDue($date->toDateTimeString());
+		return CronExpression::factory($this->expression)->isDue($date);
 	}
 
 	/**
@@ -556,21 +531,6 @@ class Event {
 	}
 
 	/**
-	 * Do not allow the event to overlap each other.
-	 *
-	 * @return $this
-	 */
-	public function withoutOverlapping()
-	{
-		$this->withoutOverlapping = true;
-
-		return $this->skip(function()
-		{
-			return file_exists($this->mutexPath());
-		});
-	}
-
-	/**
 	 * Register a callback to further filter the schedule.
 	 *
 	 * @param  \Closure  $callback
@@ -668,7 +628,7 @@ class Event {
 	}
 
 	/**
-	 * Register a callback to ping a given URL after the job runs.
+	 * Register a callback to the ping a given URL after the job runs.
 	 *
 	 * @param  string  $url
 	 * @return $this
@@ -689,17 +649,6 @@ class Event {
 		$this->afterCallbacks[] = $callback;
 
 		return $this;
-	}
-
-	/**
-	 * Set the human-friendly description of the event.
-	 *
-	 * @param  string  $description
-	 * @return $this
-	 */
-	public function name($description)
-	{
-		return $this->description($description);
 	}
 
 	/**

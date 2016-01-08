@@ -64,22 +64,13 @@ class FilesystemAdapter implements FilesystemContract, CloudFilesystemContract {
 	 * Write the contents of a file.
 	 *
 	 * @param  string  $path
-	 * @param  string|resource  $contents
+	 * @param  string  $contents
 	 * @param  string  $visibility
 	 * @return bool
 	 */
 	public function put($path, $contents, $visibility = null)
 	{
-		$config = ['visibility' => $this->parseVisibility($visibility)];
-        
-		if (is_resource($contents))
-		{
-			return $this->driver->putStream($path, $contents, $config);
-		}
-		else
-		{
-			return $this->driver->put($path, $contents, $config);
-		}
+		return $this->driver->put($path, $contents, ['visibility' => $this->parseVisibility($visibility)]);
 	}
 
 	/**
@@ -173,7 +164,9 @@ class FilesystemAdapter implements FilesystemContract, CloudFilesystemContract {
 	 */
 	public function move($from, $to)
 	{
-		return $this->driver->rename($from, $to);
+		$this->driver->copy($from, $to);
+
+		$this->driver->delete($from);
 	}
 
 	/**
@@ -252,9 +245,10 @@ class FilesystemAdapter implements FilesystemContract, CloudFilesystemContract {
 	 * Get all (recursive) of the directories within a given directory.
 	 *
 	 * @param  string|null  $directory
+	 * @param  bool  $recursive
 	 * @return array
 	 */
-	public function allDirectories($directory = null)
+	public function allDirectories($directory = null, $recursive = false)
 	{
 		return $this->directories($directory, true);
 	}

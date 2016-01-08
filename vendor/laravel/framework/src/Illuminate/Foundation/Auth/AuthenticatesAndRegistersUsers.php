@@ -9,14 +9,14 @@ trait AuthenticatesAndRegistersUsers {
 	/**
 	 * The Guard implementation.
 	 *
-	 * @var \Illuminate\Contracts\Auth\Guard
+	 * @var Guard
 	 */
 	protected $auth;
 
 	/**
 	 * The registrar implementation.
 	 *
-	 * @var \Illuminate\Contracts\Auth\Registrar
+	 * @var Registrar
 	 */
 	protected $registrar;
 
@@ -107,7 +107,7 @@ trait AuthenticatesAndRegistersUsers {
 	{
 		$this->auth->logout();
 
-		return redirect(property_exists($this, 'redirectAfterLogout') ? $this->redirectAfterLogout : '/');
+		return redirect('/');
 	}
 
 	/**

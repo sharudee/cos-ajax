@@ -64,9 +64,9 @@ class MailServiceProvider extends ServiceProvider {
 	{
 		$mailer->setContainer($app);
 
-		if ($app->bound('Psr\Log\LoggerInterface'))
+		if ($app->bound('log'))
 		{
-			$mailer->setLogger($app->make('Psr\Log\LoggerInterface'));
+			$mailer->setLogger($app['log']->getMonolog());
 		}
 
 		if ($app->bound('queue'))

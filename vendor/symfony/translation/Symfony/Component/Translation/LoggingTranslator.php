@@ -16,10 +16,10 @@ use Psr\Log\LoggerInterface;
 /**
  * @author Abdellatif Ait boudad <a.aitboudad@gmail.com>
  */
-class LoggingTranslator implements TranslatorInterface, TranslatorBagInterface
+class LoggingTranslator implements TranslatorInterface
 {
     /**
-     * @var TranslatorInterface|TranslatorBagInterface
+     * @var TranslatorInterface
      */
     private $translator;
 
@@ -29,13 +29,13 @@ class LoggingTranslator implements TranslatorInterface, TranslatorBagInterface
     private $logger;
 
     /**
-     * @param TranslatorInterface $translator The translator must implement TranslatorBagInterface
-     * @param LoggerInterface     $logger
+     * @param Translator      $translator
+     * @param LoggerInterface $logger
      */
-    public function __construct(TranslatorInterface $translator, LoggerInterface $logger)
+    public function __construct($translator, LoggerInterface $logger)
     {
-        if (!$translator instanceof TranslatorBagInterface) {
-            throw new \InvalidArgumentException(sprintf('The Translator "%s" must implement TranslatorInterface and TranslatorBagInterface.', get_class($translator)));
+        if (!($translator instanceof TranslatorInterface && $translator instanceof TranslatorBagInterface)) {
+            throw new \InvalidArgumentException(sprintf('The Translator "%s" must implements TranslatorInterface and TranslatorBagInterface.', get_class($translator)));
         }
 
         $this->translator = $translator;
@@ -85,14 +85,6 @@ class LoggingTranslator implements TranslatorInterface, TranslatorBagInterface
     }
 
     /**
-     * {@inheritdoc}
-     */
-    public function getCatalogue($locale = null)
-    {
-        return $this->translator->getCatalogue($locale);
-    }
-
-    /**
      * Passes through all unknown calls onto the translator object.
      */
     public function __call($method, $args)
@@ -109,6 +101,10 @@ class LoggingTranslator implements TranslatorInterface, TranslatorBagInterface
      */
     private function log($id, $domain, $locale)
     {
+        if (null === $locale) {
+            $locale = $this->getLocale();
+        }
+
         if (null === $domain) {
             $domain = 'messages';
         }

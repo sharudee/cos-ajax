@@ -1,7 +1,6 @@
 <?php namespace Illuminate\Routing;
 
-use ReflectionClass;
-use ReflectionMethod;
+use ReflectionClass, ReflectionMethod;
 
 class ControllerInspector {
 
@@ -12,7 +11,7 @@ class ControllerInspector {
 	 */
 	protected $verbs = array(
 		'any', 'get', 'post', 'put', 'patch',
-		'delete', 'head', 'options',
+		'delete', 'head', 'options'
 	);
 
 	/**

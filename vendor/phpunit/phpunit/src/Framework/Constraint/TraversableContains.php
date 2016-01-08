@@ -12,17 +12,24 @@
  * Constraint that asserts that the Traversable it is applied to contains
  * a given value.
  *
- * @since Class available since Release 3.0.0
+ * @package    PHPUnit
+ * @subpackage Framework_Constraint
+ * @author     Sebastian Bergmann <sebastian@phpunit.de>
+ * @author     Bernhard Schussek <bschussek@2bepublished.at>
+ * @copyright  Sebastian Bergmann <sebastian@phpunit.de>
+ * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
+ * @link       http://www.phpunit.de/
+ * @since      Class available since Release 3.0.0
  */
 class PHPUnit_Framework_Constraint_TraversableContains extends PHPUnit_Framework_Constraint
 {
     /**
-     * @var bool
+     * @var boolean
      */
     protected $checkForObjectIdentity;
 
     /**
-     * @var bool
+     * @var boolean
      */
     protected $checkForNonObjectIdentity;
 
@@ -32,10 +39,9 @@ class PHPUnit_Framework_Constraint_TraversableContains extends PHPUnit_Framework
     protected $value;
 
     /**
-     * @param mixed $value
-     * @param bool  $checkForObjectIdentity
-     * @param bool  $checkForNonObjectIdentity
-     *
+     * @param  mixed                       $value
+     * @param  boolean                     $checkForObjectIdentity
+     * @param  boolean                     $checkForNonObjectIdentity
      * @throws PHPUnit_Framework_Exception
      */
     public function __construct($value, $checkForObjectIdentity = true, $checkForNonObjectIdentity = false)
@@ -59,8 +65,7 @@ class PHPUnit_Framework_Constraint_TraversableContains extends PHPUnit_Framework
      * Evaluates the constraint for parameter $other. Returns true if the
      * constraint is met, false otherwise.
      *
-     * @param mixed $other Value or object to evaluate.
-     *
+     * @param  mixed $other Value or object to evaluate.
      * @return bool
      */
     protected function matches($other)
@@ -112,8 +117,7 @@ class PHPUnit_Framework_Constraint_TraversableContains extends PHPUnit_Framework
      * The beginning of failure messages is "Failed asserting that" in most
      * cases. This method should return the second part of that sentence.
      *
-     * @param mixed $other Evaluated value or object.
-     *
+     * @param  mixed  $other Evaluated value or object.
      * @return string
      */
     protected function failureDescription($other)

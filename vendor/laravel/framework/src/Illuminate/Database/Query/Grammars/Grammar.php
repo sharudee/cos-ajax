@@ -211,7 +211,7 @@ class Grammar extends BaseGrammar {
 		{
 			$sql = implode(' ', $sql);
 
-			return 'where '.$this->removeLeadingBoolean($sql);
+			return 'where '.preg_replace('/and |or /', '', $sql, 1);
 		}
 
 		return '';
@@ -479,7 +479,7 @@ class Grammar extends BaseGrammar {
 	{
 		$sql = implode(' ', array_map(array($this, 'compileHaving'), $havings));
 
-		return 'having '.$this->removeLeadingBoolean($sql);
+		return 'having '.preg_replace('/and |or /', '', $sql, 1);
 	}
 
 	/**
@@ -530,7 +530,8 @@ class Grammar extends BaseGrammar {
 			if (isset($order['sql'])) return $order['sql'];
 
 			return $this->wrap($order['column']).' '.$order['direction'];
-		}, $orders));
+		}
+		, $orders));
 	}
 
 	/**
@@ -626,15 +627,12 @@ class Grammar extends BaseGrammar {
 
 		// We need to build a list of parameter place-holders of values that are bound
 		// to the query. Each insert should have the exact same amount of parameter
-		// bindings so we will loop through the record and parameterize them all.
-		$parameters = array();
+		// bindings so we can just go off the first list of values in this array.
+		$parameters = $this->parameterize(reset($values));
 
-		foreach($values as $record)
-		{
-			$parameters[] = '('.$this->parameterize($record).')';
-		}
+		$value = array_fill(0, count($values), "($parameters)");
 
-		$parameters = implode(', ', $parameters);
+		$parameters = implode(', ', $value);
 
 		return "insert into $table ($columns) values $parameters";
 	}

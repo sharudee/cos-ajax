@@ -4,12 +4,12 @@ use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
-use Fake\Prompter;
+use Fake\DialogHelper;
 use Fake\ReRunner;
 use Matcher\ApplicationOutputMatcher;
+use Matcher\ExitStatusMatcher;
 use Matcher\ValidJUnitXmlMatcher;
 use PhpSpec\Console\Application;
-use PhpSpec\Loader\StreamWrapper;
 use PhpSpec\Matcher\MatchersProviderInterface;
 use Symfony\Component\Console\Tester\ApplicationTester;
 
@@ -34,9 +34,9 @@ class ApplicationContext implements Context, MatchersProviderInterface
     private $tester;
 
     /**
-     * @var Prompter
+     * @var DialogHelper
      */
-    private $prompter;
+    private $dialogHelper;
 
     /**
      * @var ReRunner
@@ -48,22 +48,21 @@ class ApplicationContext implements Context, MatchersProviderInterface
      */
     public function setupApplication()
     {
-        StreamWrapper::register();
-
         $this->application = new Application('2.1-dev');
         $this->application->setAutoExit(false);
 
         $this->tester = new ApplicationTester($this->application);
 
+        $this->setupDialogHelper();
         $this->setupReRunner();
-        $this->setupPrompter();
     }
 
-    private function setupPrompter()
+    private function setupDialogHelper()
     {
-        $this->prompter = new Prompter();
+        $this->dialogHelper = new DialogHelper();
 
-        $this->application->getContainer()->set('console.prompter', $this->prompter);
+        $helperSet = $this->application->getHelperSet();
+        $helperSet->set($this->dialogHelper);
     }
 
     private function setupReRunner()
@@ -90,16 +89,14 @@ class ApplicationContext implements Context, MatchersProviderInterface
      * @When I run phpspec (non interactively)
      * @When I run phpspec using the :formatter format
      * @When I run phpspec with the :option option
-     * @When I run phpspec with :spec specs to run
      * @When /I run phpspec with option (?P<option>.*)/
      * @When /I run phpspec (?P<interactive>interactively)$/
      * @When /I run phpspec (?P<interactive>interactively) with the (?P<option>.*) option/
      */
-    public function iRunPhpspec($formatter = null, $option = null, $interactive = null, $spec = null)
+    public function iRunPhpspec($formatter = null, $option = null, $interactive=null)
     {
         $arguments = array (
-            'command' => 'run',
-            'spec' => $spec
+            'command' => 'run'
         );
 
         if ($formatter) {
@@ -123,22 +120,7 @@ class ApplicationContext implements Context, MatchersProviderInterface
 
         $this->addOptionToArguments($option, $arguments);
 
-        $this->prompter->setAnswer($answer=='y');
-
-        $this->lastExitCode = $this->tester->run($arguments, array('interactive' => true));
-    }
-
-    /**
-     * @When I run phpspec and answer :answer to both questions
-     */
-    public function iRunPhpspecAndAnswerToBothQuestions($answer)
-    {
-        $arguments = array (
-            'command' => 'run'
-        );
-
-        $this->prompter->setAnswer($answer=='y');
-        $this->prompter->setAnswer($answer=='y');
+        $this->dialogHelper->setAnswer($answer=='y');
 
         $this->lastExitCode = $this->tester->run($arguments, array('interactive' => true));
     }
@@ -172,7 +154,7 @@ class ApplicationContext implements Context, MatchersProviderInterface
      */
     public function iShouldBePromptedForCodeGeneration()
     {
-        expect($this->prompter)->toHaveBeenAsked();
+        expect($this->dialogHelper)->toHaveBeenAsked();
     }
 
     /**
@@ -180,7 +162,7 @@ class ApplicationContext implements Context, MatchersProviderInterface
      */
     public function iShouldNotBePromptedForCodeGeneration()
     {
-        expect($this->prompter)->toNotHaveBeenAsked();
+        expect($this->dialogHelper)->toNotHaveBeenAsked();
     }
 
     /**
@@ -189,14 +171,6 @@ class ApplicationContext implements Context, MatchersProviderInterface
     public function theSuiteShouldPass()
     {
         expect($this->lastExitCode)->toBeLike(0);
-    }
-
-    /**
-     * @Then the suite should not pass
-     */
-    public function theSuiteShouldNotPass()
-    {
-        expect($this->lastExitCode)->notToBeLike(0);
     }
 
     /**
@@ -248,44 +222,6 @@ class ApplicationContext implements Context, MatchersProviderInterface
     }
 
     /**
-     * @Then I should be prompted with:
-     */
-    public function iShouldBePromptedWith(PyStringNode $question)
-    {
-        expect($this->prompter)->toHaveBeenAsked((string)$question);
-    }
-
-    /**
-     * @Given I have started describing the :class class with the :config (custom) config
-     * @Given I start describing the :class class with the :config (custom) config
-     */
-    public function iDescribeTheClassWithTheConfig($class, $config)
-    {
-        $arguments = array(
-            'command' => 'describe',
-            'class' => $class,
-            '--config' => $config
-        );
-
-        expect($this->tester->run($arguments, array('interactive' => false)))->toBe(0);
-    }
-
-    /**
-     * @When I run phpspec with the :config (custom) config and answer :answer when asked if I want to generate the code
-     */
-    public function iRunPhpspecWithConfigAndAnswerIfIWantToGenerateTheCode($config, $answer)
-    {
-        $arguments = array (
-            'command' => 'run',
-            '--config' => $config
-        );
-
-        $this->prompter->setAnswer($answer=='y');
-
-        $this->lastExitCode = $this->tester->run($arguments, array('interactive' => true));
-    }
-
-    /**
      * Custom matchers
      *
      * @return array
@@ -296,32 +232,5 @@ class ApplicationContext implements Context, MatchersProviderInterface
             new ApplicationOutputMatcher(),
             new ValidJUnitXmlMatcher()
         );
-    }
-
-    /**
-     * @When I run phpspec with the spec :spec
-     */
-    public function iRunPhpspecWithTheSpec($spec)
-    {
-        $arguments = array (
-            'command' => 'run',
-            1 => $spec
-        );
-
-        $this->lastExitCode = $this->tester->run($arguments, array('interactive' => false));
-    }
-
-    /**
-     * @When I run phpspec with the spec :spec and the config :config
-     */
-    public function iRunPhpspecWithTheSpecAndTheConfig($spec, $config)
-    {
-        $arguments = array (
-            'command' => 'run',
-            1 => $spec,
-            '--config' => $config
-        );
-
-        $this->lastExitCode = $this->tester->run($arguments, array('interactive' => false));
     }
 }

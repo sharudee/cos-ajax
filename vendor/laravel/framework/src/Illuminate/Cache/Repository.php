@@ -161,9 +161,7 @@ class Repository implements CacheContract, ArrayAccess {
 
 		if (is_null($this->get($key)))
 		{
-			$this->put($key, $value, $minutes);
-
-			return true;
+			$this->put($key, $value, $minutes); return true;
 		}
 
 		return false;
@@ -328,7 +326,7 @@ class Repository implements CacheContract, ArrayAccess {
 	 */
 	public function offsetUnset($key)
 	{
-		$this->forget($key);
+		return $this->forget($key);
 	}
 
 	/**

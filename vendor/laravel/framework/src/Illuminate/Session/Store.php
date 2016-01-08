@@ -213,9 +213,9 @@ class Store implements SessionInterface {
 	 */
 	public function invalidate($lifetime = null)
 	{
-		$this->clear();
+		$this->attributes = array();
 
-		return $this->migrate(true, $lifetime);
+		return $this->migrate();
 	}
 
 	/**

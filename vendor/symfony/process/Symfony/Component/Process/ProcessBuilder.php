@@ -68,7 +68,7 @@ class ProcessBuilder
     }
 
     /**
-     * Adds a prefix to the command string.
+     * Adds an unescaped prefix to the command string.
      *
      * The prefix is preserved when resetting arguments.
      *
@@ -166,6 +166,8 @@ class ProcessBuilder
 
     /**
      * Sets the input of the process.
+     *
+     * Deprecation: As of Symfony 2.5, this method only accepts string values.
      *
      * @param string|null $input The input as a string
      *

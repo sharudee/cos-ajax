@@ -39,5 +39,5 @@ Resources
 You can run the unit tests with the following command:
 
     $ cd path/to/Symfony/Component/Debug/
-    $ composer install
+    $ composer.phar install --dev
     $ phpunit

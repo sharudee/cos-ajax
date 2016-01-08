@@ -30,37 +30,27 @@ use Symfony\Component\Debug\Exception\OutOfMemoryException;
 class ExceptionHandler
 {
     private $debug;
-    private $charset;
     private $handler;
     private $caughtBuffer;
     private $caughtLength;
     private $fileLinkFormat;
 
-    public function __construct($debug = true, $charset = null, $fileLinkFormat = null)
+    public function __construct($debug = true, $fileLinkFormat = null)
     {
-        if (false !== strpos($charset, '%') xor false === strpos($fileLinkFormat, '%')) {
-            // Swap $charset and $fileLinkFormat for BC reasons
-            $pivot = $fileLinkFormat;
-            $fileLinkFormat = $charset;
-            $charset = $pivot;
-        }
         $this->debug = $debug;
-        $this->charset = $charset ?: ini_get('default_charset') ?: 'UTF-8';
         $this->fileLinkFormat = $fileLinkFormat ?: ini_get('xdebug.file_link_format') ?: get_cfg_var('xdebug.file_link_format');
     }
 
     /**
      * Registers the exception handler.
      *
-     * @param bool        $debug          Enable/disable debug mode, where the stack trace is displayed
-     * @param string|null $charset        The charset used by exception messages
-     * @param string|null $fileLinkFormat The IDE link template
+     * @param bool $debug
      *
      * @return ExceptionHandler The registered exception handler
      */
-    public static function register($debug = true, $charset = null, $fileLinkFormat = null)
+    public static function register($debug = true, $fileLinkFormat = null)
     {
-        $handler = new static($debug, $charset, $fileLinkFormat);
+        $handler = new static($debug, $fileLinkFormat);
 
         $prev = set_exception_handler(array($handler, 'handle'));
         if (is_array($prev) && $prev[0] instanceof ErrorHandler) {
@@ -187,7 +177,6 @@ class ExceptionHandler
             foreach ($exception->getHeaders() as $name => $value) {
                 header($name.': '.$value, false);
             }
-            header('Content-Type: text/html; charset='.$this->charset);
         }
 
         echo $this->decorate($this->getContent($exception), $this->getStylesheet($exception));
@@ -206,7 +195,7 @@ class ExceptionHandler
             $exception = FlattenException::create($exception);
         }
 
-        return Response::create($this->decorate($this->getContent($exception), $this->getStylesheet($exception)), $exception->getStatusCode(), $exception->getHeaders())->setCharset($this->charset);
+        return new Response($this->decorate($this->getContent($exception), $this->getStylesheet($exception)), $exception->getStatusCode(), $exception->getHeaders());
     }
 
     /**
@@ -234,7 +223,7 @@ class ExceptionHandler
                 foreach ($exception->toArray() as $position => $e) {
                     $ind = $count - $position + 1;
                     $class = $this->formatClass($e['class']);
-                    $message = nl2br($this->escapeHtml($e['message']));
+                    $message = nl2br(self::utf8Htmlize($e['message']));
                     $content .= sprintf(<<<EOF
                         <h2 class="block_exception clear_fix">
                             <span class="exception_counter">%d/%d</span>
@@ -262,7 +251,7 @@ EOF
             } catch (\Exception $e) {
                 // something nasty happened and we cannot throw an exception anymore
                 if ($this->debug) {
-                    $title = sprintf('Exception thrown when handling an exception (%s: %s)', get_class($e), $this->escapeHtml($e->getMessage()));
+                    $title = sprintf('Exception thrown when handling an exception (%s: %s)', get_class($e), $e->getMessage());
                 } else {
                     $title = 'Whoops, looks like something went wrong.';
                 }
@@ -348,7 +337,7 @@ EOF;
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="{$this->charset}" />
+        <meta charset="UTF-8" />
         <meta name="robots" content="noindex,nofollow" />
         <style>
             /* Copyright (c) 2010, Yahoo! Inc. All rights reserved. Code licensed under the BSD License: http://developer.yahoo.com/yui/license.html */
@@ -371,16 +360,16 @@ EOF;
     {
         $parts = explode('\\', $class);
 
-        return sprintf('<abbr title="%s">%s</abbr>', $class, array_pop($parts));
+        return sprintf("<abbr title=\"%s\">%s</abbr>", $class, array_pop($parts));
     }
 
     private function formatPath($path, $line)
     {
-        $path = $this->escapeHtml($path);
+        $path = self::utf8Htmlize($path);
         $file = preg_match('#[^/\\\\]*$#', $path, $file) ? $file[0] : $path;
 
         if ($linkFormat = $this->fileLinkFormat) {
-            $link = strtr($this->escapeHtml($linkFormat), array('%f' => $path, '%l' => (int) $line));
+            $link = str_replace(array('%f', '%l'), array($path, $line), $linkFormat);
 
             return sprintf(' in <a href="%s" title="Go to source">%s line %d</a>', $link, $file, $line);
         }
@@ -400,11 +389,11 @@ EOF;
         $result = array();
         foreach ($args as $key => $item) {
             if ('object' === $item[0]) {
-                $formattedValue = sprintf('<em>object</em>(%s)', $this->formatClass($item[1]));
+                $formattedValue = sprintf("<em>object</em>(%s)", $this->formatClass($item[1]));
             } elseif ('array' === $item[0]) {
-                $formattedValue = sprintf('<em>array</em>(%s)', is_array($item[1]) ? $this->formatArgs($item[1]) : $item[1]);
+                $formattedValue = sprintf("<em>array</em>(%s)", is_array($item[1]) ? $this->formatArgs($item[1]) : $item[1]);
             } elseif ('string' === $item[0]) {
-                $formattedValue = sprintf("'%s'", $this->escapeHtml($item[1]));
+                $formattedValue = sprintf("'%s'", self::utf8Htmlize($item[1]));
             } elseif ('null' === $item[0]) {
                 $formattedValue = '<em>null</em>';
             } elseif ('boolean' === $item[0]) {
@@ -412,7 +401,7 @@ EOF;
             } elseif ('resource' === $item[0]) {
                 $formattedValue = '<em>resource</em>';
             } else {
-                $formattedValue = str_replace("\n", '', var_export($this->escapeHtml((string) $item[1]), true));
+                $formattedValue = str_replace("\n", '', var_export(self::utf8Htmlize((string) $item[1]), true));
             }
 
             $result[] = is_int($key) ? $formattedValue : sprintf("'%s' => %s", $key, $formattedValue);
@@ -422,7 +411,7 @@ EOF;
     }
 
     /**
-     * Returns an UTF-8 and HTML encoded string.
+     * Returns an UTF-8 and HTML encoded string
      */
     protected static function utf8Htmlize($str)
     {
@@ -438,14 +427,6 @@ EOF;
         }
 
         return htmlspecialchars($str, ENT_QUOTES | (PHP_VERSION_ID >= 50400 ? ENT_SUBSTITUTE : 0), 'UTF-8');
-    }
-
-    /**
-     * HTML-encodes a string.
-     */
-    private function escapeHtml($str)
-    {
-        return htmlspecialchars($str, ENT_QUOTES | (PHP_VERSION_ID >= 50400 ? ENT_SUBSTITUTE : 0), $this->charset);
     }
 
     /**

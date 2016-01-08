@@ -14,7 +14,7 @@
 						<label>รหัสพนักงาน</label>
 					</div>
 					<div class="col-sm-2">
-						<input type="text" name="emp_code" id="input" class="form-control input-sm required">
+						<input type="text" name="emp_code" id="input" class="form-control input-sm required" value="<?php  if(isset($input['emp_code'])) { echo $input['emp_code']; } ?>">
 						{!!$errors->first('emp_code','<p class="error">:message</p>')!!}
 					</div>
 

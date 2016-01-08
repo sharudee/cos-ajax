@@ -37,7 +37,6 @@ class DebugClassLoader
      * @param callable|object $classLoader
      *
      * @api
-     *
      * @deprecated since 2.5, passing an object is deprecated and support for it will be removed in 3.0
      */
     public function __construct($classLoader)
@@ -70,7 +69,7 @@ class DebugClassLoader
     }
 
     /**
-     * Wraps all autoloaders.
+     * Wraps all autoloaders
      */
     public static function enable()
     {
@@ -118,7 +117,7 @@ class DebugClassLoader
     }
 
     /**
-     * Finds a file by class name.
+     * Finds a file by class name
      *
      * @param string $class A class name to resolve to file
      *
@@ -188,7 +187,7 @@ class DebugClassLoader
             }
             if (self::$caseCheck && preg_match('#([/\\\\][a-zA-Z_\x7F-\xFF][a-zA-Z0-9_\x7F-\xFF]*)+\.(php|hh)$#D', $file, $tail)) {
                 $tail = $tail[0];
-                $real = $refl->getFileName();
+                $real = $refl->getFilename();
 
                 if (2 === self::$caseCheck) {
                     // realpath() on MacOSX doesn't normalize the case of characters

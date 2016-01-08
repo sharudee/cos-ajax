@@ -141,14 +141,4 @@ class ServerBagTest extends \PHPUnit_Framework_TestCase
             'AUTHORIZATION' => $headerContent,
         ), $bag->getHeaders());
     }
-
-    public function testOAuthBearerAuthWithRedirect()
-    {
-        $headerContent = 'Bearer L-yLEOr9zhmUYRkzN1jwwxwQ-PBNiKDc8dgfB4hTfvo';
-        $bag = new ServerBag(array('REDIRECT_HTTP_AUTHORIZATION' => $headerContent));
-
-        $this->assertEquals(array(
-            'AUTHORIZATION' => $headerContent,
-        ), $bag->getHeaders());
-    }
 }

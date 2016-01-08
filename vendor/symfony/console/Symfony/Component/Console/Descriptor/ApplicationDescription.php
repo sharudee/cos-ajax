@@ -146,11 +146,9 @@ class ApplicationDescription
         }
         ksort($namespacedCommands);
 
-        foreach ($namespacedCommands as &$commandsSet) {
-            ksort($commandsSet);
+        foreach ($namespacedCommands as &$commands) {
+            ksort($commands);
         }
-        // unset reference to keep scope clear
-        unset($commandsSet);
 
         return $namespacedCommands;
     }

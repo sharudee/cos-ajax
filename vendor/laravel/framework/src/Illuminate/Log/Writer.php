@@ -248,7 +248,7 @@ class Writer implements LogContract, PsrLoggerInterface {
 	 * Register an error_log handler.
 	 *
 	 * @param  string  $level
-	 * @param  int  $messageType
+	 * @param  integer $messageType
 	 * @return void
 	 */
 	public function useErrorLog($level = 'debug', $messageType = ErrorLogHandler::OPERATING_SYSTEM)
@@ -261,7 +261,8 @@ class Writer implements LogContract, PsrLoggerInterface {
 	}
 
 	/**
-	 * Register a new callback handler for when a log event is triggered.
+	 * Register a new callback handler for when
+	 * a log event is triggered.
 	 *
 	 * @param  \Closure  $callback
 	 * @return void
@@ -372,7 +373,7 @@ class Writer implements LogContract, PsrLoggerInterface {
 	/**
 	 * Set the event dispatcher instance.
 	 *
-	 * @param  \Illuminate\Contracts\Events\Dispatcher  $dispatcher
+	 * @param  \Illuminate\Contracts\Events\Dispatcher
 	 * @return void
 	 */
 	public function setEventDispatcher(Dispatcher $dispatcher)

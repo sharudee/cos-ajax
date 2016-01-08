@@ -10,9 +10,6 @@ class File extends Facade {
 	 *
 	 * @return string
 	 */
-	protected static function getFacadeAccessor()
-	{
-		return 'files';
-	}
+	protected static function getFacadeAccessor() { return 'files'; }
 
 }

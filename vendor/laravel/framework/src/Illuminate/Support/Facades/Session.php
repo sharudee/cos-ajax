@@ -11,9 +11,6 @@ class Session extends Facade {
 	 *
 	 * @return string
 	 */
-	protected static function getFacadeAccessor()
-	{
-		return 'session';
-	}
+	protected static function getFacadeAccessor() { return 'session'; }
 
 }

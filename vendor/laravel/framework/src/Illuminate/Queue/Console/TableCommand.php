@@ -55,13 +55,7 @@ class TableCommand extends Command {
 	{
 		$fullPath = $this->createBaseMigration();
 
-		$table = $this->laravel['config']['queue.connections.database.table'];
-
-		$stub = str_replace(
-			'{{table}}', $table, $this->files->get(__DIR__.'/stubs/jobs.stub')
-		);
-
-		$this->files->put($fullPath, $stub);
+		$this->files->put($fullPath, $this->files->get(__DIR__.'/stubs/jobs.stub'));
 
 		$this->info('Migration created successfully!');
 
@@ -77,7 +71,7 @@ class TableCommand extends Command {
 	{
 		$name = 'create_jobs_table';
 
-		$path = $this->laravel->databasePath().'/migrations';
+		$path = $this->laravel['path.database'].'/migrations';
 
 		return $this->laravel['migration.creator']->create($name, $path);
 	}

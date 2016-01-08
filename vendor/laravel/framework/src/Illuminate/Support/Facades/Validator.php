@@ -10,9 +10,6 @@ class Validator extends Facade {
 	 *
 	 * @return string
 	 */
-	protected static function getFacadeAccessor()
-	{
-		return 'validator';
-	}
+	protected static function getFacadeAccessor() { return 'validator'; }
 
 }

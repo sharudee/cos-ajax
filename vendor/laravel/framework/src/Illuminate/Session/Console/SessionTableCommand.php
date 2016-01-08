@@ -72,7 +72,7 @@ class SessionTableCommand extends Command {
 	{
 		$name = 'create_session_table';
 
-		$path = $this->laravel->databasePath().'/migrations';
+		$path = $this->laravel['path.database'].'/migrations';
 
 		return $this->laravel['migration.creator']->create($name, $path);
 	}

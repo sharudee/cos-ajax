@@ -15,6 +15,7 @@ namespace PhpSpec\Wrapper\Subject;
 
 use PhpSpec\Wrapper\Unwrapper;
 use PhpSpec\Formatter\Presenter\PresenterInterface;
+use PhpSpec\Wrapper\Subject;
 use PhpSpec\Exception\Wrapper\SubjectException;
 use PhpSpec\Exception\Fracture\InterfaceNotImplementedException;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -26,11 +27,11 @@ class SubjectWithArrayAccess
      */
     private $caller;
     /**
-     * @var PresenterInterface
+     * @var \PhpSpec\Formatter\Presenter\PresenterInterface
      */
     private $presenter;
     /**
-     * @var EventDispatcherInterface
+     * @var \Symfony\Component\EventDispatcher\EventDispatcherInterface
      */
     private $dispatcher;
 
@@ -39,11 +40,9 @@ class SubjectWithArrayAccess
      * @param PresenterInterface       $presenter
      * @param EventDispatcherInterface $dispatcher
      */
-    public function __construct(
-        Caller $caller,
-        PresenterInterface $presenter,
-        EventDispatcherInterface $dispatcher
-    ) {
+    public function __construct(Caller $caller, PresenterInterface $presenter,
+        EventDispatcherInterface $dispatcher)
+    {
         $this->caller     = $caller;
         $this->presenter  = $presenter;
         $this->dispatcher = $dispatcher;
@@ -132,8 +131,7 @@ class SubjectWithArrayAccess
     private function interfaceNotImplemented()
     {
         return new InterfaceNotImplementedException(
-            sprintf(
-                '%s does not implement %s interface, but should.',
+            sprintf('%s does not implement %s interface, but should.',
                 $this->presenter->presentValue($this->caller->getWrappedObject()),
                 $this->presenter->presentString('ArrayAccess')
             ),
@@ -150,8 +148,7 @@ class SubjectWithArrayAccess
     private function cantUseAsArray($subject)
     {
         return new SubjectException(sprintf(
-            'Can not use %s as array.',
-            $this->presenter->presentValue($subject)
+            'Can not use %s as array.', $this->presenter->presentValue($subject)
         ));
     }
 }

@@ -13,9 +13,6 @@
 
 namespace PhpSpec\Formatter\Presenter;
 
-/**
- * @deprecated Use PhpSpec\Formatter\Presenter\TaggingPresenter instead
- */
 class TaggedPresenter extends StringPresenter
 {
     public function presentString($string)
@@ -45,10 +42,7 @@ class TaggedPresenter extends StringPresenter
         return sprintf(
             "   <trace><trace-class>%s</trace-class><trace-type>%s</trace-type>".
             "<trace-func>%s</trace-func>(<trace-args>%s</trace-args>)</trace>\n",
-            $class,
-            $type,
-            $method,
-            implode(', ', $args)
+            $class, $type, $method, implode(', ', $args)
         );
     }
 
@@ -58,8 +52,7 @@ class TaggedPresenter extends StringPresenter
 
         return sprintf(
             "   <trace><trace-func>%s</trace-func>(<trace-args>%s</trace-args>)</trace>\n",
-            $function,
-            implode(', ', $args)
+            $function, implode(', ', $args)
         );
     }
 }

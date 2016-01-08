@@ -93,10 +93,14 @@ abstract class RecursivePresenter implements Presenter, PresenterManagerAware
     protected function presentSubValue($value, $options = 0)
     {
         $depth = $this->depth;
-        $formatted = $this->manager->present($value, $depth - 1, $options);
-        $this->setDepth($depth);
+        if ($depth > 0) {
+            $formatted = $this->manager->present($value, $depth - 1, $options);
+            $this->setDepth($depth);
 
-        return $formatted;
+            return $formatted;
+        } else {
+            return $this->manager->presentRef($value);
+        }
     }
 
     /**

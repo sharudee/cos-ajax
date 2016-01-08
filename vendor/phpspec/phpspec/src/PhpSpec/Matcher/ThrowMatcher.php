@@ -29,11 +29,11 @@ class ThrowMatcher implements MatcherInterface
      */
     private static $ignoredProperties = array('file', 'line', 'string', 'trace', 'previous');
     /**
-     * @var Unwrapper
+     * @var \PhpSpec\Wrapper\Unwrapper
      */
     private $unwrapper;
     /**
-     * @var PresenterInterface
+     * @var \PhpSpec\Formatter\Presenter\PresenterInterface
      */
     private $presenter;
 
@@ -176,8 +176,7 @@ class ThrowMatcher implements MatcherInterface
                         $actual   = $property->getValue($e);
 
                         if (null !== $expected && $actual === $expected) {
-                            $invalidProperties[] = sprintf(
-                                '  `%s`=%s',
+                            $invalidProperties[] = sprintf('  `%s`=%s',
                                 $property->getName(),
                                 $this->presenter->presentValue($expected)
                             );
@@ -187,8 +186,7 @@ class ThrowMatcher implements MatcherInterface
 
                 $withProperties = '';
                 if (count($invalidProperties) > 0) {
-                    $withProperties = sprintf(
-                        ' with'.PHP_EOL.'%s,'.PHP_EOL,
+                    $withProperties = sprintf(' with'.PHP_EOL.'%s,'.PHP_EOL,
                         implode(",\n", $invalidProperties)
                     );
                 }
@@ -234,9 +232,7 @@ class ThrowMatcher implements MatcherInterface
                 if (!method_exists($class, $methodName) && !method_exists($class, '__call')) {
                     throw new MethodNotFoundException(
                         sprintf('Method %s::%s not found.', get_class($class), $methodName),
-                        $class,
-                        $methodName,
-                        $arguments
+                        $class, $methodName, $arguments
                     );
                 }
 

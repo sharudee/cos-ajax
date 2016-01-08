@@ -24,7 +24,7 @@ use Symfony\Component\Yaml\Exception\ParseException;
  *
  * @api
  */
-class YamlFileLoader extends ArrayLoader
+class YamlFileLoader extends ArrayLoader implements LoaderInterface
 {
     private $yamlParser;
 
@@ -41,10 +41,6 @@ class YamlFileLoader extends ArrayLoader
 
         if (!file_exists($resource)) {
             throw new NotFoundResourceException(sprintf('File "%s" not found.', $resource));
-        }
-
-        if (!class_exists('Symfony\Component\Yaml\Parser')) {
-            throw new \LogicException('Loading translations from the YAML format requires the Symfony Yaml component.');
         }
 
         if (null === $this->yamlParser) {
@@ -68,10 +64,7 @@ class YamlFileLoader extends ArrayLoader
         }
 
         $catalogue = parent::load($messages, $locale, $domain);
-
-        if (class_exists('Symfony\Component\Config\Resource\FileResource')) {
-            $catalogue->addResource(new FileResource($resource));
-        }
+        $catalogue->addResource(new FileResource($resource));
 
         return $catalogue;
     }

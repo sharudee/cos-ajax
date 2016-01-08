@@ -395,12 +395,9 @@ class Container implements ArrayAccess, ContainerContract {
 	{
 		$results = [];
 
-		if (isset($this->tags[$tag]))
+		foreach ($this->tags[$tag] as $abstract)
 		{
-			foreach ($this->tags[$tag] as $abstract)
-			{
-				$results[] = $this->make($abstract);
-			}
+			$results[] = $this->make($abstract);
 		}
 
 		return $results;
@@ -1016,14 +1013,14 @@ class Container implements ArrayAccess, ContainerContract {
 
 		if ($function->getNumberOfParameters() == 0)
 		{
-			return;
+			return null;
 		}
 
 		$expected = $function->getParameters()[0];
 
 		if ( ! $expected->getClass())
 		{
-			return;
+			return null;
 		}
 
 		return $expected->getClass()->name;

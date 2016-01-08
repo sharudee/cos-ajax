@@ -132,6 +132,8 @@ class FinderTest extends Iterator\RealIteratorTestCase
 
     /**
      * @dataProvider getRegexNameTestData
+     *
+     * @group regexName
      */
     public function testRegexName($adapter, $regex)
     {
@@ -262,7 +264,7 @@ class FinderTest extends Iterator\RealIteratorTestCase
     public function testSort($adapter)
     {
         $finder = $this->buildFinder($adapter);
-        $this->assertSame($finder, $finder->sort(function (\SplFileInfo $a, \SplFileInfo $b) { return strcmp($a->getRealPath(), $b->getRealPath()); }));
+        $this->assertSame($finder, $finder->sort(function (\SplFileInfo $a, \SplFileInfo $b) { return strcmp($a->getRealpath(), $b->getRealpath()); }));
         $this->assertIterator($this->toAbsolute(array('foo', 'foo bar', 'foo/bar.tmp', 'test.php', 'test.py', 'toto')), $finder->in(self::$tmpDir)->getIterator());
     }
 
@@ -272,7 +274,7 @@ class FinderTest extends Iterator\RealIteratorTestCase
     public function testFilter($adapter)
     {
         $finder = $this->buildFinder($adapter);
-        $this->assertSame($finder, $finder->filter(function (\SplFileInfo $f) { return false !== strpos($f, 'test'); }));
+        $this->assertSame($finder, $finder->filter(function (\SplFileInfo $f) { return preg_match('/test/', $f) > 0; }));
         $this->assertIterator($this->toAbsolute(array('test.php', 'test.py')), $finder->in(self::$tmpDir)->getIterator());
     }
 
@@ -390,7 +392,7 @@ class FinderTest extends Iterator\RealIteratorTestCase
             $paths[] = $file->getRelativePath();
         }
 
-        $ref = array('', '', '', '', 'foo', '');
+        $ref = array("", "", "", "", "foo", "");
 
         sort($ref);
         sort($paths);
@@ -411,7 +413,7 @@ class FinderTest extends Iterator\RealIteratorTestCase
             $paths[] = $file->getRelativePathname();
         }
 
-        $ref = array('test.php', 'toto', 'test.py', 'foo', 'foo'.DIRECTORY_SEPARATOR.'bar.tmp', 'foo bar');
+        $ref = array("test.php", "toto", "test.py", "foo", "foo".DIRECTORY_SEPARATOR."bar.tmp", "foo bar");
 
         sort($paths);
         sort($ref);
@@ -475,7 +477,7 @@ class FinderTest extends Iterator\RealIteratorTestCase
         $i = 0;
 
         foreach ($directory as $dir) {
-            ++$i;
+            $i++;
         }
 
         $this->assertCount($i, $directory);
@@ -487,7 +489,7 @@ class FinderTest extends Iterator\RealIteratorTestCase
         $i = 0;
 
         foreach ($files as $file) {
-            ++$i;
+            $i++;
         }
 
         $this->assertCount($i, $files);
@@ -504,6 +506,7 @@ class FinderTest extends Iterator\RealIteratorTestCase
 
     /**
      * @dataProvider getContainsTestData
+     * @group grep
      */
     public function testContains($adapter, $matchPatterns, $noMatchPatterns, $expected)
     {

@@ -12,7 +12,7 @@ class ControllerDispatcher {
 	/**
 	 * The router instance.
 	 *
-	 * @var \Illuminate\Routing\Router
+	 * @var \Illuminate\Routing\Router  $router
 	 */
 	protected $router;
 

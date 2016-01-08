@@ -36,9 +36,9 @@ class ConfigDataCollectorTest extends \PHPUnit_Framework_TestCase
 
         // if else clause because we don't know it
         if (extension_loaded('xdebug')) {
-            $this->assertTrue($c->hasXDebug());
+            $this->assertTrue($c->hasXdebug());
         } else {
-            $this->assertFalse($c->hasXDebug());
+            $this->assertFalse($c->hasXdebug());
         }
 
         // if else clause because we don't know it

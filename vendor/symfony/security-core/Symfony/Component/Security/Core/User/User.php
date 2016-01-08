@@ -30,7 +30,7 @@ final class User implements AdvancedUserInterface
 
     public function __construct($username, $password, array $roles = array(), $enabled = true, $userNonExpired = true, $credentialsNonExpired = true, $userNonLocked = true)
     {
-        if ('' === $username || null === $username) {
+        if (empty($username)) {
             throw new \InvalidArgumentException('The username cannot be empty.');
         }
 

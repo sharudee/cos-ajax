@@ -203,11 +203,21 @@ class Translator implements TranslatorInterface, TranslatorBagInterface
      */
     public function trans($id, array $parameters = array(), $domain = null, $locale = null)
     {
+        if (null === $locale) {
+            $locale = $this->getLocale();
+        } else {
+            $this->assertValidLocale($locale);
+        }
+
         if (null === $domain) {
             $domain = 'messages';
         }
 
-        return strtr($this->getCatalogue($locale)->get((string) $id, $domain), $parameters);
+        if (!isset($this->catalogues[$locale])) {
+            $this->loadCatalogue($locale);
+        }
+
+        return strtr($this->catalogues[$locale]->get((string) $id, $domain), $parameters);
     }
 
     /**
@@ -217,13 +227,23 @@ class Translator implements TranslatorInterface, TranslatorBagInterface
      */
     public function transChoice($id, $number, array $parameters = array(), $domain = null, $locale = null)
     {
+        if (null === $locale) {
+            $locale = $this->getLocale();
+        } else {
+            $this->assertValidLocale($locale);
+        }
+
         if (null === $domain) {
             $domain = 'messages';
         }
 
+        if (!isset($this->catalogues[$locale])) {
+            $this->loadCatalogue($locale);
+        }
+
         $id = (string) $id;
-        $catalogue = $this->getCatalogue($locale);
-        $locale = $catalogue->getLocale();
+
+        $catalogue = $this->catalogues[$locale];
         while (!$catalogue->defines($id, $domain)) {
             if ($cat = $catalogue->getFallbackCatalogue()) {
                 $catalogue = $cat;
@@ -243,8 +263,6 @@ class Translator implements TranslatorInterface, TranslatorBagInterface
     {
         if (null === $locale) {
             $locale = $this->getLocale();
-        } else {
-            $this->assertValidLocale($locale);
         }
 
         if (!isset($this->catalogues[$locale])) {
@@ -273,10 +291,23 @@ class Translator implements TranslatorInterface, TranslatorBagInterface
      */
     public function getMessages($locale = null)
     {
-        $catalogue = $this->getCatalogue($locale);
-        $messages = $catalogue->all();
+        if (null === $locale) {
+            $locale = $this->getLocale();
+        }
+
+        if (!isset($this->catalogues[$locale])) {
+            $this->loadCatalogue($locale);
+        }
+
+        $catalogues = array();
+        $catalogues[] = $catalogue = $this->catalogues[$locale];
         while ($catalogue = $catalogue->getFallbackCatalogue()) {
-            $messages = array_replace_recursive($catalogue->all(), $messages);
+            $catalogues[] = $catalogue;
+        }
+        $messages = array();
+        for ($i = count($catalogues) - 1; $i >= 0; $i--) {
+            $localeMessages = $catalogues[$i]->all();
+            $messages = array_replace_recursive($messages, $localeMessages);
         }
 
         return $messages;
@@ -320,8 +351,14 @@ class Translator implements TranslatorInterface, TranslatorBagInterface
             return;
         }
 
+        if (null === $this->cacheDir) {
+            $this->initialize();
+
+            return $this->loadCatalogue($locale);
+        }
+
         $this->assertValidLocale($locale);
-        $cache = new ConfigCache($this->getCatalogueCachePath($locale), $this->debug);
+        $cache = new ConfigCache($this->cacheDir.'/catalogue.'.$locale.'.php', $this->debug);
         if (!$cache->isFresh()) {
             $this->initializeCatalogue($locale);
 
@@ -371,11 +408,6 @@ EOF
         }
 
         $this->catalogues[$locale] = include $cache;
-    }
-
-    private function getCatalogueCachePath($locale)
-    {
-        return $this->cacheDir.'/catalogue.'.$locale.'.'.sha1(serialize($this->fallbackLocales)).'.php';
     }
 
     private function doLoadCatalogue($locale)

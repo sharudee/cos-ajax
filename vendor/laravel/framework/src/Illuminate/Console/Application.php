@@ -1,42 +1,49 @@
 <?php namespace Illuminate\Console;
 
 use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Contracts\Container\Container;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Application as SymfonyApplication;
 use Symfony\Component\Console\Command\Command as SymfonyCommand;
 use Illuminate\Contracts\Console\Application as ApplicationContract;
+use Illuminate\Contracts\Foundation\Application as LaravelApplication;
 
 class Application extends SymfonyApplication implements ApplicationContract {
 
 	/**
 	 * The Laravel application instance.
 	 *
-	 * @var \Illuminate\Contracts\Container\Container
+	 * @var \Illuminate\Contracts\Foundation\Application
 	 */
 	protected $laravel;
 
 	/**
+	 * The event dispatcher implementation.
+	 *
+	 * @var \Illuminate\Contracts\Events\Dispatcher
+	 */
+	protected $events;
+
+	/**
 	 * The output from the previous command.
 	 *
-	 * @var \Symfony\Component\Console\Output\BufferedOutput
+	 * @var \Symfony\Component\Console\Output\OutputInterface
 	 */
 	protected $lastOutput;
 
 	/**
 	 * Create a new Artisan console application.
 	 *
-	 * @param  \Illuminate\Contracts\Container\Container  $laravel
+	 * @param  \Illuminate\Contracts\Foundation\Application  $laravel
 	 * @param  \Illuminate\Contracts\Events\Dispatcher  $events
-	 * @param  string  $version
 	 * @return void
 	 */
-	public function __construct(Container $laravel, Dispatcher $events, $version)
+	public function __construct(LaravelApplication $laravel, Dispatcher $events)
 	{
-		parent::__construct('Laravel Framework', $version);
+		parent::__construct('Laravel Framework', $laravel->version());
 
+		$this->event = $events;
 		$this->laravel = $laravel;
 		$this->setAutoExit(false);
 		$this->setCatchExceptions(false);

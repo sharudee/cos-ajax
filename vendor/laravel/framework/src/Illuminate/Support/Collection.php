@@ -54,13 +54,22 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
 	}
 
 	/**
-	 * Collapse the collection of items into a single array.
+	 * Collapse the collection items into a single array.
 	 *
 	 * @return static
 	 */
 	public function collapse()
 	{
-		return new static(array_collapse($this->items));
+		$results = [];
+
+		foreach ($this->items as $values)
+		{
+			if ($values instanceof Collection) $values = $values->all();
+
+			$results = array_merge($results, $values);
+		}
+
+		return new static($results);
 	}
 
 	/**
@@ -80,7 +89,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
 			});
 		}
 
-		if ($this->useAsCallable($key))
+		if (is_callable($key))
 		{
 			return ! is_null($this->first($key));
 		}
@@ -399,7 +408,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
 	 */
 	public function forPage($page, $perPage)
 	{
-		return $this->slice(($page - 1) * $perPage, $perPage);
+		return new static(array_slice($this->items, ($page - 1) * $perPage, $perPage));
 	}
 
 	/**
@@ -526,17 +535,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
 	 */
 	public function search($value, $strict = false)
 	{
-		if ( ! $this->useAsCallable($value))
-		{
-			return array_search($value, $this->items, $strict);
-		}
-
-		foreach ($this->items as $key => $item)
-		{
-			if ($value($item, $key)) return $key;
-		}
-
-		return false;
+		return array_search($value, $this->items, $strict);
 	}
 
 	/**
@@ -628,7 +627,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
 		// and grab the corresponding values for the sorted keys from this array.
 		foreach ($this->items as $key => $value)
 		{
-			$results[$key] = $callback($value, $key);
+			$results[$key] = $callback($value);
 		}
 
 		$descending ? arsort($results, $options)

@@ -113,10 +113,10 @@ class SsiTest extends \PHPUnit_Framework_TestCase
         $ssi = new Ssi();
 
         $request = Request::create('/');
-        $response = new Response('<?php <? <% <script language=php>');
+        $response = new Response('foo <?php die("foo"); ?><%= "lala" %>');
         $ssi->process($request, $response);
 
-        $this->assertEquals('<?php echo "<?"; ?>php <?php echo "<?"; ?> <?php echo "<%"; ?> <?php echo "<s"; ?>cript language=php>', $response->getContent());
+        $this->assertEquals('foo <?php echo "<?"; ?>php die("foo"); ?><?php echo "<%"; ?>= "lala" %>', $response->getContent());
     }
 
     /**

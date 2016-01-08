@@ -1,5 +1,7 @@
 <?php namespace Illuminate\View\Compilers;
 
+use Closure;
+
 class BladeCompiler extends Compiler implements CompilerInterface {
 
 	/**
@@ -25,7 +27,7 @@ class BladeCompiler extends Compiler implements CompilerInterface {
 		'Extensions',
 		'Statements',
 		'Comments',
-		'Echos',
+		'Echos'
 	);
 
 	/**
@@ -78,12 +80,14 @@ class BladeCompiler extends Compiler implements CompilerInterface {
 	 */
 	public function compile($path = null)
 	{
+		$this->footer = array();
+
 		if ($path)
 		{
 			$this->setPath($path);
 		}
 
-		$contents = $this->compileString($this->files->get($this->getPath()));
+		$contents = $this->compileString($this->files->get($path));
 
 		if ( ! is_null($this->cachePath))
 		{
@@ -121,8 +125,6 @@ class BladeCompiler extends Compiler implements CompilerInterface {
 	public function compileString($value)
 	{
 		$result = '';
-
-		$this->footer = [];
 
 		// Here we will loop through all of the tokens returned by the Zend lexer and
 		// parse each one into the corresponding valid PHP. We will then have this
@@ -211,7 +213,7 @@ class BladeCompiler extends Compiler implements CompilerInterface {
 	}
 
 	/**
-	 * Get the echo methods in the proper order for compilation.
+	 * Get the echo methdos in the proper order for compilation.
 	 *
 	 * @return array
 	 */
@@ -241,7 +243,7 @@ class BladeCompiler extends Compiler implements CompilerInterface {
 	}
 
 	/**
-	 * Compile Blade statements that start with "@".
+	 * Compile Blade Statements that start with "@"
 	 *
 	 * @param  string  $value
 	 * @return mixed
@@ -650,7 +652,7 @@ class BladeCompiler extends Compiler implements CompilerInterface {
 	}
 
 	/**
-	 * Compile the stack statements into the content.
+	 * Compile the stack statements into the content
 	 *
 	 * @param  string  $expression
 	 * @return string

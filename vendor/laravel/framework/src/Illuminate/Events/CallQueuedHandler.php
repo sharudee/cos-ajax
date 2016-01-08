@@ -75,7 +75,7 @@ class CallQueuedHandler {
 
 		if (method_exists($handler, 'failed'))
 		{
-			call_user_func_array([$handler, 'failed'], unserialize($data['data']));
+			call_user_func_array([$handler, 'failed'], unserialize($data));
 		}
 	}
 

@@ -221,9 +221,9 @@ class Router implements RegistrarContract {
 	 */
 	public function controllers(array $controllers)
 	{
-		foreach ($controllers as $uri => $controller)
+		foreach ($controllers as $uri => $name)
 		{
-			$this->controller($uri, $controller);
+			$this->controller($uri, $name);
 		}
 	}
 
@@ -323,16 +323,7 @@ class Router implements RegistrarContract {
 	 */
 	public function resource($name, $controller, array $options = array())
 	{
-		if ($this->container && $this->container->bound('Illuminate\Routing\ResourceRegistrar'))
-		{
-			$registrar = $this->container->make('Illuminate\Routing\ResourceRegistrar');
-		}
-		else
-		{
-			$registrar = new ResourceRegistrar($this);
-		}
-
-		$registrar->register($name, $controller, $options);
+		(new ResourceRegistrar($this))->register($name, $controller, $options);
 	}
 
 	/**
@@ -449,7 +440,6 @@ class Router implements RegistrarContract {
 		if ( ! empty($this->groupStack))
 		{
 			$last = end($this->groupStack);
-
 			return isset($last['prefix']) ? $last['prefix'] : '';
 		}
 
@@ -969,7 +959,7 @@ class Router implements RegistrarContract {
 	}
 
 	/**
-	 * Set a global where pattern on all routes.
+	 * Set a global where pattern on all routes
 	 *
 	 * @param  string  $key
 	 * @param  string  $pattern
@@ -981,7 +971,7 @@ class Router implements RegistrarContract {
 	}
 
 	/**
-	 * Set a group of global where patterns on all routes.
+	 * Set a group of global where patterns on all routes
 	 *
 	 * @param  array  $patterns
 	 * @return void

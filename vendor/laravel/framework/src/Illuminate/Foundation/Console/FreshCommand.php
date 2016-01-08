@@ -2,12 +2,8 @@
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\Console\ConfirmableTrait;
-use Symfony\Component\Console\Input\InputOption;
 
 class FreshCommand extends Command {
-
-	use ConfirmableTrait;
 
 	/**
 	 * The console command name.
@@ -30,8 +26,6 @@ class FreshCommand extends Command {
 	 */
 	public function fire()
 	{
-		if ( ! $this->confirmToProceed()) return;
-
 		$files = new Filesystem;
 
 		$files->deleteDirectory(app_path('Services'));
@@ -54,18 +48,6 @@ class FreshCommand extends Command {
 		$files->put(app_path('Providers/AppServiceProvider.php'), $files->get(__DIR__.'/stubs/fresh-app-provider.stub'));
 
 		$this->info('Scaffolding removed! Enjoy your fresh start.');
-	}
-
-	/**
-	 * Get the console command options.
-	 *
-	 * @return array
-	 */
-	protected function getOptions()
-	{
-		return array(
-			array('force', null, InputOption::VALUE_NONE, 'Force the operation to run when in production.'),
-		);
 	}
 
 }

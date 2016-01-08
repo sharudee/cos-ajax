@@ -70,8 +70,6 @@ class Handler implements ExceptionHandlerContract {
 		{
 			if ($e instanceof $type) return true;
 		}
-
-		return false;
 	}
 
 	/**

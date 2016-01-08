@@ -86,9 +86,14 @@ return [
 	*/
 
 	'custom' => [
-		'attribute-name' => [
+		/*'attribute-name' => [
 			'rule-name' => 'custom-message',
-		],
+		],*/
+		'custom' => array(
+			    'emp_code' => array(
+			        'unique_with' => 'We need to know your e-mail address!',
+			    ),
+			),
 	],
 
 	/*

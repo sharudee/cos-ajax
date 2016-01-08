@@ -38,12 +38,12 @@ class ExpectationEvent extends Event implements EventInterface
     const BROKEN  = 2;
 
     /**
-     * @var ExampleNode
+     * @var \PhpSpec\Loader\Node\ExampleNode
      */
     private $example;
 
     /**
-     * @var MatcherInterface
+     * @var \PhpSpec\Matcher\MatcherInterface
      */
     private $matcher;
 
@@ -81,15 +81,9 @@ class ExpectationEvent extends Event implements EventInterface
      * @param integer          $result
      * @param \Exception       $exception
      */
-    public function __construct(
-        ExampleNode $example,
-        MatcherInterface $matcher,
-        $subject,
-        $method,
-        $arguments,
-        $result = null,
-        $exception = null
-    ) {
+    public function __construct(ExampleNode $example, MatcherInterface $matcher, $subject,
+                                $method, $arguments, $result = null, $exception = null)
+    {
         $this->example = $example;
         $this->matcher = $matcher;
         $this->subject = $subject;

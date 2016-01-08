@@ -12,32 +12,36 @@
  * A TestListener that generates a logfile of the
  * test execution using the Test Anything Protocol (TAP).
  *
- * @since Class available since Release 3.0.0
+ * @package    PHPUnit
+ * @subpackage Util_Log
+ * @author     Sebastian Bergmann <sebastian@phpunit.de>
+ * @copyright  Sebastian Bergmann <sebastian@phpunit.de>
+ * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
+ * @link       http://www.phpunit.de/
+ * @since      Class available since Release 3.0.0
  */
 class PHPUnit_Util_Log_TAP extends PHPUnit_Util_Printer implements PHPUnit_Framework_TestListener
 {
     /**
-     * @var int
+     * @var    integer
      */
     protected $testNumber = 0;
 
     /**
-     * @var int
+     * @var    integer
      */
     protected $testSuiteLevel = 0;
 
     /**
-     * @var bool
+     * @var    boolean
      */
     protected $testSuccessful = true;
 
     /**
      * Constructor.
      *
-     * @param mixed $out
-     *
+     * @param  mixed                       $out
      * @throws PHPUnit_Framework_Exception
-     *
      * @since  Method available since Release 3.3.4
      */
     public function __construct($out = null)
@@ -70,8 +74,7 @@ class PHPUnit_Util_Log_TAP extends PHPUnit_Util_Printer implements PHPUnit_Frame
         $this->writeNotOk($test, 'Failure');
 
         $message = explode(
-            "\n",
-            PHPUnit_Framework_TestFailure::exceptionToString($e)
+            "\n", PHPUnit_Framework_TestFailure::exceptionToString($e)
         );
 
         $diagnostic = array(
@@ -118,7 +121,6 @@ class PHPUnit_Util_Log_TAP extends PHPUnit_Util_Printer implements PHPUnit_Frame
      * @param PHPUnit_Framework_Test $test
      * @param Exception              $e
      * @param float                  $time
-     *
      * @since  Method available since Release 4.0.0
      */
     public function addRiskyTest(PHPUnit_Framework_Test $test, Exception $e, $time)
@@ -140,7 +142,6 @@ class PHPUnit_Util_Log_TAP extends PHPUnit_Util_Printer implements PHPUnit_Frame
      * @param PHPUnit_Framework_Test $test
      * @param Exception              $e
      * @param float                  $time
-     *
      * @since  Method available since Release 3.0.0
      */
     public function addSkippedTest(PHPUnit_Framework_Test $test, Exception $e, $time)
@@ -208,8 +209,6 @@ class PHPUnit_Util_Log_TAP extends PHPUnit_Util_Printer implements PHPUnit_Frame
                 )
             );
         }
-
-        $this->writeDiagnostics($test);
     }
 
     /**
@@ -230,28 +229,5 @@ class PHPUnit_Util_Log_TAP extends PHPUnit_Util_Printer implements PHPUnit_Frame
         );
 
         $this->testSuccessful = false;
-    }
-
-    /**
-     * @param PHPUnit_Framework_Test $test
-     */
-    private function writeDiagnostics(PHPUnit_Framework_Test $test)
-    {
-        if (!$test instanceof PHPUnit_Framework_TestCase) {
-            return;
-        }
-
-        if (!$test->hasOutput()) {
-            return;
-        }
-
-        foreach (explode("\n", trim($test->getActualOutput())) as $line) {
-            $this->write(
-                sprintf(
-                    "# %s\n",
-                    $line
-                )
-            );
-        }
     }
 }

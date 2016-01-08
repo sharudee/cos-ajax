@@ -10,9 +10,6 @@ class Mail extends Facade {
 	 *
 	 * @return string
 	 */
-	protected static function getFacadeAccessor()
-	{
-		return 'mailer';
-	}
+	protected static function getFacadeAccessor() { return 'mailer'; }
 
 }

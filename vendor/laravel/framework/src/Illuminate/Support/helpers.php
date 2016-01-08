@@ -62,20 +62,6 @@ if ( ! function_exists('array_build'))
 	}
 }
 
-if ( ! function_exists('array_collapse'))
-{
-	/**
-	 * Collapse an array of arrays into a single array.
-	 *
-	 * @param  array|\ArrayAccess  $array
-	 * @return array
-	 */
-	function array_collapse($array)
-	{
-		return Arr::collapse($array);
-	}
-}
-
 if ( ! function_exists('array_divide'))
 {
 	/**
@@ -355,7 +341,7 @@ if ( ! function_exists('class_basename'))
 if ( ! function_exists('class_uses_recursive'))
 {
 	/**
-	 * Returns all traits used by a class, its subclasses and trait of their traits.
+	 * Returns all traits used by a class, it's subclasses and trait of their traits
 	 *
 	 * @param  string  $class
 	 * @return array
@@ -555,10 +541,7 @@ if ( ! function_exists('preg_replace_sub'))
 	{
 		return preg_replace_callback($pattern, function($match) use (&$replacements)
 		{
-			foreach ($replacements as $key => $value)
-			{
-				return array_shift($replacements);
-			}
+			return array_shift($replacements);
 
 		}, $subject);
 	}
@@ -753,7 +736,7 @@ if ( ! function_exists('studly_case'))
 if ( ! function_exists('trait_uses_recursive'))
 {
 	/**
-	 * Returns all traits used by a trait and its traits.
+	 * Returns all traits used by a trait and its traits
 	 *
 	 * @param  string  $trait
 	 * @return array

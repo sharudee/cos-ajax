@@ -6,6 +6,7 @@ class Pcmast extends Model {
 
 	protected $table='cos_pcmast';
 	protected $fillable = [
+		'cust_code',
 	 	'emp_code',
 	 	'emp_name',
 	 	'tel',

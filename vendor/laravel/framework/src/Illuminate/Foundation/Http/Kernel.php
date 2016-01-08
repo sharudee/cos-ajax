@@ -81,18 +81,14 @@ class Kernel implements KernelContract {
 	{
 		try
 		{
-			$response = $this->sendRequestThroughRouter($request);
+			return $this->sendRequestThroughRouter($request);
 		}
 		catch (Exception $e)
 		{
 			$this->reportException($e);
 
-			$response = $this->renderException($request, $e);
+			return $this->renderException($request, $e);
 		}
-
-		$this->app['events']->fire('kernel.handled', [$request, $response]);
-
-		return $response;
 	}
 
 	/**

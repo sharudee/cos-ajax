@@ -34,10 +34,7 @@ class AuthManager extends Manager {
 	{
 		$custom = parent::callCustomCreator($driver);
 
-		if ($custom instanceof Guard)
-		{
-			return $custom;
-		}
+		if ($custom instanceof Guard) return $custom;
 
 		return new Guard($custom, $this->app['session.store']);
 	}

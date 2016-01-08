@@ -11,7 +11,13 @@
 /**
  * A warning.
  *
- * @since Class available since Release 2.0.0
+ * @package    PHPUnit
+ * @subpackage Framework
+ * @author     Sebastian Bergmann <sebastian@phpunit.de>
+ * @copyright  Sebastian Bergmann <sebastian@phpunit.de>
+ * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
+ * @link       http://www.phpunit.de/
+ * @since      Class available since Release 2.0.0
  */
 class PHPUnit_Framework_Warning extends PHPUnit_Framework_TestCase
 {
@@ -21,22 +27,22 @@ class PHPUnit_Framework_Warning extends PHPUnit_Framework_TestCase
     protected $message = '';
 
     /**
-     * @var bool
+     * @var boolean
      */
     protected $backupGlobals = false;
 
     /**
-     * @var bool
+     * @var boolean
      */
     protected $backupStaticAttributes = false;
 
     /**
-     * @var bool
+     * @var boolean
      */
     protected $runTestInSeparateProcess = false;
 
     /**
-     * @var bool
+     * @var boolean
      */
     protected $useErrorHandler = false;
 
@@ -59,7 +65,6 @@ class PHPUnit_Framework_Warning extends PHPUnit_Framework_TestCase
 
     /**
      * @return string
-     *
      * @since  Method available since Release 3.0.0
      */
     public function getMessage()
@@ -71,7 +76,6 @@ class PHPUnit_Framework_Warning extends PHPUnit_Framework_TestCase
      * Returns a string representation of the test case.
      *
      * @return string
-     *
      * @since  Method available since Release 3.4.0
      */
     public function toString()

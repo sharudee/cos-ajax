@@ -40,7 +40,7 @@ class Worker {
 	/**
 	 * The exception handler instance.
 	 *
-	 * @var \Illuminate\Foundation\Exceptions\Handler
+	 * @var \Illuminate\Exception\Handler
 	 */
 	protected $exceptions;
 

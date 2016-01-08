@@ -57,11 +57,7 @@ class Kernel implements KernelContract {
 	{
 		$this->app = $app;
 		$this->events = $events;
-
-		$this->app->booted(function()
-		{
-			$this->defineConsoleSchedule();
-		});
+		$this->defineConsoleSchedule();
 	}
 
 	/**
@@ -207,7 +203,7 @@ class Kernel implements KernelContract {
 	{
 		if (is_null($this->artisan))
 		{
-			return $this->artisan = (new Artisan($this->app, $this->events, $this->app->version()))
+			return $this->artisan = (new Artisan($this->app, $this->events))
 								->resolveCommands($this->commands);
 		}
 

@@ -22,7 +22,7 @@ use Symfony\Component\Config\Resource\FileResource;
  *
  * @api
  */
-class PhpFileLoader extends ArrayLoader
+class PhpFileLoader extends ArrayLoader implements LoaderInterface
 {
     /**
      * {@inheritdoc}
@@ -42,10 +42,7 @@ class PhpFileLoader extends ArrayLoader
         $messages = require $resource;
 
         $catalogue = parent::load($messages, $locale, $domain);
-
-        if (class_exists('Symfony\Component\Config\Resource\FileResource')) {
-            $catalogue->addResource(new FileResource($resource));
-        }
+        $catalogue->addResource(new FileResource($resource));
 
         return $catalogue;
     }

@@ -73,7 +73,7 @@ class ArrayStore extends TaggableStore implements Store {
 	 */
 	public function forever($key, $value)
 	{
-		$this->put($key, $value, 0);
+		return $this->put($key, $value, 0);
 	}
 
 	/**

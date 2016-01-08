@@ -54,18 +54,6 @@ class MorphTo extends BelongsTo {
 	}
 
 	/**
-	 * Get the results of the relationship.
-	 *
-	 * @return mixed
-	 */
-	public function getResults()
-	{
-		if ( ! $this->otherKey) return;
-
-		return $this->query->first();
-	}
-
-	/**
 	 * Set the constraints for an eager load of the relation.
 	 *
 	 * @param  array  $models
@@ -119,20 +107,6 @@ class MorphTo extends BelongsTo {
 		$this->parent->setAttribute($this->morphType, $model->getMorphClass());
 
 		return $this->parent->setRelation($this->relation, $model);
-	}
-
-	/**
-	 * Dissociate previously associated model from the given parent.
-	 *
-	 * @return \Illuminate\Database\Eloquent\Model
-	 */
-	public function dissociate()
-	{
-		$this->parent->setAttribute($this->foreignKey, null);
-
-		$this->parent->setAttribute($this->morphType, null);
-
-		return $this->parent->setRelation($this->relation, null);
 	}
 
 	/**
@@ -241,7 +215,7 @@ class MorphTo extends BelongsTo {
 	}
 
 	/**
-	 * Fetch soft-deleted model instances with query.
+	 * Fetch soft-deleted model instances with query
 	 *
 	 * @return $this
 	 */
@@ -255,7 +229,7 @@ class MorphTo extends BelongsTo {
 	}
 
 	/**
-	 * Return trashed models with query if told so.
+	 * Return trashed models with query if told so
 	 *
 	 * @param  \Illuminate\Database\Eloquent\Builder  $query
 	 * @return \Illuminate\Database\Eloquent\Builder
@@ -266,7 +240,6 @@ class MorphTo extends BelongsTo {
 		{
 			return $query->withTrashed();
 		}
-
 		return $query;
 	}
 

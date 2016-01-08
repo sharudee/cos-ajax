@@ -33,6 +33,7 @@ class Configuration
         'defaultIncludes', 'useReadline', 'usePcntl', 'codeCleaner', 'pager',
         'loop', 'configDir', 'dataDir', 'runtimeDir', 'manualDbFile',
         'requireSemicolons', 'historySize', 'eraseDuplicates', 'tabCompletion',
+        'tabCompletionMatchers',
     );
 
     private $defaultIncludes;
@@ -832,16 +833,6 @@ class Configuration
         }
 
         return $this->loop;
-    }
-
-    /**
-     * Set the Shell autocompleter service.
-     *
-     * @param AutoCompleter $completer
-     */
-    public function setAutoCompleter(AutoCompleter $completer)
-    {
-        $this->completer = $completer;
     }
 
     /**

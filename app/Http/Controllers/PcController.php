@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 use Request;
 use Validator;
+
 //use Input;
 
 // Model
@@ -21,7 +22,7 @@ class PcController extends Controller {
 	 */
 	public function index()
 	{
-		$data_pc = Pcmast::orderBy('emp_code','asc')->get();
+		$data_pc = Pcmast::where('cust_code','CXXXX')->orderBy('emp_code','asc')->get();
 
 		
 		return view('sales.pc')->with('pc',$data_pc);
@@ -54,7 +55,8 @@ class PcController extends Controller {
 
 
 		$rules = array(
-			'emp_code'	     	=> 'required|unique:cos_pcmast|Max:6',
+			'cust_code'		=> 'required',
+			'emp_code'	     	=> 'required|unique_with:cos_pcmast,cust_code|Max:6',
 			'emp_name'		=> 'required|Max:50',
 			'tel'			=> 'required|Max:30',
 			'email'			=> 'email|Max:30',			
@@ -69,6 +71,7 @@ class PcController extends Controller {
 			
 
 			$data_pc = array(
+				'cust_code' => 'CXXXX',
 				'emp_code' => Request::get('emp_code'),			
 				'emp_name' => Request::get('emp_name'),
 				'tel' => Request::get('tel'),
@@ -90,7 +93,7 @@ class PcController extends Controller {
 
 			// Reload Table Data
 			$data_pc = array(
-				'pc' 		=> Pcmast::orderBy('emp_code', 'asc')->get(),
+				'pc' 		=> Pcmast::where('cust_code','CXXXX')->orderBy('emp_code', 'asc')->get(),
 				'refresh'	=> true
 			);
 	
@@ -183,7 +186,7 @@ class PcController extends Controller {
 
 			// Reload Table Data
 			$pc = array(
-				'pc' 		=> Pcmast::orderBy('emp_code', 'asc')->get(),
+				'pc' 		=> Pcmast::where('cust_code','CXXXX')->orderBy('emp_code', 'asc')->get(),
 				'refresh'	=> true
 			);
 	
@@ -223,7 +226,7 @@ class PcController extends Controller {
 		$delete=Pcmast::where('id',$id)->delete();
 
 		$data_pc = array(
-				'pc' 		=> Pcmast::orderBy('emp_code', 'asc')->get(),
+				'pc' 		=> Pcmast::where('cust_code','CXXXX')->orderBy('emp_code', 'asc')->get(),
 				'refresh'	=> true
 			);
 	

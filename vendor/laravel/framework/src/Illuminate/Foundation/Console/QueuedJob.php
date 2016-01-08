@@ -31,7 +31,7 @@ class QueuedJob {
 	 */
 	public function fire($job, $data)
 	{
-		call_user_func_array([$this->kernel, 'call'], $data);
+		$status = call_user_func_array([$this->kernel, 'call'], $data);
 
 		$job->delete();
 	}

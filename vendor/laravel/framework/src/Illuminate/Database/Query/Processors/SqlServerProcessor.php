@@ -30,12 +30,7 @@ class SqlServerProcessor extends Processor {
 	 */
 	public function processColumnListing($results)
 	{
-		$mapping = function($r)
-		{
-			return $r->name;
-		};
-
-		return array_map($mapping, $results);
+		return array_values(array_map(function($r) { return $r->name; }, $results));
 	}
 
 }

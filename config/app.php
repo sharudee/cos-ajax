@@ -136,6 +136,8 @@ return [
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Html\HtmlServiceProvider',
+		'Felixkiss\UniqueWithValidator\UniqueWithValidatorServiceProvider',
+
 
 		/*
 		 * Application Service Providers...

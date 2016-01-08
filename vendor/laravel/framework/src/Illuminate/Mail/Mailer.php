@@ -147,8 +147,6 @@ class Mailer implements MailerContract, MailQueueContract {
 	 */
 	public function send($view, array $data, $callback)
 	{
-		$this->forceReconnection();
-
 		// First we need to parse the view, which could either be a string or an array
 		// containing both an HTML and plain text versions of the view which should
 		// be used when sending an e-mail. We will extract both of them out here.
@@ -271,18 +269,6 @@ class Mailer implements MailerContract, MailQueueContract {
 		}
 
 		return $data['callback'];
-	}
-
-	/**
-	 * Force the transport to re-connect.
-	 *
-	 * This will prevent errors in daemon queue situations.
-	 *
-	 * @return void
-	 */
-	protected function forceReconnection()
-	{
-		$this->getSwiftMailer()->getTransport()->stop();
 	}
 
 	/**
@@ -419,7 +405,7 @@ class Mailer implements MailerContract, MailQueueContract {
 		// If a global from address has been specified we will set it on every message
 		// instances so the developer does not have to repeat themselves every time
 		// they create a new message. We will just go ahead and push the address.
-		if (! empty($this->from['address']))
+		if (isset($this->from['address']))
 		{
 			$message->from($this->from['address'], $this->from['name']);
 		}

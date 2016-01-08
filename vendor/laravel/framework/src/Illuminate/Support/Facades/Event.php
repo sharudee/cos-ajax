@@ -10,9 +10,6 @@ class Event extends Facade {
 	 *
 	 * @return string
 	 */
-	protected static function getFacadeAccessor()
-	{
-		return 'events';
-	}
+	protected static function getFacadeAccessor() { return 'events'; }
 
 }

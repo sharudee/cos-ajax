@@ -62,10 +62,6 @@ class IpUtils
     public static function checkIp4($requestIp, $ip)
     {
         if (false !== strpos($ip, '/')) {
-            if ('0.0.0.0/0' === $ip) {
-                return true;
-            }
-
             list($address, $netmask) = explode('/', $ip, 2);
 
             if ($netmask < 1 || $netmask > 32) {
@@ -111,11 +107,11 @@ class IpUtils
             $netmask = 128;
         }
 
-        $bytesAddr = unpack('n*', inet_pton($address));
-        $bytesTest = unpack('n*', inet_pton($requestIp));
+        $bytesAddr = unpack("n*", inet_pton($address));
+        $bytesTest = unpack("n*", inet_pton($requestIp));
 
-        for ($i = 1, $ceil = ceil($netmask / 16); $i <= $ceil; ++$i) {
-            $left = $netmask - 16 * ($i - 1);
+        for ($i = 1, $ceil = ceil($netmask / 16); $i <= $ceil; $i++) {
+            $left = $netmask - 16 * ($i-1);
             $left = ($left <= 16) ? $left : 16;
             $mask = ~(0xffff >> $left) & 0xffff;
             if (($bytesAddr[$i] & $mask) != ($bytesTest[$i] & $mask)) {

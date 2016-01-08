@@ -147,7 +147,7 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
 	protected $touches = array();
 
 	/**
-	 * User exposed observable events.
+	 * User exposed observable events
 	 *
 	 * @var array
 	 */
@@ -287,6 +287,23 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
 	 */
 	protected static function boot()
 	{
+		$class = get_called_class();
+
+		static::$mutatorCache[$class] = array();
+
+		// Here we will extract all of the mutated attributes so that we can quickly
+		// spin through them after we export models to their array form, which we
+		// need to be fast. This will let us always know the attributes mutate.
+		foreach (get_class_methods($class) as $method)
+		{
+			if (preg_match('/^get(.+)Attribute$/', $method, $matches))
+			{
+				if (static::$snakeAttributes) $matches[1] = snake_case($matches[1]);
+
+				static::$mutatorCache[$class][] = lcfirst($matches[1]);
+			}
+		}
+
 		static::bootTraits();
 	}
 
@@ -416,15 +433,13 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
 	 */
 	public function forceFill(array $attributes)
 	{
-		// Since some versions of PHP have a bug that prevents it from properly
-		// binding the late static context in a closure, we will first store
-		// the model in a variable, which we will then use in the closure.
-		$model = $this;
+		static::unguard();
 
-		return static::unguarded(function() use ($model, $attributes)
-		{
-			return $model->fill($attributes);
-		});
+		$this->fill($attributes);
+
+		static::reguard();
+
+		return $this;
 	}
 
 	/**
@@ -491,12 +506,12 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
 	{
 		$instance = (new static)->setConnection($connection);
 
-		$items = array_map(function ($item) use ($instance)
+		$collection = $instance->newCollection($items);
+
+		return $collection->map(function ($item) use ($instance)
 		{
 			return $instance->newFromBuilder($item);
-		}, $items);
-
-		return $instance->newCollection($items);
+		});
 	}
 
 	/**
@@ -539,15 +554,13 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
 	 */
 	public static function forceCreate(array $attributes)
 	{
-		// Since some versions of PHP have a bug that prevents it from properly
-		// binding the late static context in a closure, we will first store
-		// the model in a variable, which we will then use in the closure.
-		$model = new static;
+		static::unguard();
 
-		return static::unguarded(function() use ($model, $attributes)
-		{
-			return $model->create($attributes);
-		});
+		$model = static::create($attributes);
+
+		static::reguard();
+
+		return $model;
 	}
 
 	/**
@@ -671,7 +684,11 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
 	 */
 	public static function find($id, $columns = array('*'))
 	{
-		return static::query()->find($id, $columns);
+		$instance = new static;
+
+		if (is_array($id) && empty($id)) return $instance->newCollection();
+
+		return $instance->newQuery()->find($id, $columns);
 	}
 
 	/**
@@ -696,11 +713,9 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
 	 */
 	public function fresh(array $with = array())
 	{
-		if ( ! $this->exists) return;
-
 		$key = $this->getKeyName();
 
-		return static::with($with)->where($key, $this->getKey())->first();
+		return $this->exists ? static::with($with)->where($key, $this->getKey())->first() : null;
 	}
 
 	/**
@@ -1160,7 +1175,7 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
 	 */
 	protected function performDeleteOnModel()
 	{
-		$this->setKeysForSaveQuery($this->newQuery())->delete();
+		$this->newQuery()->where($this->getKeyName(), $this->getKey())->delete();
 	}
 
 	/**
@@ -1622,16 +1637,9 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
 		{
 			$this->$relation()->touch();
 
-			if ($this->$relation instanceof Model)
+			if ( ! is_null($this->$relation))
 			{
 				$this->$relation->touchOwners();
-			}
-			elseif ($this->$relation instanceof Collection)
-			{
-				$this->$relation->each(function (Model $relation)
-				{
-					$relation->touchOwners();
-				});
 			}
 		}
 	}
@@ -2208,9 +2216,9 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
 	 *
 	 * @return void
 	 */
-	public static function unguard($state = true)
+	public static function unguard()
 	{
-		static::$unguarded = $state;
+		static::$unguarded = true;
 	}
 
 	/**
@@ -2224,32 +2232,14 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
 	}
 
 	/**
-	 * Determine if current state is "unguarded".
+	 * Set "unguard" to a given state.
 	 *
-	 * @return bool
+	 * @param  bool  $state
+	 * @return void
 	 */
-	public static function isUnguarded()
+	public static function setUnguardState($state)
 	{
-		return static::$unguarded;
-	}
-
-	/**
-	 * Run the given callable while being unguarded.
-	 *
-	 * @param  callable  $callback
-	 * @return mixed
-	 */
-	public static function unguarded(callable $callback)
-	{
-		if (static::$unguarded) return $callback();
-
-		static::unguard();
-
-		$result = $callback();
-
-		static::reguard();
-
-		return $result;
+		static::$unguarded = $state;
 	}
 
 	/**
@@ -2704,9 +2694,9 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
 	{
 		if ($this->hasCast($key))
 		{
-			return in_array(
-				$this->getCastType($key), ['array', 'json', 'object', 'collection'], true
-			);
+			$type = $this->getCastType($key);
+
+			return $type === 'array' || $type === 'json' || $type === 'object';
 		}
 
 		return false;
@@ -2753,8 +2743,6 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
 			case 'array':
 			case 'json':
 				return json_decode($value, true);
-			case 'collection':
-				return $this->newCollection(json_decode($value, true));
 			default:
 				return $value;
 		}
@@ -3217,39 +3205,12 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
 	{
 		$class = get_class($this);
 
-		if ( ! isset(static::$mutatorCache[$class]))
+		if (isset(static::$mutatorCache[$class]))
 		{
-			static::cacheMutatedAttributes($class);
+			return static::$mutatorCache[$class];
 		}
 
-		return static::$mutatorCache[$class];
-	}
-
-	/**
-	 * Extract and cache all the mutated attributes of a class.
-	 *
-	 * @param string $class
-	 * @return void
-	 */
-	public static function cacheMutatedAttributes($class)
-	{
-		$mutatedAttributes = array();
-
-		// Here we will extract all of the mutated attributes so that we can quickly
-		// spin through them after we export models to their array form, which we
-		// need to be fast. This'll let us know the attributes that can mutate.
-		foreach (get_class_methods($class) as $method)
-		{
-			if (strpos($method, 'Attribute') !== false &&
-						preg_match('/^get(.+)Attribute$/', $method, $matches))
-			{
-				if (static::$snakeAttributes) $matches[1] = snake_case($matches[1]);
-
-				$mutatedAttributes[] = lcfirst($matches[1]);
-			}
-		}
-
-		static::$mutatorCache[$class] = $mutatedAttributes;
+		return array();
 	}
 
 	/**
@@ -3344,7 +3305,7 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
 	}
 
 	/**
-	 * Handle dynamic method calls into the model.
+	 * Handle dynamic method calls into the method.
 	 *
 	 * @param  string  $method
 	 * @param  array   $parameters

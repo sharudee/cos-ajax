@@ -63,9 +63,8 @@ class DOMCaster
 
     public static function castException(\DOMException $e, array $a, Stub $stub, $isNested)
     {
-        $k = "\0*\0code";
-        if (isset($a[$k], self::$errorCodes[$a[$k]])) {
-            $a[$k] = new ConstStub(self::$errorCodes[$a[$k]], $a[$k]);
+        if (isset($a["\0*\0code"], self::$errorCodes[$a["\0*\0code"]])) {
+            $a["\0*\0code"] = new ConstStub(self::$errorCodes[$a["\0*\0code"]], $a["\0*\0code"]);
         }
 
         return $a;

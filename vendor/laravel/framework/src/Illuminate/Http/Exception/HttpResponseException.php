@@ -6,9 +6,9 @@ use Symfony\Component\HttpFoundation\Response;
 class HttpResponseException extends RuntimeException {
 
 	/**
-	 * The underlying response instance.
+	 * The underlying Response instance.
 	 *
-	 * @var \Symfony\Component\HttpFoundation\Response
+	 * @var \Symfony\Component\HttpFoundation\Response  $response
 	 */
 	protected $response;
 

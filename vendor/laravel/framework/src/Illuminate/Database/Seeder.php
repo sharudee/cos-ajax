@@ -24,10 +24,7 @@ class Seeder {
 	 *
 	 * @return void
 	 */
-	public function run()
-	{
-		//
-	}
+	public function run() {}
 
 	/**
 	 * Seed the given connection from the given path.

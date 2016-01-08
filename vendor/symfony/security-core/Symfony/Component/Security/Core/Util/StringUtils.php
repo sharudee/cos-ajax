@@ -38,56 +38,29 @@ class StringUtils
      */
     public static function equals($knownString, $userInput)
     {
-        // Avoid making unnecessary duplications of secret data
-        if (!is_string($knownString)) {
-            $knownString = (string) $knownString;
-        }
-
-        if (!is_string($userInput)) {
-            $userInput = (string) $userInput;
-        }
+        $knownString = (string) $knownString;
+        $userInput = (string) $userInput;
 
         if (function_exists('hash_equals')) {
             return hash_equals($knownString, $userInput);
         }
 
-        $knownLen = self::safeStrlen($knownString);
-        $userLen = self::safeStrlen($userInput);
+        $knownLen = strlen($knownString);
+        $userLen = strlen($userInput);
 
-        if ($userLen !== $knownLen) {
-            return false;
-        }
+        // Extend the known string to avoid uninitialized string offsets
+        $knownString .= $userInput;
 
-        $result = 0;
+        // Set the result to the difference between the lengths
+        $result = $knownLen - $userLen;
 
-        for ($i = 0; $i < $knownLen; ++$i) {
+        // Note that we ALWAYS iterate over the user-supplied length
+        // This is to mitigate leaking length information
+        for ($i = 0; $i < $userLen; $i++) {
             $result |= (ord($knownString[$i]) ^ ord($userInput[$i]));
         }
 
         // They are only identical strings if $result is exactly 0...
         return 0 === $result;
-    }
-
-    /**
-     * Returns the number of bytes in a string.
-     *
-     * @param string $string The string whose length we wish to obtain
-     *
-     * @return int
-     */
-    public static function safeStrlen($string)
-    {
-        // Premature optimization
-        // Since this cannot be changed at runtime, we can cache it
-        static $funcExists = null;
-        if (null === $funcExists) {
-            $funcExists = function_exists('mb_strlen');
-        }
-
-        if ($funcExists) {
-            return mb_strlen($string, '8bit');
-        }
-
-        return strlen($string);
     }
 }
