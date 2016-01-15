@@ -14,7 +14,7 @@
 						<label>Doc Code</label>
 					</div>
 					<div class="col-sm-2">
-						<input type="text" name="doc_code" id="input" class="form-control input-sm required">
+						<input type="text" name="doc_code" id="input" class="form-control input-sm required" value="<?php  if(isset($input['doc_code'])) { echo $input['doc_code']; } ?>">
 						{!!$errors->first('doc_code','<p class="error">:message</p>')!!}
 					</div>
 
@@ -26,7 +26,7 @@
 						<label>Doc Name </label>
 					</div>
 					<div class="col-sm-7">
-						<input type="text" name="doc_desc" id="input" class="form-control input-sm required">
+						<input type="text" name="doc_desc" id="input" class="form-control input-sm required" value="<?php  if(isset($input['doc_desc'])) { echo $input['doc_desc']; } ?>">
 						{!!$errors->first('doc_desc','<p class="error">:message</p>')!!}
 					</div>
 				</div>	
@@ -37,7 +37,7 @@
 						<label>Doc Ctrl</label>
 					</div>
 					<div class="col-sm-2">
-						<input type="text" name="doc_ctrl" id="input" class="form-control input-sm required">
+						<input type="text" name="doc_ctrl" id="input" class="form-control input-sm required" value="<?php  if(isset($input['doc_ctrl'])) { echo $input['doc_ctrl']; } ?>">
 						{!!$errors->first('doc_ctrl','<p class="error">:message</p>')!!}
 					</div>
 					<div class="col-sm-2 col-sm-offset-1">

@@ -26,7 +26,7 @@
 						<label>ชื่อพนักงาน</label>
 					</div>
 					<div class="col-sm-2">
-						<input type="text" name="emp_name" id="input" class="form-control input-sm required">
+						<input type="text" name="emp_name" id="input" class="form-control input-sm required" value="<?php  if(isset($input['emp_name'])) { echo $input['emp_name']; } ?>">
 						{!!$errors->first('emp_name','<p class="error">:message</p>')!!}
 					</div>
 				</div>	
@@ -36,7 +36,7 @@
 						<label>เบอร์โทรศัพท์</label>
 					</div>
 					<div class="col-sm-2">
-						<input type="text" name="tel" id="input" class="form-control input-sm required">
+						<input type="text" name="tel" id="input" class="form-control input-sm required" value="<?php  if(isset($input['tel'])) { echo $input['tel']; } ?>">
 						{!!$errors->first('tel','<p class="error">:message</p>')!!}
 					</div>
 					
@@ -47,7 +47,7 @@
 						<label>Email</label>
 					</div>
 					<div class="col-sm-2">
-						<input type="text" name="email" id="input" class="form-control input-sm">
+						<input type="text" name="email" id="input" class="form-control input-sm" value="<?php  if(isset($input['email'])) { echo $input['email']; } ?>">
 						{!!$errors->first('email','<p class="error">:message</p>')!!}
 					</div>
 					

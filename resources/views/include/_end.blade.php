@@ -15,6 +15,7 @@
 
 <script type="text/javascript" src="<?php echo URL::to('resources/assets/js/sweetalert.min.js');?>"></script>
 <script src="<?php echo URL::to('resources/assets/js/custom_sales.js');?>"></script>
+<script src="<?php echo URL::to('resources/assets/js/custom_commission.js');?>"></script>
 <script src="<?php echo URL::to('resources/assets/js/custom.js');?>"></script>
 
 

@@ -71,9 +71,10 @@ return [
 		"array"   => "The :attribute must contain :size items.",
 	],
 	"unique"               => "The :attribute has already been taken.",
+	"unique_with" 	=> "The :attribute has already been taken.",
 	"url"                  => "The :attribute format is invalid.",
 	"timezone"             => "The :attribute must be a valid zone.",
-
+	
 	/*
 	|--------------------------------------------------------------------------
 	| Custom Validation Language Lines
@@ -86,14 +87,10 @@ return [
 	*/
 
 	'custom' => [
-		/*'attribute-name' => [
+		'attribute-name' => [
 			'rule-name' => 'custom-message',
-		],*/
-		'custom' => array(
-			    'emp_code' => array(
-			        'unique_with' => 'We need to know your e-mail address!',
-			    ),
-			),
+		],
+
 	],
 
 	/*

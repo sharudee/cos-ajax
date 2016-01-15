@@ -14,7 +14,7 @@
 						<label>รหัสลูกค้า</label>
 					</div>
 					<div class="col-sm-2">
-						<input type="text" name="entity_code" id="input" class="form-control required"  >
+						<input type="text" name="entity_code" id="input" class="form-control required"  value="<?php  if(isset($input['entity_code'])) { echo $input['entity_code']; } ?>">
 						{!!$errors->first('entity_code','<p class="error">:message</p>')!!}
 					</div>
 
@@ -23,7 +23,7 @@
 					</div>
 
 					<div class="col-sm-2">
-						<input type="text" name="cos_no" id="input" class="form-control required">
+						<input type="text" name="cos_no" id="input" class="form-control required" value="<?php  if(isset($input['cos_no'])) { echo $input['cos_no']; } ?>">
 						{!!$errors->first('cos_no','<p class="error">:message</p>')!!}
 					</div>
 					
@@ -34,7 +34,7 @@
 						<label>ชื่อลูกค้า (ไทย)</label>
 					</div>
 					<div class="col-sm-7">
-						<input type="text" name="entity_tname" id="input" class="form-control required">
+						<input type="text" name="entity_tname" id="input" class="form-control required" value="<?php  if(isset($input['entity_tname'])) { echo $input['entity_tname']; } ?>">
 						{!!$errors->first('entity_tname','<p class="error">:message</p>')!!}
 					</div>
 				</div>	
@@ -43,7 +43,7 @@
 						<label>ชื่อลูกค้า (อังกฤษ)</label>
 					</div>
 					<div class="col-sm-7">
-						<input type="text" name="entity_ename" id="input" class="form-control input-sm">
+						<input type="text" name="entity_ename" id="input" class="form-control input-sm" value="<?php  if(isset($input['entity_ename'])) { echo $input['entity_ename']; } ?>">
 						{!!$errors->first('entity_ename','<p class="error">:message</p>')!!}
 					</div>
 				</div>	
@@ -69,7 +69,7 @@
 					</div>
 
 					<div class="col-sm-2">
-						<input type="text" name="tax_rate" id="input" class="form-control required">
+						<input type="text" name="tax_rate" id="input" class="form-control required" value="<?php  if(isset($input['tax_rate'])) { echo $input['tax_rate']; } ?>">
 						{!!$errors->first('tax_rate','<p class="error">:message</p>')!!}
 					</div>
 				</div>
@@ -79,7 +79,7 @@
 						<label>รหัสควบคุม</label>
 					</div>
 					<div class="col-sm-2">
-						<input type="text" name="ent_ctrl" id="input" class="form-control input-sm">
+						<input type="text" name="ent_ctrl" id="input" class="form-control input-sm" value="<?php  if(isset($input['ent_ctrl'])) { echo $input['ent_ctrl']; } ?>">
 						{!!$errors->first('ent_ctrl','<p class="error">:message</p>')!!}
 					</div>
 					<div class="col-sm-2 col-sm-offset-1">
@@ -112,7 +112,7 @@
 					</div>
 					
 					<div class="col-sm-2">
-						<input type="text" name="ret_type" id="input" class="form-control required" >
+						<input type="text" name="ret_type" id="input" class="form-control required" value="<?php  if(isset($input['ret_type'])) { echo $input['ret_type']; } ?>">
 						{!!$errors->first('ret_type','<p class="error">:message</p>')!!}
 					</div>
 				</div>

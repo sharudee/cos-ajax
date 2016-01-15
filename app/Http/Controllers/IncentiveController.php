@@ -4,17 +4,13 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 //use Illuminate\Http\Request;
-
 use Request;
 use Validator;
-use Input;
 
 // Model
-use App\Http\Model\Entity;
-use App\Http\Model\Custgrp;
+use App\Http\Model\Incentive;
 
-
-class EntityController extends Controller {
+class IncentiveController extends Controller {
 
 	/**
 	 * Display a listing of the resource.
@@ -23,12 +19,10 @@ class EntityController extends Controller {
 	 */
 	public function index()
 	{
-
-		$data_entity = Entity::orderBy('entity_code','asc')->get();
+		$data_incentive = Incentive::orderBy('pdmodel_code','asc')->get();
 
 		
-		return view('sales.entity')->with('entity',$data_entity);
-							
+		return view('sales.incentive')->with('incentive',$data_incentive);
 	}
 
 	/**
@@ -38,9 +32,7 @@ class EntityController extends Controller {
 	 */
 	public function create()
 	{
-		$data_grp = Custgrp::orderBy('custgrp_code','asc')->get();
-
-		return view('sales.entity_create')->with('custgrp',$data_grp);
+		return view('sales.incentive_create');
 	}
 
 	/**
@@ -50,26 +42,21 @@ class EntityController extends Controller {
 	 */
 	public function store()
 	{
-		
 		$message = [
 			'required'	=> 'กรุณาใส่ข้อมูล',
-			'unique'	=> 'ข้อมูลซ้ำ',
+			'unique_with'	=> 'ข้อมูลซ้ำ',
 			'numeric'	=> 'ต้องเป็นตัวเลขเท่านั้น',
-			'max'		=> 'ข้อมูลเกิน :max ตัวอักษร'
+			'max'		=> 'ข้อมูลเกิน :max ตัวอักษร',
+			'between'	=> 'ค่าต้องอยู่ระว่าง :min - :max.'
 		];
 
 
 		$rules = array(
-			'entity_code'     	=> 'required|unique:entity|Max:8',
-			'entity_tname'		=> 'required|Max:50',
-			'entity_ename'		=> 'Max:50',
-			'ent_ctrl'		=> 'Max:8',
-			'cos_no'		=> 'required|Max:2',
-			'tax_rate'		=> 'required|Numeric',
-			'cust_grp'		=> 'required|Max:4',
-			'dsgrp_type'		=> 'required',
-			'sale_type'		=> 'required|Max:8',
-			'ret_type'		=> 'required|Max:8'
+			'pdmodel_code'     	=> 'required|unique_with:incentive_mast,start_date|Max:4',
+			'start_date'		=> 'required|date|unique_with:incentive_mast,pdmodel_code',
+			'end_date'		=> 'required|date',
+			'incentive_amt'	=> 'required|between:1,99999',
+			
 			
 		);
 
@@ -78,29 +65,12 @@ class EntityController extends Controller {
 		if ($validator->passes())
 		{
 			
-			/* กรณี Save ทุก Field จาก Form 
- 			$store	= new Entity;
-			
-			$store->fill(Request::all());
-			$store->save();
-			*/
-
-			/* **********  Save Data ************ */	
-
-			
-			//$modified = date('Y-m-d H:i:s')
 
 			$data_entity = array(
-				'entity_code' => Request::get('entity_code'),			
-				'entity_tname' => Request::get('entity_tname'),
-				'entity_ename' => Request::get('entity_ename'),
-				'cust_grp' => Request::get('cust_grp'),
-				'tax_rate' => Request::get('tax_rate'),
-				'ent_ctrl' => Request::get('ent_ctrl'),
-				'cos_no' => Request::get('cos_no'),
-				'dsgrp_type' => Request::get('dsgrp_type'),
-				'sale_type' => Request::get('sale_type'),
-				'ret_type' => Request::get('ret_type'),
+				'pdmodel_code' => Request::get('pdmodel_code'),			
+				'start_date' => Request::get('start_date'),
+				'end_date' => Request::get('end_date'),
+				'incentive_amt' => Request::get('incentive_amt'),
 				'created_by' => 'admin',
 				'updated_by' => 'admin'
 			);
@@ -108,7 +78,7 @@ class EntityController extends Controller {
 			
 		
 			//Insert data to model Entity
-			$add_data = Entity::create($data_entity);
+			$add_data = Incentive::create($data_entity);
 
 			//dd($data_entity);
 			
@@ -117,23 +87,21 @@ class EntityController extends Controller {
 
 
 			// Reload Table Data
-			$data_entity = array(
-				'entity' 		=> Entity::orderBy('entity_code', 'asc')->get(),
+			$data_incentive = array(
+				'incentive' 		=> Incentive::orderBy('pdmodel_code', 'asc')->get(),
 				'refresh'	=> true
 			);
 	
-			return view('sales.entity_table')->with($data_entity);
+			return view('sales.incentive_table')->with($data_incentive);
 			
 		}else{
 			if( Request::ajax() ) 
 			{
-				$data_grp = Custgrp::orderBy('custgrp_code','asc')->get();
-				return view('sales.entity_create')->withErrors($validator)->withInput(Request::all())->with('custgrp',$data_grp);			
+				return view('sales.incentive_create')->withErrors($validator)->withInput(Request::all());			
 			}
 
 			return 0;
 		}
-
 	}
 
 	/**
@@ -144,9 +112,7 @@ class EntityController extends Controller {
 	 */
 	public function show($id)
 	{
-		$entity = Entity::find($id);
-
-		return view('sales.entity_show')->with('entity',$entity); 
+		//
 	}
 
 	/**
@@ -314,9 +280,6 @@ class EntityController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		/*$delete = Entity::find($id);
-		$delete->delete();
-		*/
 		$delete=Entity::where('id',$id)->delete();
 
 		$data_entity = array(
@@ -326,7 +289,5 @@ class EntityController extends Controller {
 	
 			return view('sales.entity_table')->with($data_entity);
 	}
-
-
 
 }

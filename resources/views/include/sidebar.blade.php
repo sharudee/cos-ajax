@@ -22,10 +22,10 @@
 	                                    <a href="{{URL::to('whmast')}}">รหัสคลังสินค้า</a>
 	                                </li>
 	                                <li>
-	                                    <a href="{{URL::to('sales/commission')}}">กำหนดข้อมูล Commission</a>
+	                                    <a href="{{URL::to('commission')}}">กำหนดข้อมูล Commission</a>
 	                                </li>
 	                                <li>
-	                                    <a href="{{URL::to('sales/incentive')}}">กำหนดข้อมูล Incentive</a>
+	                                    <a href="{{URL::to('incentive')}}">กำหนดข้อมูล Incentive</a>
 	                                </li>
 	                            </ul>
 	                            <!-- /.nav-second-level -->

@@ -6,6 +6,8 @@ $('.toogle').on('click', function() {
 });
 /* === END SIDEBAR === */	
 
+
+
 /*====JQuery DataTable Plugin===*/
 $('.solsoTable').dataTable();
 

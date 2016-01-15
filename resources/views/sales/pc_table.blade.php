@@ -12,7 +12,7 @@
 	<tbody>
 		@foreach($pc as $crt => $v)
 		<tr>
-			<td><a href="{{URL::to('sales/pcwork')}}">{{$v->emp_code}}</a></td>
+			<td><a href="{{URL::to('pcwork/'.$v->emp_code)}}">{{$v->emp_code}}</a></td>
 			<td>{{$v->emp_name}} </td>
 			<td>{{$v->tel}}</td>
 			<td>{{$v->email}}</td>

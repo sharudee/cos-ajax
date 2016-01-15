@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 use Request;
 use Validator;
+//use Felixkiss\UniqueWithValidator\UniqueWithValidatorServiceProvider;
 
 //use Input;
 
@@ -47,19 +48,20 @@ class PcController extends Controller {
 	{
 		$message = [
 			'required'	=> 'กรุณาใส่ข้อมูล',
-			'unique'	=> 'ข้อมูลซ้ำ',
-			'numeric'	=> 'ต้องเป็นตัวเลขเท่านั้น',
+			//'unique'	=> 'ข้อมูลซ้ำ',
+			//'numeric'	=> 'ต้องเป็นตัวเลขเท่านั้น',
 			'max'		=> 'ข้อมูลเกิน :max ตัวอักษร',
-			'email'		=> 'รูปแบบ email ไม่ถูกต้อง'
+			'email'		=> 'รูปแบบ email ไม่ถูกต้อง',
+			'unique_with'	=> 'ข้อมูลซ้ำ',
 		];
 
 
 		$rules = array(
+			'emp_code'	     	=> 'required|unique_with:cos_pcmast,cust_code|max:6',
 			'cust_code'		=> 'required',
-			'emp_code'	     	=> 'required|unique_with:cos_pcmast,cust_code|Max:6',
-			'emp_name'		=> 'required|Max:50',
-			'tel'			=> 'required|Max:30',
-			'email'			=> 'email|Max:30',			
+			'emp_name'		=> 'required|max:50',
+			'tel'			=> 'required|max:30',
+			'email'			=> 'email|max:30',			
 			
 		);
 
