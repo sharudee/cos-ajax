@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 //use Illuminate\Http\Request;
 use Request;
 use Validator;
+//use Carbon\Carbon;
 
 // Model
 use App\Http\Model\Incentive;
@@ -66,7 +67,7 @@ class IncentiveController extends Controller {
 		{
 			
 
-			$data_entity = array(
+			$data_incentive = array(
 				'pdmodel_code' => Request::get('pdmodel_code'),			
 				'start_date' => Request::get('start_date'),
 				'end_date' => Request::get('end_date'),
@@ -78,7 +79,7 @@ class IncentiveController extends Controller {
 			
 		
 			//Insert data to model Entity
-			$add_data = Incentive::create($data_entity);
+			$add_data = Incentive::create($data_incentive);
 
 			//dd($data_entity);
 			
@@ -123,14 +124,11 @@ class IncentiveController extends Controller {
 	 */
 	public function edit($id)
 	{
-		$edit_data = Entity::find($id);
+		$edit_data = Incentive::find($id);
 
-		$data_grp = Custgrp::orderBy('custgrp_code','asc')->get();
+		
 
-		return view('sales.entity_edit')->with([
-							'custgrp' 	=> $data_grp ,
-							'entity' 		=> $edit_data
-							]);
+		return view('sales.incentive_edit')->with('incentive',$edit_data);
 	}
 
 	/**
@@ -143,23 +141,19 @@ class IncentiveController extends Controller {
 	{
 		$message = [
 			'required'	=> 'กรุณาใส่ข้อมูล',
-			'unique'	=> 'ข้อมูลซ้ำ',
+			'unique_with'	=> 'ข้อมูลซ้ำ',
 			'numeric'	=> 'ต้องเป็นตัวเลขเท่านั้น',
-			'max'		=> 'ข้อมูลเกิน :max ตัวอักษร'
+			'max'		=> 'ข้อมูลเกิน :max ตัวอักษร',
+			'between'	=> 'ค่าต้องอยู่ระว่าง :min - :max.'
 		];
 
 
 		$rules = array(
-			'entity_code'     	=> 'required|Max:8',
-			'entity_tname'		=> 'required|Max:50',
-			'entity_ename'		=> 'Max:50',
-			'ent_ctrl'		=> 'Max:8',
-			'cos_no'		=> 'required|Max:2',
-			'tax_rate'		=> 'required|Numeric',
-			'cust_grp'		=> 'required|Max:4',
-			'dsgrp_type'		=> 'required',
-			'sale_type'		=> 'required|Max:8',
-			'ret_type'		=> 'required|Max:8'
+			'pdmodel_code'     	=> 'required|Max:4',
+			'start_date'		=> 'required|date_format:"d/m/Y"',
+			'end_date'		=> 'required|date_format:"d/m/Y"',
+			'incentive_amt'	=> 'required|between:1,99999',
+			
 			
 		);
 
@@ -171,29 +165,17 @@ class IncentiveController extends Controller {
 		if ($validator->passes())
 		{
 			
-			/* กรณี Save ทุก Field จาก Form 
- 			$store	= new Entity;
+			$sdate = date_create_from_format('d/m/Y', Request::get('start_date'));
+			$start_date = date_format($sdate, 'Y-m-d');
 			
-			$store->fill(Request::all());
-			$store->save();
-			*/
+			$edate = date_create_from_format('d/m/Y', Request::get('end_date'));
+			$end_date = date_format($edate, 'Y-m-d');
 
-			/* **********  Save Data ************ */	
-
-			
-			//$modified = date('Y-m-d H:i:s')
-
-			$data_entity = array(
-				'entity_code' => Request::get('entity_code'),			
-				'entity_tname' => Request::get('entity_tname'),
-				'entity_ename' => Request::get('entity_ename'),
-				'cust_grp' => Request::get('cust_grp'),
-				'tax_rate' => Request::get('tax_rate'),
-				'ent_ctrl' => Request::get('ent_ctrl'),
-				'cos_no' => Request::get('cos_no'),
-				'dsgrp_type' => Request::get('dsgrp_type'),
-				'sale_type' => Request::get('sale_type'),
-				'ret_type' => Request::get('ret_type'),
+			$data_incentive = array(
+				'pdmodel_code' => Request::get('pdmodel_code'),			
+				'start_date' => $start_date,
+				'end_date' => $end_date,
+				'incentive_amt' => Request::get('incentive_amt'),
 				'created_by' => 'admin',
 				'updated_by' => 'admin'
 			);
@@ -206,8 +188,8 @@ class IncentiveController extends Controller {
 			$update->save();
 			*/
 			//$update=Request::all();
-			$entity 	=Entity::find($id);
-			$entity->update($data_entity);
+			$incentive 	=Incentive::find($id);
+			$incentive->update($data_incentive);
 
 			//dd($data_entity);
 			
@@ -216,56 +198,27 @@ class IncentiveController extends Controller {
 
 
 			// Reload Table Data
-			$entity = array(
-				'entity' 		=> Entity::orderBy('entity_code', 'asc')->get(),
+			$incentive = array(
+				'incentive' 		=> Incentive::orderBy('start_date', 'desc')->get(),
 				'refresh'	=> true
 			);
 	
-			return view('sales.entity_table')->with($entity);
-			/*return view('sales.entity_edit')->with([
-							'custgrp' 	=> $data_grp ,
-							'entity' 		=> $entity
-							]);
-			*/
+			return view('sales.incentive_table')->with($incentive);
 		}
 		else{
-			//$edit_data = Entity::find($id);
-			//$edit_data=Request::all();
-			//dd($edit_data);
 			
-			//dd($data_entity);
-
 			$edit_data = array(
-				'entity_code' => Request::input('entity_code'),			
-				'entity_tname' => Request::get('entity_tname'),
-				'entity_ename' => Request::get('entity_ename'),
-				'cust_grp' => Request::get('cust_grp'),
-				'tax_rate' => Request::get('tax_rate'),
-				'ent_ctrl' => Request::get('ent_ctrl'),
-				'cos_no' => Request::get('cos_no'),
-				'dsgrp_type' => Request::get('dsgrp_type'),
-				'sale_type' => Request::get('sale_type'),
-				'ret_type' => Request::get('ret_type'),
-				//'created_by' => 'admin',
-				//'updated_by' => 'admin'
+				'pdmodel_code' => Request::get('pdmodel_code'),			
+				'start_date' => Request::get('start_date'),
+				'end_date' => Request::get('end_date'),
+				'incentive_amt' => Request::get('incentive_amt'),
 			);
 
-			//dd($edit_data);
-
-			$data_grp = Custgrp::orderBy('custgrp_code','asc')->get();
+			
 			if( Request::ajax() ) 
 			{
 				
-				/*return view('sales.entity_edit')->with([
-							'custgrp' 	=> $data_grp, 
-							'entity' 		=> $edit_data
-							]) ->withErrors($validator)->withInput(Request::all());				
-				*/
-				//return view('sales.entity_edit')->withErrors($validator)->withInput(Request::all());
-				return view('sales.entity_edit')->withErrors($validator)->with([
-							'custgrp' 	=> $data_grp, 
-							'entity' 		=> $edit_data
-							]);
+				return view('sales.incentive_edit')->withErrors($validator)->with('incentive', $edit_data);
 			}
 
 			return 0;
@@ -280,14 +233,14 @@ class IncentiveController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		$delete=Entity::where('id',$id)->delete();
+		$delete=Incentive::where('id',$id)->delete();
 
-		$data_entity = array(
-				'entity' 		=> Entity::orderBy('entity_code', 'asc')->get(),
+		$data_incentive = array(
+				'incentive' 		=> Incentive::orderBy('start_date', 'desc')->get(),
 				'refresh'	=> true
 			);
 	
-			return view('sales.entity_table')->with($data_entity);
+			return view('sales.incentive_table')->with($data_incentive);
 	}
 
 }

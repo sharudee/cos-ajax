@@ -39,8 +39,8 @@ return [
 	|
 	*/
 
-	'timezone' => 'UTC',
-
+	//'timezone' => 'UTC',
+	'timezone' => 'Asia/Bangkok',
 	/*
 	|--------------------------------------------------------------------------
 	| Application Locale Configuration
