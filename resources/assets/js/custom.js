@@ -27,6 +27,9 @@ $(document).on('click', '.solsoShowModal', function(){
 	});
 });
 
+
+
+
 /* ==== Event Submit Client Form ===*/
 $( document ).on('click', '.solsoSave', function(e){
 	e.preventDefault();

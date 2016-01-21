@@ -8,9 +8,13 @@ Route::get('/',"HomeController@index");
 Route::get('sales','SaleController@sales');
 Route::get('salesform','SaleController@salesform');
 Route::get('salesproductform','SaleController@productform');
-Route::get('salespromotionform','SaleController@salespromotionform');
+Route::get('salespromotionform/{pdate}','SaleController@salespromotionform');
+Route::get('salestitleform','SaleController@salestitleform');
+Route::get('salesprovform','SaleController@salesprovform');
+Route::get('salespostform/{prov}','SaleController@salespostform');
 
 Route::get('commissionclass_cust','ComclassController@commissioncust');
+Route::get('incentive_model','IncentiveController@incentivemodel');
 
 Route::get('pcwork/{emp_code}', ['as' => 'pcwork.index', 'uses' => 'PcworkController@index']);
 Route::get('pcwork/{emp_code}/create', ['as' => 'pcwork.create', 'uses' => 'PcworkController@create']);

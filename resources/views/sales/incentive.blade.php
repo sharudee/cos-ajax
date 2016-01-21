@@ -37,4 +37,12 @@
 	@include('modals.modal-crud')
 	@include('modals.modal-delete')
 
+	<div class="modal fade modelmodal" data-backdrop="static">
+		<div class="modal-dialog modal-md">
+			<div class="modal-content" id="modelmodal">
+				
+			</div>
+		</div>
+	</div>
+
 @stop

@@ -9,14 +9,14 @@
 						<label>เลขที่</label>
 					</div>
 					<div class="col-sm-2">
-						<input type="text" name="" id="input" class="form-control input-sm">
+						<input type="text" name="doc_no" id="doc_no" class="form-control input-sm">
 					</div>
 					<div class="col-sm-1 ">
 						<label >วันที่</label>
 					</div>
 
 					<div class="col-sm-2">
-						<input type="date" name="" id="input" class="form-control input-sm">
+						<input type="date" name="doc_date" id="doc_date" class="form-control input-sm" value="">
 					</div>
 
 					<div class="col-sm-1">
@@ -43,16 +43,30 @@
 					<div class="col-sm-1">
 						<label>ชื่อลูกค้า</label>
 					</div>
-					<div class="input-group ">
-					    	<div class="col-sm-3 inline-col">
-							
-						        <select class="form-control input-sm" id="select">
-						          <option>คุณ</option>
-						          <option>นาย</option>
-						          <option>นาง</option>
-						          <option>นางสาว</option>
-						        </select>
+					
+					<div class="col-sm-3">
+						<div class="input-group ">
+
+							<input type="text" name="pmt_no" id="pmt_no" class="form-control input-sm">
+								<span class="input-group-btn">
+								<a  href="#addpmt" rel="addpromotion" class="btn btn-sm btn-primary">
+								<sapn class="glyphicon glyphicon-triangle-bottom"></span></a>
+								</sapn>
+								<input type="text" name="" id="input" class="form-control input-sm">
+									
+								
 						</div>
+					</div>	
+					
+					<div class="col-sm-2">
+						<input type="text" name="" id="input" class="form-control input-sm">
+					</div>
+
+					
+					
+
+					<!-- <div class="input-group ">
+					    	
 						<div class="col-sm-3 inline-col">
 							<input type="text" name="" id="input" class="form-control input-sm">
 						</div>
@@ -61,7 +75,7 @@
 						</div>
 
 
-					  </div>
+					  </div>-->
 
 					
 					  
@@ -87,23 +101,32 @@
 					<div class="col-sm-1">
 						<label >จังหวัด</label>
 					</div>
-					<div class="input-group ">
-					    	<div class="col-sm-5 inline-col">
-							
-						        <select class="form-control input-sm" id="select">
-						          <option>กรุงเทพมหานคร    </option>
-						          <option>          </option>
-						          <option>           </option>
-						          <option>           </option>
-						        </select>
-						</div>
-						<div class="col-sm-3 inline-col">
-							<input type="text" name="" id="input" class="form-control input-sm">
+					<div class="col-sm-2">
+					    	<div class="input-group ">
+
+							<input type="text" name="pmt_no" id="pmt_no" class="form-control input-sm">
+								<span class="input-group-btn">
+								<a  href="#addpmt" rel="addpromotion" class="btn btn-sm btn-primary">
+								<sapn class="glyphicon glyphicon-triangle-bottom"></span></a>
+								</sapn>
+						</div>		
+									
+					</div>			
+						
+						<div class="col-sm-2">
+							<div class="input-group ">
+
+							<input type="text" name="pmt_no" id="pmt_no" class="form-control input-sm">
+								<span class="input-group-btn">
+								<a  href="#addpmt" rel="addpromotion" class="btn btn-sm btn-primary">
+								<sapn class="glyphicon glyphicon-triangle-bottom"></span></a>
+								</sapn>
+							</div>
 						</div>
 
 
 						
-					  </div>
+					 
 
 					  
 					
@@ -135,7 +158,7 @@
 						<input type="file" name=""  id="input" class="form-control input-sm">
 					</div>
 					<!--<div class="col-sm-1 col-sm-offset-1">-->
-						<a class="btn btn-sm btn-primary" data-toggle="modal" href='#modal-map'>Map</a>
+						<!--<a class="btn btn-sm btn-primary" data-toggle="modal" href='#modal-map'>Map</a>
 						<div class="modal fade" id="modal-map">
 							<div class="modal-dialog">
 								<div class="modal-content">
@@ -148,16 +171,34 @@
 									</div>
 									<div class="modal-footer">
 										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-										<!--<button type="button" class="btn btn-primary">Save changes</button>-->
+										
 									</div>
 								</div>
 							</div>
-						</div>
+						</div>-->
+					<div class="col-sm-1 col-sm-offset-1">
+						<label>GP</label>
 					</div>
+					<div class="col-sm-1">
+						<input type="text" name=""  id="input" class="form-control input-sm">
+					</div>
+					<div class="col-sm-1">
+						<input type="text" name=""  id="input" class="form-control input-sm">
+					</div>
+					<div class="col-sm-1">
+						<input type="text" name=""  id="input" class="form-control input-sm">
+					</div>
+
+					</div>
+
+					
 
 					<!--<div class="col-sm-3">
 						<input type="file" name="" id="input" class="form-control input-sm">
 					</div> -->
+				
+
+
 				</div>
 
 
@@ -266,6 +307,22 @@
 			</tr>
 		</table>-->
 		
+	<div class="row form-group">
+		<div class="col-sm-2">
+			<label>ชำระเงิน</label>
+		</div>
+		<div class="col-sm-2">
+			<div class="input-group ">
+
+			
+				<input type="text" name="pmt_no" id="pmt_no" class="form-control input-sm">
+						
+					<span class="input-group-btn">
+					<a  href="#addpmt" rel="addpromotion" class="btn btn-sm btn-primary"><sapn class="glyphicon glyphicon-triangle-bottom"></span></a>
+					</sapn>			
+			</div>
+		</div>
+
 	</div>
 	
 </div>

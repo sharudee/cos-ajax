@@ -20,8 +20,13 @@
 	<link rel="stylesheet" type="text/css" href="{{ url('resources/assets/vendor/growl/jquery.growl.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ url('resources/assets/css/sweetalert.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ url('resources/assets/css/design.css') }}">
-	<link href="vendor/pickadate/compressed/themes/classic.css" rel="stylesheet">
-    	<link href="vendor/pickadate/compressed/themes/classic.date.css" rel="stylesheet">
+	
+	<!-- <link rel="stylesheet" type="text/css" href="{{ url('resources/assets/css/datepicker.css') }}"> -->
+
+
+
+	<!--<link href="vendor/pickadate/compressed/themes/classic.css" rel="stylesheet">
+    	<link href="vendor/pickadate/compressed/themes/classic.date.css" rel="stylesheet">-->
 	<!-- END CSS -->	
 </head>
 <body>

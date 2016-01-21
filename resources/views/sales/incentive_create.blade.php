@@ -40,7 +40,7 @@
 						<label>วันที่เริ่มต้น</label>
 					</div>
 					<div class="col-sm-2">
-						<input  type="date" date('Y-m-d')  name="start_date" id="start_date" class="form-control input-sm" value="<?php  if(isset($input['start_date'])) { echo Carbon::parse($input['start_date'])->format('d/m/Y'); } ?>">
+						<input  type="date" date('Y-m-d')     name="start_date" id="start_date" class="form-control input-sm" value="<?php  if(isset($input['start_date'])) { echo Carbon::parse($input['start_date'])->format('d/m/Y'); } ?>">
 						
 						{!!$errors->first('start_date','<p class="error">:message</p>')!!}
 					</div>

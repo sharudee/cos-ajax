@@ -10,6 +10,7 @@ use Validator;
 
 // Model
 use App\Http\Model\Incentive;
+use App\Http\Model\PmtProductModel;
 
 class IncentiveController extends Controller {
 
@@ -241,6 +242,16 @@ class IncentiveController extends Controller {
 			);
 	
 			return view('sales.incentive_table')->with($data_incentive);
+	}
+
+	public function incentivemodel()
+	{
+		//$cust_group = DB::table('customers')->groupBy('CustGroup')->get(['CustGroup']);
+		//dd($cust_group);
+		//return view('pages.addpoform')->with('cust_group',$cust_group);
+		$data_model = PmtProductModel::distinct()->select('pdmodel_code','pdmodel_desc')->orderBy('pdmodel_code','asc')->get();
+		//dd($data_cust);
+		return view('sales.incentive_model')->with('model',$data_model);
 	}
 
 }

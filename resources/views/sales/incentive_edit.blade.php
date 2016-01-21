@@ -45,13 +45,11 @@
 					</div>
 					<div class="col-sm-2">
 						
-						<input id="start_date" name="start_date" type="text" class="form-control input-sm" value="{{ $start_date }}" >
+						<input id="start_date" data-date-format="dd-mm-yyyy" name="start_date" type="text" class="form-control input-sm" value="{{ $start_date }}" >
 						{!!$errors->first('start_date','<p class="error">:message</p>')!!}
-
 						
-					
-					
 					</div>
+					  
 
 
 										

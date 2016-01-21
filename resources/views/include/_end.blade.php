@@ -16,9 +16,16 @@
 <script type="text/javascript" src="<?php echo URL::to('resources/assets/js/sweetalert.min.js');?>"></script>
 <script src="<?php echo URL::to('resources/assets/js/custom_sales.js');?>"></script>
 <script src="<?php echo URL::to('resources/assets/js/custom_commission.js');?>"></script>
+<script src="<?php echo URL::to('resources/assets/js/custom_incentive.js');?>"></script>
 <script src="<?php echo URL::to('resources/assets/js/custom.js');?>"></script>
-<script src="vendor/pickadate/compressed/picker.js"></script>
-<script src="vendor/pickadate/compressed/picker.date.js"></script>
+
+<!-- <script src="<?php echo URL::to('resources/assets/js/bootstrap-datepicker.js');?>"></script> -->
+
+
+
+
+<!--<script src="vendor/pickadate/compressed/picker.js"></script>
+<script src="vendor/pickadate/compressed/picker.date.js"></script>-->
 
 </body>
 </html>
