@@ -12,6 +12,7 @@ Route::get('salespromotionform/{pdate}','SaleController@salespromotionform');
 Route::get('salestitleform','SaleController@salestitleform');
 Route::get('salesprovform','SaleController@salesprovform');
 Route::get('salespostform/{prov}','SaleController@salespostform');
+Route::get('salespayform','SaleController@salespayform');
 
 Route::get('commissionclass_cust','ComclassController@commissioncust');
 Route::get('incentive_model','IncentiveController@incentivemodel');

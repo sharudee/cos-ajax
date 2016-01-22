@@ -16,8 +16,17 @@
 					</div>
 
 					<div class="col-sm-2">
-						<input type="date" name="doc_date" id="doc_date" class="form-control input-sm" value="">
+						<input type="text"  name="doc_date" id="doc_date" class="form-control input-sm" value="<?php echo date('d/m/Y'); ?>">
 					</div>
+					<script type="text/javascript">
+
+								$(function(){
+								$("#doc_date").datepicker({
+								dateFormat: 'dd/mm/yy'
+								});
+
+							});
+					</script>
 
 					<div class="col-sm-1">
 						<label>Promotion</label>
@@ -47,38 +56,21 @@
 					<div class="col-sm-3">
 						<div class="input-group ">
 
-							<input type="text" name="pmt_no" id="pmt_no" class="form-control input-sm">
+							<input type="text" name="ship_titlename" id="ship_titlename" class="form-control input-sm">
 								<span class="input-group-btn">
-								<a  href="#addpmt" rel="addpromotion" class="btn btn-sm btn-primary">
+								<a  href="#addtitle" rel="addtitle" class="btn btn-sm btn-primary">
 								<sapn class="glyphicon glyphicon-triangle-bottom"></span></a>
 								</sapn>
-								<input type="text" name="" id="input" class="form-control input-sm">
+								<input type="text" name="ship_custname" id="ship_custname" class="form-control input-sm">
 									
 								
 						</div>
 					</div>	
 					
 					<div class="col-sm-2">
-						<input type="text" name="" id="input" class="form-control input-sm">
+						<input type="text" name="ship_custsurname" id="ship_custsurname" class="form-control input-sm">
 					</div>
 
-					
-					
-
-					<!-- <div class="input-group ">
-					    	
-						<div class="col-sm-3 inline-col">
-							<input type="text" name="" id="input" class="form-control input-sm">
-						</div>
-						<div class="col-sm-4 inline-col">
-							<input type="text" name="" id="input" class="form-control input-sm">
-						</div>
-
-
-					  </div>-->
-
-					
-					  
 					
 				</div>	
 
@@ -87,10 +79,10 @@
 						<label>ที่อยู่</label>
 					</div>
 					<div class="col-sm-4">
-						<input type="text" name="" id="input" class="form-control input-sm">
+						<input type="text" name="ship_address1" id="ship_address1" class="form-control input-sm">
 					</div>
 					<div class="col-sm-4">
-						<input type="text" name="" id="input" class="form-control input-sm">
+						<input type="text" name="ship_address2" id="ship_address2" class="form-control input-sm">
 					</div>
 
 					
@@ -103,10 +95,10 @@
 					</div>
 					<div class="col-sm-2">
 					    	<div class="input-group ">
-
-							<input type="text" name="pmt_no" id="pmt_no" class="form-control input-sm">
+							<input type ="hidden" name="prov_code" id="prov_code" >
+							<input type="text" name="prov_name" id="prov_name" class="form-control input-sm">
 								<span class="input-group-btn">
-								<a  href="#addpmt" rel="addpromotion" class="btn btn-sm btn-primary">
+								<a  href="#addprov" rel="addprov" class="btn btn-sm btn-primary">
 								<sapn class="glyphicon glyphicon-triangle-bottom"></span></a>
 								</sapn>
 						</div>		
@@ -116,9 +108,9 @@
 						<div class="col-sm-2">
 							<div class="input-group ">
 
-							<input type="text" name="pmt_no" id="pmt_no" class="form-control input-sm">
+							<input type="text" name="post_code" id="post_code" class="form-control input-sm">
 								<span class="input-group-btn">
-								<a  href="#addpmt" rel="addpromotion" class="btn btn-sm btn-primary">
+								<a  href="#addpost" rel="addpost" class="btn btn-sm btn-primary">
 								<sapn class="glyphicon glyphicon-triangle-bottom"></span></a>
 								</sapn>
 							</div>
@@ -138,7 +130,7 @@
 					</div>
 
 					<div class="col-sm-2">
-						<input type="text" name="" id="input" class="form-control input-sm">
+						<input type="text" name="tel" id="tel" class="form-control input-sm">
 					</div>
 
 					<div class="col-sm-1 col-sm-offset-2">
@@ -146,7 +138,7 @@
 					</div>
 
 					<div class="col-sm-2">
-						<input type="text" name="" id="input" class="form-control input-sm">
+						<input type="text" name="email" id="email" class="form-control input-sm">
 					</div>
 				</div>
 
@@ -155,7 +147,7 @@
 						<label>PO</label>
 					</div>
 					<div class="col-sm-3">
-						<input type="file" name=""  id="input" class="form-control input-sm">
+						<input type="file" name="po"  id="po" class="form-control input-sm">
 					</div>
 					<!--<div class="col-sm-1 col-sm-offset-1">-->
 						<!--<a class="btn btn-sm btn-primary" data-toggle="modal" href='#modal-map'>Map</a>
@@ -180,87 +172,20 @@
 						<label>GP</label>
 					</div>
 					<div class="col-sm-1">
-						<input type="text" name=""  id="input" class="form-control input-sm">
+						<input type="text" name="gp1"  id="gp1" class="form-control input-sm">
 					</div>
 					<div class="col-sm-1">
-						<input type="text" name=""  id="input" class="form-control input-sm">
+						<input type="text" name="gp2"  id="gp2" class="form-control input-sm">
 					</div>
 					<div class="col-sm-1">
-						<input type="text" name=""  id="input" class="form-control input-sm">
+						<input type="text" name="gp3"  id="gp3" class="form-control input-sm">
 					</div>
 
 					</div>
 
-					
-
-					<!--<div class="col-sm-3">
-						<input type="file" name="" id="input" class="form-control input-sm">
-					</div> -->
-				
-
-
 				</div>
 
 
-				<input type ="hidden" name="_token"  value="{{csrf_token()}}">
-
-			<!-- </div>
-	<!-- <form class="form-horizontal">
-	<div class="form-group">
-		<label class="col-sm-10">PO No</label>
-		<div class="col-sm-10">
-			<input type="text" class="form-control" name="po_no" id="po_no">
-		</div>	
-	</div>	
-
-	<div class="form-group">
-		<label class="col-sm-10">Customer Group</label>
-		<div class="col-sm-10">
-			<select name="cust_group" id="cust_group" class="form-control" >
-				
-					<option value="CDS">Central</option>
-					<option value="MDS">The Mall</option>
-				
-			</select>
-		</div>	
-	</div>	
-
-	<div class="form-group">
-		<label class="col-sm-10">Custumer Code</label>
-		<div class="col-sm-10">
-			<div class="row">
-				<div class="col-md-10">
-					<input type="text" class="form-control" name="cust_code" id="cust_code">
-				</div>
-				<div class="col-md-2">
-					<a href="#addcust" rel="addcustomer" class="btn btn-block btn-primary">
-					<i class="fa fa-plus-square-o"></i>Add</a>
-				</div>
-			</div>
-		</div>	
-	</div>	
-
-	<div class="form-group">
-		<label class="col-sm-10">Custumer Name</label>
-		<div class="col-sm-10">
-			<input type="text" class="form-control" name="cust_name" id="cust_name">
-		</div>	
-	</div>	
-
-	<div class="form-group">
-		<label class="col-sm-10">Scan Barcode</label>
-		<div class="col-sm-10">
-			<div class="row">
-				<div class="col-md-10">
-					<input type="text" class="form-control" name="bar_code" id="bar_code">
-				</div>
-				<div class="col-md-2">
-					<a href="#addproduct" rel="addproduct" class="btn btn-block btn-primary">
-					<i class="fa fa-plus-square-o"></i>Add</a>
-				</div>
-			</div>
-		</div>	
-	</div>-->
 
 	<a href="#addproduct" rel="addproduct" class="btn btn-primary">Add Product </a> 
 
@@ -273,7 +198,7 @@
 		<table class='table table-bordered' id='po_table'>
 			<thead>	
 				<tr>
-					<th>ID</th>
+					<th>Item</th>
 					<th>Product Code</th>
 					<th>Product Name</th>
 					<th>Qty</th>
@@ -311,14 +236,14 @@
 		<div class="col-sm-2">
 			<label>ชำระเงิน</label>
 		</div>
-		<div class="col-sm-2">
+		<div class="col-sm-4">
 			<div class="input-group ">
 
-			
-				<input type="text" name="pmt_no" id="pmt_no" class="form-control input-sm">
+				<input type ="hidden" name="pay_code" id="pay_code" >
+				<input type="text" name="pay_name" id="pay_name" class="form-control input-sm">
 						
 					<span class="input-group-btn">
-					<a  href="#addpmt" rel="addpromotion" class="btn btn-sm btn-primary"><sapn class="glyphicon glyphicon-triangle-bottom"></span></a>
+					<a  href="#addpay" rel="addpay" class="btn btn-sm btn-primary"><sapn class="glyphicon glyphicon-triangle-bottom"></span></a>
 					</sapn>			
 			</div>
 		</div>

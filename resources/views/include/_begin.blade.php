@@ -21,7 +21,8 @@
 	<link rel="stylesheet" type="text/css" href="{{ url('resources/assets/css/sweetalert.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ url('resources/assets/css/design.css') }}">
 	
-	<!-- <link rel="stylesheet" type="text/css" href="{{ url('resources/assets/css/datepicker.css') }}"> -->
+	<link rel="stylesheet" media="all" type="text/css" href="{{ url('resources/assets/css/jquery-ui.css') }}" />
+	<link rel="stylesheet" media="all" type="text/css" href="{{ url('resources/assets/css/jquery-ui-timepicker-addon.css') }}" />
 
 
 

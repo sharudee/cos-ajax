@@ -78,11 +78,53 @@
 
 
 
-	<!-- Modal Customer -->
+	<!-- Modal Promotion -->
 
 	<div class="modal fade custmodal" data-backdrop="static">
 		<div class="modal-dialog modal-md">
 			<div class="modal-content" id="custmodal">
+				
+			</div>
+		</div>
+	</div>
+	
+
+	<!-- Modal Title Name -->
+
+	<div class="modal fade titlemodal" data-backdrop="static">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content" id="titlemodal">
+				
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal Province -->
+
+	<div class="modal fade provmodal" data-backdrop="static">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content" id="provmodal">
+				
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal Post Code -->
+
+	<div class="modal fade postmodal" data-backdrop="static">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content" id="postmodal">
+				
+			</div>
+		</div>
+	</div>
+
+
+	<!-- Modal Payment -->
+
+	<div class="modal fade paymodal" data-backdrop="static">
+		<div class="modal-dialog modal-md">
+			<div class="modal-content" id="paymodal">
 				
 			</div>
 		</div>

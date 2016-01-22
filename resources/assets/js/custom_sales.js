@@ -10,31 +10,27 @@ $(function(){
 
 
 	// Event Add Customer Form
-	$('body').on('click','a[rel=addcustomer]',function(){
+	/*$('body').on('click','a[rel=addcustomer]',function(){
 		$.get('customerform/'+$('select#cust_group').val(),function(data){
 			$("#custmodal").html(data);
 			// เปิด modal
 			$(".custmodal").modal('show');
 		});
-	});
+	});*/
 
 	// Event Add Promotion Form
 	$('body').on('click','a[rel=addpromotion]',function(){
-		$.get('salespromotionform',function(data){
+		var idate = $('input#doc_date').val();
+		var darr = idate.split('/');
+		var vdate = darr[2]+'-'+darr[1]+'-'+darr[0];
+		$.get('salespromotionform/'+vdate,function(data){
 			$("#custmodal").html(data);
 			// เปิด modal
 			$(".custmodal").modal('show');
 		});
 	});
 
-	// Event submit Customer
-	$('body').on('click','button#submitcust',function(){
-		var cuscode = $('input[name=radcus]:checked').val();
-		var cusname = $('input[name=radcus]:checked').attr('data-custname');
-		$('input[name=cust_code]').val(cuscode);
-		$('input[name=cust_name]').val(cusname);
-		$(".custmodal").modal('hide');
-	});
+	
 
 	// Event submit promotion
 	$('body').on('click','button#submitpmt',function(){
@@ -44,6 +40,87 @@ $(function(){
 		//$('input[name=cust_name]').val(cusname);
 		$(".custmodal").modal('hide');
 	});
+
+
+	// Event Add Title Form
+	$('body').on('click','a[rel=addtitle]',function(){
+		
+		$.get('salestitleform',function(data){
+			$("#titlemodal").html(data);
+			// เปิด modal
+			$(".titlemodal").modal('show');
+		});
+	});
+
+	// Event submit Title
+	$('body').on('click','button#submittitle',function(){
+		var title = $('input[name=radcus]:checked').val();
+		//var cusname = $('input[name=radcus]:checked').attr('data-custname');
+		$('input[name=ship_titlename]').val(title);
+		$(".titlemodal").modal('hide');
+	});
+
+
+	// Event Add Province Form
+	$('body').on('click','a[rel=addprov]',function(){
+		
+		$.get('salesprovform',function(data){
+			$("#provmodal").html(data);
+			// เปิด modal
+			$(".provmodal").modal('show');
+		});
+	});
+
+	// Event submit Province
+	$('body').on('click','button#submitprov',function(){
+		var provcode = $('input[name=radcus]:checked').val();
+		var provname = $('input[name=radcus]:checked').attr('data-provname');
+		$('input[name=prov_code]').val(provcode);
+		$('input[name=prov_name]').val(provname);
+		$(".provmodal").modal('hide');
+	});
+
+
+
+	// Event Add Post code Form
+	$('body').on('click','a[rel=addpost]',function(){
+		
+		$.get('salespostform/'+$('input#prov_code').val(),function(data){
+			$("#postmodal").html(data);
+			// เปิด modal
+			$(".postmodal").modal('show');
+		});
+	});
+
+	// Event submit Post Code
+	$('body').on('click','button#submitpost',function(){
+		var postcode = $('input[name=radcus]:checked').val();
+
+		$('input[name=post_code]').val(postcode);
+		$(".postmodal").modal('hide');
+	});
+
+
+	// Event Add Payment Form
+	$('body').on('click','a[rel=addpay]',function(){
+		
+		$.get('salespayform',function(data){
+			$("#paymodal").html(data);
+			// เปิด modal
+			$(".paymodal").modal('show');
+		});
+	});
+
+	// Event submit Post Code
+	$('body').on('click','button#submitpay',function(){
+		var paycode = $('input[name=radcus]:checked').val();
+		var payname = $('input[name=radcus]:checked').attr('data-payname');
+
+		$('input[name=pay_code]').val(paycode);
+		$('input[name=pay_name]').val(payname);
+		$(".paymodal").modal('hide');
+	});
+
 
 
 	// Event Add Product Form

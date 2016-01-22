@@ -20,7 +20,8 @@
 					<div class="col-sm-2">
 						<div class="input-group ">
 
-						
+							
+
 							<input type="text" name="pdmodel_code" id="pdmodel_code" class="form-control input-sm required" value="{{ $incentive['pdmodel_code'] }}">
 							{!!$errors->first('pdmodel_code','<p class="error">:message</p>')!!}
 							<span class="input-group-btn">
@@ -45,12 +46,20 @@
 					</div>
 					<div class="col-sm-2">
 						
-						<input id="start_date" data-date-format="dd-mm-yyyy" name="start_date" type="text" class="form-control input-sm" value="{{ $start_date }}" >
+						<input id="start_date"  name="start_date" type="text" class="form-control input-sm" value="{{ $start_date }}" >
 						{!!$errors->first('start_date','<p class="error">:message</p>')!!}
 						
 					</div>
 					  
+					<script type="text/javascript">
 
+								$(function(){
+								$("#start_date").datepicker({
+								dateFormat: 'dd/mm/yy'
+								});
+
+							});
+					</script>
 
 										
 				</div>
@@ -63,7 +72,16 @@
 						<input type="text" name="end_date" id="end_date" class="form-control input-sm" value="{{ $end_date }}">
 						{!!$errors->first('end_date','<p class="error">:message</p>')!!}
 					</div>
+					
+					<script type="text/javascript">
 
+								$(function(){
+								$("#end_date").datepicker({
+								dateFormat: 'dd/mm/yy'
+								});
+
+							});
+					</script>
 										
 				</div>
 				
