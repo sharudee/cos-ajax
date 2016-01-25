@@ -9,7 +9,7 @@
 						<label>เลขที่</label>
 					</div>
 					<div class="col-sm-2">
-						<input type="text" name="doc_no" id="doc_no" class="form-control input-sm">
+						<input type="text" name="doc_no" id="doc_no" class="form-control input-sm" value="{{$doc_no}}" readonly>
 					</div>
 					<div class="col-sm-1 ">
 						<label >วันที่</label>
@@ -204,17 +204,19 @@
 					<th>Qty</th>
 					<th>Price</th>
 					<th>Amount</th>
+					<th>Special Size</th>
 					<th>Action</th>
 					</tr>
 					</thead>		
 			<tbody>
-				<tr>
+				<!--<tr>
 					<td colspan=3></td>
 					<td><span id='total_qty'></span></td>
 					<td></td>
 					<td><span id='total_price'></span></td>
 					<td></td>
-				</tr>
+					<td></td>
+				</tr>-->
 				
 
 			</tbody>
@@ -223,14 +225,16 @@
 			
 		</table>
 
-		<!--<table class='table table-bordered'>
+		<table class='table '>
 			<tr>
-					<td colspan=3></td>
+					<td >จำนวนสินค้า</td>
 					<td><span id='total_qty'></span></td>
+					<td>ราคารวมทั้งสิ้น</td>
 					<td><span id='total_price'></span></td>
 					<td></td>
+					<td></td>
 			</tr>
-		</table>-->
+		</table>
 		
 	<div class="row form-group">
 		<div class="col-sm-2">

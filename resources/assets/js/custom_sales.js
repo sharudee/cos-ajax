@@ -111,7 +111,7 @@ $(function(){
 		});
 	});
 
-	// Event submit Post Code
+	// Event submit Payment
 	$('body').on('click','button#submitpay',function(){
 		var paycode = $('input[name=radcus]:checked').val();
 		var payname = $('input[name=radcus]:checked').attr('data-payname');
@@ -157,20 +157,50 @@ $(function(){
 
 			var rowCount = $('#po_table tr').length; // นับจำนวนแถวของตาราง
 			var mytable;
+			//var i=1;
+			table = document.getElementById('po_table');
+  			//new_row = table.insertRow(table.rows.length);
+
 			for(rows=1;rows<=procode.length;rows++)
 			{
-				mytable += "<tr>"+
-						"<td>"+((rowCount+rows)-2)+"</td>"+
+				/*mytable += "<tr>"+
+						//"<td>"+((rowCount+rows)-2)+"</td>"+
+						"<td>"+i+"</td>"+
 						"<td>"+procode[(rows-1)]+"<input type='hidden' name='procode[]' value='"+procode[(rows-1)]+"'></td>"+
 						"<td>"+proname[(rows-1)]+"<input type='hidden' name='proname[]' value='"+proname[(rows-1)]+"'></td>"+
-						"<td><input type=\"text\" name=\"qty[]\" id=\"qty\" class=\"form-control\" value='"+qty[(rows-1)]+"'></td>"+
-						"<td><input type=\"text\" name=\"price[]\" id=\"price\" class=\"form-control\" value='"+price[(rows-1)]+"'></td>"+
-						"<td><input type=\"text\" name=\"price[]\" id=\"price\" class=\"form-control\" value='"+price[(rows-1)]+"'></td>"+
+						"<td><input type=\"text\" name=\"qty[]\" id=\"qty\" class=\"form-control\" style=\"width: 50px;\" value='"+qty[(rows-1)]+"'></td>"+
+						"<td><input type=\"text\" name=\"price[]\" id=\"price\" class=\"form-control\" style=\"width: 100px;\" value='"+price[(rows-1)]+"'></td>"+
+						"<td><input type=\"text\" name=\"price[]\" id=\"price\" class=\"form-control\"  style=\"width: 100px;\"value='"+price[(rows-1)]+"'></td>"+
+						"<td><div class=\"form-inline\"><div class=\"checkbox\"><label><input type=\"checkbox\" name=\"sp_size\" value=\"\"></label> <input type=\"text\" name=\"sp_size_desc\" id=\"sp_size_desc\" class=\"form-control\"  style=\"width: 50px;\" value=\"\"></div></div></td>"+
 						"<td><a href=\"#delete\" rel='pro_delete' class=\"btn btn-sm btn-danger\">Delete</a></td>"+
-					        "</tr>";        
+					        "</tr>"; 
+				*/
+				new_row = table.insertRow(table.rows.length);
+				data = rowCount ;
+				new_row.insertCell(0).innerHTML = data;
+				data = procode[(rows-1)]+'<input type="hidden" name="procode[]" value="'+procode[(rows-1)]+'">';
+				new_row.insertCell(1).innerHTML = data;
+				
+				data = proname[(rows-1)]+'<input type="hidden" name="proname[]" value="'+proname[(rows-1)]+'">';
+				new_row.insertCell(2).innerHTML = data;
+				
+				data = '<input type="text" name="qty[]" id="qty" class="form-control" style="width: 50px;" value="'+qty[(rows-1)]+'">';
+				new_row.insertCell(3).innerHTML = data;
+				data = '<input type="text" name="price[]" id="price" class="form-control" style="width: 100px;" value="'+price[(rows-1)]+'">';
+				new_row.insertCell(4).innerHTML = data;
+				data = '<input type="text" name="amt[]" id="amt" class="form-control" style="width: 100px;" value="'+qty[(rows-1)]*price[(rows-1)]+'">';
+				new_row.insertCell(5).innerHTML = data;
+				data = '<div class="form-inline"><div class="checkbox"><label><input type="checkbox" name="sp_size" value=""></label> <input type="text" name="sp_size_desc" id="sp_size_desc" class="form-control"  style="width: 50px;" value=""></div></div></td>';
+				new_row.insertCell(6).innerHTML = data;
+				data = '<a href="#delete" rel="pro_delete" class="btn btn-sm btn-danger">Delete</a>';
+				new_row.insertCell(7).innerHTML = data;
+
+				rowCount++;
+				//i = i+rows;       
 			}
 
-			$('#po_table tbody').prepend(mytable);
+			//new_row.insertCell(0).innerHTML = data;
+			//$('#po_table tbody').prepend(mytable);
 
 			// เรียกใช้ฟังก์ชันนับจำนวนรายการและราคารวม
 			sum_qty_and_price();
@@ -187,10 +217,24 @@ $(function(){
 	// $("body").on("click","a[rel=testprepend]",function(){
 	// 	$('#po_table tbody').prepend('<tr><td>xxx</td><td>xxx</td><td>xxx</td><td>xxx</td><td>xxx</td><td>xxx</td></tr>');
 	// });
+	
+	
+
+ 
+	/*$('body').on("input","input#qty[],input#price[],input#amt[]").keyup(function(){
+
+		var amt = parseFloat($("input[name='qty[]']").val())*parseFloat($("input[name='price[]']").val());
+		     
+		$("input[name='amt[]']").val(amt);
+
+	});
+	*/
+
 
 
 	// หาผลรวมของจำนวนชิ้น
 	$('body').on("input","input#qty,input#price",function(){
+
 		sum_qty_and_price();
 	});
 
@@ -207,9 +251,11 @@ $(function(){
 		var rows;
 		var total_qty = 0;
 		var total_price = 0;
+		var amt = 0;
 
 		var pro_qty = [];
 		var pro_price = [];
+		
 
 		// เก็บจำนวนชิ้นลง array
 		$("input[name='qty[]']").each(function ()
@@ -225,6 +271,9 @@ $(function(){
 
 		for(rows=1;rows<=pro_qty.length;rows++)
 		{
+			
+			
+
 			total_qty += pro_qty[(rows-1)];
 			total_price += pro_qty[(rows-1)]*pro_price[(rows-1)];
 		}

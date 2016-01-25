@@ -6,17 +6,19 @@
 	<table class="table table-border">
 				<tbody>
 					
+					@foreach($pmt as $dbarr)
 					<tr>
 						<td>
 							<div class="radio">
 								<label>
-									<input type="radio" name="radcus" data-custname="" value="MBS2015001">
-									MBS2015001
+									<input type="radio" name="radcus" data-custname="" value="{{$dbarr->pmt_no}}">
+									{{$dbarr->pmt_no}}
 								</label>
 							</div>
 						</td>
-						<td>Sealy Brand Sale # 2 Mail Super Shock</td>
+						<td>{{$dbarr->pmt_name}}</td>
 					</tr>
+					@endforeach
 					
 				</tbody>
 	</table>		

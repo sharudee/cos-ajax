@@ -12,6 +12,8 @@ use App\Http\Model\Provmast;
 use App\Http\Model\Postmast;
 use App\Http\Model\PmtMastModel;
 use App\Http\Model\PmtTransMastModel;
+use App\Http\Model\Entity;
+use App\Http\Model\Docmast;
 
 class SaleController extends Controller {
 
@@ -25,10 +27,16 @@ class SaleController extends Controller {
 
 	public function salesform()
 	{
-		//$cust_group = DB::table('customers')->groupBy('CustGroup')->get(['CustGroup']);
-		//dd($cust_group);
-		//return view('pages.addpoform')->with('cust_group',$cust_group);
-		return view('sales.add_salesform');
+		$doc_code = DB::table('doc_mast')->where('doc_code', 'PO')->pluck('doc_code');
+		$cos_no = DB::table('entity')->where('entity_code', 'CXXXX')->pluck('cos_no');
+		
+		$doc_head = $doc_code . $cos_no. date('ym');
+
+		$sql = "select ifnull(substr(max(doc_no),-1,4),0)+1 no  from cos_invmast where doc_no like '" . $doc_head . "%'";
+		$data = DB::select($sql);
+		$doc_no = $doc_head . str_pad($data[0]->no,4,'0',STR_PAD_LEFT);
+		//dd($data[0]->no);
+		return view('sales.add_salesform')->with('doc_no',$doc_no);
 	}
 
 	public function productform()
@@ -41,13 +49,12 @@ class SaleController extends Controller {
 
 	public function salespromotionform($pdate)
 	{
-		$data_pmt = DB::table('pmt_mast')->join('pmt_consignee', function($join)
-				        {
-				            $join->on('pmt_mast.pmt_mast_id', '=', 'pmt_consignee.pmt_mast_id')->where('pmt_consignee.entity_code', '>', 'CXXXX')->where('pmt_mast.start_date','<=',$pdate)->where('pmt_mast.end_date','>=',$pdate);
-				        })->get();
-		dd($data_pmt);
-		//return view('pages.addpoform')->with('cust_group',$cust_group);
-		return view('sales.salespromotionform');
+		$sql = "select * from pmt_mast , pmt_consignee where pmt_mast.pmt_mast_id = pmt_consignee.pmt_mast_id and pmt_mast.start_date <='" . $pdate . "' and pmt_mast.end_date >='" . $pdate . "' and pmt_consignee.entity_code='CXXXX'";
+		
+		$data_pmt = DB:: select($sql);
+		//dd($data_pmt);
+		
+		return view('sales.salespromotionform')->with('pmt',$data_pmt);
 	}
 
 	public function salestitleform()
