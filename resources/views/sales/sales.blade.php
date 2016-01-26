@@ -132,7 +132,7 @@
 
 
 	<!-- Modal Product -->
-
+	
 	<div class="modal fade productmodal" data-backdrop="static">
 		<div class="modal-dialog modal-md">
 			<div class="modal-content" id="productmodal">

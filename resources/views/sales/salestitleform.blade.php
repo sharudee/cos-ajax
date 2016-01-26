@@ -11,7 +11,7 @@
 						<td>
 							<div class="radio">
 								<label>
-									<input type="radio" name="radcus"  value="{{$dbarr->title_name}}">
+									<input type="radio" id="radtitle" name="radtitle"  value="{{$dbarr->title_name}}">
 									{{$dbarr->title_name}}
 								</label>
 							</div>

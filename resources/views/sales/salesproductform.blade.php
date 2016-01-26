@@ -5,44 +5,27 @@
 <div class="modal-body">
 	<table class="table table-bordered">
 		<tbody>
+			@foreach($prod as $dbarr)
+			<tr>
+				<td>
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" name="product[]" 
+							data-proname="{{$dbarr->pdmodel_desc}}" 
+							data-qty="1"
+							data-price="{{$dbarr->special1_price_amt}}"
+							value="{{$dbarr->pdmodel_code}}">
+							{{$dbarr->pdmodel_code}}
+						</label>
+					</div>
+				</td>
+				<td>{{$dbarr->pdmodel_desc}}</td>
+				<td>{{$dbarr->pdsize_desc}}</td>
+				<td>{{$dbarr->special1_price_amt}}</td>
+				
+			</tr>
+			@endforeach
 			
-			<tr>
-				<td>
-					<div class="checkbox">
-						<label>
-							<input type="checkbox" name="product[]" 
-							data-proname="EVEREST" 
-							data-qty="1"
-							data-price="12000"
-							value="SET01">
-							SET01
-						</label>
-					</div>
-				</td>
-				<td>EVEREST</td>
-				<td><input type="text" name="pqty[]" id="pqty" class="form-control" value="1"></td>
-				<td><input type="text" name="pprice[]" id="pprice" class="form-control" value="12000"></td>
-				
-			</tr>
-
-			<tr>
-				<td>
-					<div class="checkbox">
-						<label>
-							<input type="checkbox" name="product[]" 
-							data-proname="KINGDOM" 
-							data-qty="1"
-							data-price="12000"
-							value="SET02">
-							SET02
-						</label>
-					</div>
-				</td>
-				<td>KINGDOM</td>
-				<td><input type="text" name="pqty[]" id="pqty" class="form-control" value="1"></td>
-				<td><input type="text" name="pprice[]" id="pprice" class="form-control" value="15000"></td>
-				
-			</tr>
 			
 		</tbody>
 	</table>

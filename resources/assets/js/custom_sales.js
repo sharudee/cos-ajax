@@ -30,14 +30,20 @@ $(function(){
 		});
 	});
 
-	
+	$('body').on('change','input[name="radpmt"]', function() {
+	  	var pmt_no = $('input[name=radpmt]:checked').val();
+		var gp = $('input[name=radpmt]:checked').attr('data-gp');
+		$('input[name=pmt_no]').val(pmt_no);
+		$('input[name=gp1]').val(gp);
+		$(".custmodal").modal('hide');
+	});	
 
 	// Event submit promotion
 	$('body').on('click','button#submitpmt',function(){
-		var pmt_no = $('input[name=radcus]:checked').val();
-		//var cusname = $('input[name=radcus]:checked').attr('data-custname');
+		var pmt_no = $('input[name=radpmt]:checked').val();
+		var gp = $('input[name=radpmt]:checked').attr('data-gp');
 		$('input[name=pmt_no]').val(pmt_no);
-		//$('input[name=cust_name]').val(cusname);
+		$('input[name=gp1]').val(gp);
 		$(".custmodal").modal('hide');
 	});
 
@@ -49,12 +55,27 @@ $(function(){
 			$("#titlemodal").html(data);
 			// เปิด modal
 			$(".titlemodal").modal('show');
+
+
 		});
 	});
 
+
+	$('body').on('change','input[name="radtitle"]', function() {
+	  //var radioValue = $('input[name="radcus"]:checked').val();        
+	  //alert(radioValue); 
+	  	var title = $('input[name=radtitle]:checked').val();
+		//var cusname = $('input[name=radcus]:checked').attr('data-custname');
+		$('input[name=ship_titlename]').val(title);
+		$(".titlemodal").modal('hide');
+	});	
+
+
+   	
+
 	// Event submit Title
 	$('body').on('click','button#submittitle',function(){
-		var title = $('input[name=radcus]:checked').val();
+		var title = $('input[name=radtitle]:checked').val();
 		//var cusname = $('input[name=radcus]:checked').attr('data-custname');
 		$('input[name=ship_titlename]').val(title);
 		$(".titlemodal").modal('hide');
@@ -68,13 +89,25 @@ $(function(){
 			$("#provmodal").html(data);
 			// เปิด modal
 			$(".provmodal").modal('show');
+
 		});
+
+
+
 	});
+
+	$('body').on('change','input[name="radprov"]', function() {
+	 	var provcode = $('input[name=radprov]:checked').val();
+		var provname = $('input[name=radprov]:checked').attr('data-provname');
+		$('input[name=prov_code]').val(provcode);
+		$('input[name=prov_name]').val(provname);
+		$(".provmodal").modal('hide');
+	});	
 
 	// Event submit Province
 	$('body').on('click','button#submitprov',function(){
-		var provcode = $('input[name=radcus]:checked').val();
-		var provname = $('input[name=radcus]:checked').attr('data-provname');
+		var provcode = $('input[name=radprov]:checked').val();
+		var provname = $('input[name=radprov]:checked').attr('data-provname');
 		$('input[name=prov_code]').val(provcode);
 		$('input[name=prov_name]').val(provname);
 		$(".provmodal").modal('hide');
@@ -92,9 +125,18 @@ $(function(){
 		});
 	});
 
+
+	$('body').on('change','input[name="radpost"]', function() {
+	 	var postcode = $('input[name=radpost]:checked').val();
+
+		$('input[name=post_code]').val(postcode);
+		$(".postmodal").modal('hide');
+	});
+
+
 	// Event submit Post Code
 	$('body').on('click','button#submitpost',function(){
-		var postcode = $('input[name=radcus]:checked').val();
+		var postcode = $('input[name=radpost]:checked').val();
 
 		$('input[name=post_code]').val(postcode);
 		$(".postmodal").modal('hide');
@@ -111,10 +153,19 @@ $(function(){
 		});
 	});
 
+	$('body').on('change','input[name="radpay"]', function() {
+	  	var paycode = $('input[name=radpay]:checked').val();
+		var payname = $('input[name=radpay]:checked').attr('data-payname');
+
+		$('input[name=pay_code]').val(paycode);
+		$('input[name=pay_name]').val(payname);
+		$(".paymodal").modal('hide');
+	});
+
 	// Event submit Payment
 	$('body').on('click','button#submitpay',function(){
-		var paycode = $('input[name=radcus]:checked').val();
-		var payname = $('input[name=radcus]:checked').attr('data-payname');
+		var paycode = $('input[name=radpay]:checked').val();
+		var payname = $('input[name=radpay]:checked').attr('data-payname');
 
 		$('input[name=pay_code]').val(paycode);
 		$('input[name=pay_name]').val(payname);
@@ -125,7 +176,7 @@ $(function(){
 
 	// Event Add Product Form
 	$('body').on('click','a[rel=addproduct]',function(){
-		$.get('salesproductform',function(data){
+		$.get('salesproductform/'+$('input#pmt_no').val(),function(data){
 			$("#productmodal").html(data);
 			// เปิด modal
 			$(".productmodal").modal('show');
@@ -184,7 +235,7 @@ $(function(){
 				data = proname[(rows-1)]+'<input type="hidden" name="proname[]" value="'+proname[(rows-1)]+'">';
 				new_row.insertCell(2).innerHTML = data;
 				
-				data = '<input type="text" name="qty[]" id="qty" class="form-control" style="width: 50px;" value="'+qty[(rows-1)]+'">';
+				data = '<input type="text" name="qty[]" id="qty" class="form-control" style="width: 50px;" data-price="' +price[(rows-1)] +'"value="'+qty[(rows-1)]+'">';
 				new_row.insertCell(3).innerHTML = data;
 				data = '<input type="text" name="price[]" id="price" class="form-control" style="width: 100px;" value="'+price[(rows-1)]+'">';
 				new_row.insertCell(4).innerHTML = data;
@@ -211,6 +262,33 @@ $(function(){
 		}
 	
 	});
+	
+
+	$('body').on('change','input[name="qty[]"]', function() {
+		var amt = 0;
+		$("input[name='qty[]']").each(function (index) {
+			var qty = 0;
+			var price = parseFloat($(this).attr('data-price'));
+			qty = parseInt($(this).val()) || 0;
+			
+			amt = qty * price;
+			alert(qty);
+			alert(price);
+			alert(amt);
+			alert(index);
+			var that = this;
+			$("input[name='amt[0]']", this).each(function () {
+				$(this).val(amt);
+			});
+			
+
+		});
+		
+		
+		
+		
+		
+	})
 
 	
 	// Test Prepend
@@ -245,16 +323,21 @@ $(function(){
 	});
 
 
+	
+
+
 	// ฟังก์ชันคำนวนจำนวนชิ้นทั้งหมดและราคาสุทธิ
 	function sum_qty_and_price()
 	{
 		var rows;
+		var i;
 		var total_qty = 0;
 		var total_price = 0;
 		var amt = 0;
 
 		var pro_qty = [];
 		var pro_price = [];
+		var pro_amt = [];
 		
 
 		// เก็บจำนวนชิ้นลง array
@@ -267,16 +350,29 @@ $(function(){
 		$("input[name='price[]']").each(function ()
 		{
 			pro_price.push(parseInt($(this).val()));
+
 		});
 
 		for(rows=1;rows<=pro_qty.length;rows++)
 		{
 			
-			
+			amt = pro_qty[(rows-1)] * pro_price[(rows-1)];
+			pro_amt.push(parseInt(amt));
+
+			//$("input[name='amt[]']")[(rows-1)] = pro_amt[(rows-1)];
+
 
 			total_qty += pro_qty[(rows-1)];
 			total_price += pro_qty[(rows-1)]*pro_price[(rows-1)];
 		}
+
+		
+		
+	
+
+		
+
+		console.log(pro_amt);
 
 		$("span#total_qty").text(total_qty);
 		$("span#total_price").text(total_price.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,'));

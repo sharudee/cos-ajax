@@ -39,12 +39,12 @@ class SaleController extends Controller {
 		return view('sales.add_salesform')->with('doc_no',$doc_no);
 	}
 
-	public function productform()
+	public function productform($pmt_no)
 	{
-		//$cust_group = DB::table('customers')->groupBy('CustGroup')->get(['CustGroup']);
-		//dd($cust_group);
-		//return view('pages.addpoform')->with('cust_group',$cust_group);
-		return view('sales.salesproductform');
+		$sql = "select b.pdmodel_code , b.pdmodel_desc , b.pdsize_code , b.pdsize_desc, b.special1_price_amt , b.special2_price_amt from pmt_mast a , pmt_package_mast b where a.pmt_mast_id=b.pmt_mast_id and a.pmt_no='" . $pmt_no . "'";
+		$data = DB::select($sql); 
+
+		return view('sales.salesproductform')->with('prod',$data);
 	}
 
 	public function salespromotionform($pdate)
