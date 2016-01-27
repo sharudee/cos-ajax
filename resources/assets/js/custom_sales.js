@@ -174,6 +174,9 @@ $(function(){
 
 
 
+
+
+
 	// Event Add Product Form
 	$('body').on('click','a[rel=addproduct]',function(){
 		$.get('salesproductform/'+$('input#pmt_no').val(),function(data){
@@ -227,6 +230,7 @@ $(function(){
 					        "</tr>"; 
 				*/
 				new_row = table.insertRow(table.rows.length);
+				new_row.className="rprod";
 				data = rowCount ;
 				new_row.insertCell(0).innerHTML = data;
 				data = procode[(rows-1)]+'<input type="hidden" name="procode[]" value="'+procode[(rows-1)]+'">';
@@ -236,12 +240,21 @@ $(function(){
 				new_row.insertCell(2).innerHTML = data;
 				
 				data = '<input type="text" name="qty[]" id="qty" class="form-control" style="width: 50px;" data-price="' +price[(rows-1)] +'"value="'+qty[(rows-1)]+'">';
-				new_row.insertCell(3).innerHTML = data;
-				data = '<input type="text" name="price[]" id="price" class="form-control" style="width: 100px;" value="'+price[(rows-1)]+'">';
-				new_row.insertCell(4).innerHTML = data;
-				data = '<input type="text" name="amt[]" id="amt" class="form-control" style="width: 100px;" value="'+qty[(rows-1)]*price[(rows-1)]+'">';
-				new_row.insertCell(5).innerHTML = data;
-				data = '<div class="form-inline"><div class="checkbox"><label><input type="checkbox" name="sp_size" value=""></label> <input type="text" name="sp_size_desc" id="sp_size_desc" class="form-control"  style="width: 50px;" value=""></div></div></td>';
+				newcell = new_row.insertCell(3)
+				newcell.innerHTML  = data;
+				newcell.className = "c_qty";
+				//data = '<input type="text" name="price[]" id="price" class="form-control" style="width: 100px;" value="'+price[(rows-1)]+'">';
+				data = price[(rows-1)]+'<input type="hidden" name="price[]" value="'+price[(rows-1)]+'">';
+				newcell = new_row.insertCell(4)
+				newcell.innerHTML  = data;
+				newcell.className = "c_price";
+				//data = '<input type="text" name="amt[]" id="amt" class="form-control" style="width: 100px;" value="'+qty[(rows-1)]*price[(rows-1)]+'">';
+				data = qty[(rows-1)]*price[(rows-1)];
+				newcell = new_row.insertCell(5)
+				newcell.innerHTML  = data;
+				newcell.className = "c_amt";
+
+				data = '<div class="form-inline"><div class="checkbox"><label><input type="checkbox" name="sp_size[]"  value="Y"></label> <input type="text" name="sp_size_desc[]" id="sp_size_desc" class="form-control"  style="width: 50px;" value=""></div></div></td>';
 				new_row.insertCell(6).innerHTML = data;
 				data = '<a href="#delete" rel="pro_delete" class="btn btn-sm btn-danger">Delete</a>';
 				new_row.insertCell(7).innerHTML = data;
@@ -263,33 +276,25 @@ $(function(){
 	
 	});
 	
+	
 
-	$('body').on('change','input[name="qty[]"]', function() {
-		var amt = 0;
-		$("input[name='qty[]']").each(function (index) {
-			var qty = 0;
-			var price = parseFloat($(this).attr('data-price'));
-			qty = parseInt($(this).val()) || 0;
-			
-			amt = qty * price;
-			alert(qty);
-			alert(price);
-			alert(amt);
-			alert(index);
-			var that = this;
-			$("input[name='amt[0]']", this).each(function () {
-				$(this).val(amt);
+
+	$('body').on('change','td.c_qty input', function() {
+		$('.rprod').each(function(){
+			var price = parseFloat($('td.c_price',this).text().replace(/^[^\d.]*/,''));
+			price = isNaN(price) ? 0 : price;
+			var qty = parseInt($('td.c_qty input',this).val());
+			var amt = qty * price;
+			$('td.c_amt',this).text(amt);
+
+			//alert("Loop");
+		
 			});
-			
+			//alert("ok");
+	});
 
-		});
-		
-		
-		
-		
-		
-	})
 
+	
 	
 	// Test Prepend
 	// $("body").on("click","a[rel=testprepend]",function(){
@@ -297,18 +302,6 @@ $(function(){
 	// });
 	
 	
-
- 
-	/*$('body').on("input","input#qty[],input#price[],input#amt[]").keyup(function(){
-
-		var amt = parseFloat($("input[name='qty[]']").val())*parseFloat($("input[name='price[]']").val());
-		     
-		$("input[name='amt[]']").val(amt);
-
-	});
-	*/
-
-
 
 	// หาผลรวมของจำนวนชิ้น
 	$('body').on("input","input#qty,input#price",function(){
@@ -356,23 +349,18 @@ $(function(){
 		for(rows=1;rows<=pro_qty.length;rows++)
 		{
 			
-			amt = pro_qty[(rows-1)] * pro_price[(rows-1)];
-			pro_amt.push(parseInt(amt));
-
-			//$("input[name='amt[]']")[(rows-1)] = pro_amt[(rows-1)];
-
-
+			
 			total_qty += pro_qty[(rows-1)];
 			total_price += pro_qty[(rows-1)]*pro_price[(rows-1)];
 		}
 
 		
 		
-	
+		
 
 		
 
-		console.log(pro_amt);
+		//console.log(pro_amt);
 
 		$("span#total_qty").text(total_qty);
 		$("span#total_price").text(total_price.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,'));
@@ -381,18 +369,31 @@ $(function(){
 
 
 	// Event Submit Order
+	
 	$('body').on("click",'button#SubmitOrder',function(){
 
-		swal("Record Save!", "บันทึกรายการเรียบร้อย!", "success");
-					// ปิด modal
-		$(".pomodal").modal('hide');
-	});
-	/*$('body').on("click",'button#SubmitOrder',function(){
-
-		var po_no = $("input#po_no").val();
-		var cust_group = $("select#cust_group").val();
-		var cust_code = $("input#cust_code").val();
-		var cust_name = $("input#cust_name").val();
+		var doc_no = $("input#doc_no").val();
+		var doc_date = $("input#doc_date").val();
+		var req_date = $("input#req_date").val();
+		var pmt_no = $("input#pmt_no").val();
+		var ship_titlename = $("input#ship_titlename").val();
+		var ship_custname = $("input#ship_custname").val();
+		var ship_custsurname = $("input#ship_custsurname").val();
+		var ship_address1 = $("input#ship_address1").val();
+		var ship_address2 = $("input#ship_address2").val();
+		var ship_titlename = $("input#ship_titlename").val();
+		var prov_code = $("input#prov_code").val();
+		var prov_name = $("input#prov_name").val();
+		var post_code = $("input#post_code").val();
+		var tel = $("input#tel").val();
+		var email_address = $("input#email").val();
+		var po_file = $("file#po").val();
+		var gp1 = $("input#gp1").val();
+		var gp2 = $("input#gp2").val();
+		var gp3 = $("input#gp3").val();
+		var pay_code = $("input#pay_code").val();
+		var pay_name = $("input#pay_name").val();
+	
 		var _token = $("input[name=_token]").val();
 
 		var procode = [];
@@ -420,6 +421,24 @@ $(function(){
 			price.push($(this).val());
 		});
 
+		var sp_size = [];
+
+		$("input[name='sp_size[]']").each(function ()
+		{
+			
+			sp_size.push($(this).val());
+			console.log(sp_size);
+		});
+
+		console.log(sp_size);
+
+		var sp_size_desc = [];
+
+		$("input[name='sp_size_desc[]']").each(function ()
+		{
+			sp_size_desc.push($(this).val());
+		});
+
 		$.ajax({
 
 			beforeSend:function() { 
@@ -435,14 +454,35 @@ $(function(){
 			cache:false,
 			data:{
 				_token:_token,
-				po_no:po_no,
-				cust_group:cust_group,
-				cust_code:cust_code,
-				cust_name:cust_name,
+				doc_no:doc_no,
+				doc_date:doc_date,
+				req_date:req_date,
+				pmt_no:pmt_no,
+				ship_titlename:ship_titlename,
+				ship_custname:ship_custname,
+				ship_custsurname:ship_custsurname,
+				ship_address1:ship_address1,
+				ship_address2:ship_address2,
+				prov_code:prov_code,
+				prov_name:prov_name,
+				post_code:post_code,
+				tel:tel,
+				email_address:email_address,
+				po_file:po_file,
+				gp1:gp1,
+				gp2:gp2,
+				gp3:gp3,
+				pay_code:pay_code,
+				pay_name:pay_name,
+
+
+				
 				procode:procode,
 				proname:proname,
 				qty:qty,
-				price:price
+				price:price,
+				sp_size:sp_size,
+				sp_size_desc:sp_size_desc,
 			},
 
 			success: function(data)
@@ -457,6 +497,6 @@ $(function(){
 			},
 
 		},"json");
-	});*/
+	});
 
 });

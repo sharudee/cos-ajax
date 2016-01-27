@@ -28,22 +28,22 @@
 							});
 					</script>
 
-					<div class="col-sm-1">
-						<label>Promotion</label>
+					<div class="col-sm-1 ">
+						<label >วันที่ส่ง</label>
 					</div>
+
 					<div class="col-sm-2">
-					<div class="input-group ">
-
-						
-						<input type="text" name="pmt_no" id="pmt_no" class="form-control input-sm">
-						
-						<span class="input-group-btn">
-						<a  href="#addpmt" rel="addpromotion" class="btn btn-sm btn-primary"><sapn class="glyphicon glyphicon-triangle-bottom"></span></a>
-						</sapn>
-						
-
+						<input type="text"  name="req_date" id="req_date" class="form-control input-sm" value="<?php echo date('d/m/Y'); ?>">
 					</div>
-					</div>
+					<script type="text/javascript">
+
+								$(function(){
+								$("#req_date").datepicker({
+								dateFormat: 'dd/mm/yy'
+								});
+
+							});
+					</script>
 				</div>
 
 				
@@ -69,6 +69,23 @@
 					
 					<div class="col-sm-2">
 						<input type="text" name="ship_custsurname" id="ship_custsurname" class="form-control input-sm">
+					</div>
+
+					<div class="col-sm-1">
+						<label>Promotion</label>
+					</div>
+					<div class="col-sm-2">
+					<div class="input-group ">
+
+						
+						<input type="text" name="pmt_no" id="pmt_no" class="form-control input-sm">
+						
+						<span class="input-group-btn">
+						<a  href="#addpmt" rel="addpromotion" class="btn btn-sm btn-primary"><sapn class="glyphicon glyphicon-triangle-bottom"></span></a>
+						</sapn>
+						
+
+					</div>
 					</div>
 
 					
@@ -207,7 +224,8 @@
 					<th>Special Size</th>
 					<th>Action</th>
 					</tr>
-					</thead>		
+			</thead>		
+			
 			<tbody>
 				<!--<tr>
 					<td colspan=3></td>

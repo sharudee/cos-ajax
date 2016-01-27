@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 21, 2016 at 10:08 AM
+-- Generation Time: Jan 27, 2016 at 10:24 AM
 -- Server version: 5.6.26
 -- PHP Version: 5.6.12
 
@@ -103,6 +103,7 @@ CREATE TABLE IF NOT EXISTS `commission_pc` (
 DROP TABLE IF EXISTS `cos_invdet`;
 CREATE TABLE IF NOT EXISTS `cos_invdet` (
   `id` int(10) unsigned NOT NULL,
+  `cos_invmast_id` int(10) NOT NULL,
   `cos_entity` varchar(8) NOT NULL,
   `cos_no` varchar(2) NOT NULL,
   `doc_code` varchar(4) NOT NULL,
@@ -110,24 +111,67 @@ CREATE TABLE IF NOT EXISTS `cos_invdet` (
   `item` int(3) NOT NULL,
   `prod_code` varchar(22) NOT NULL,
   `prod_name` varchar(50) NOT NULL,
-  `bar_code` varchar(14) NOT NULL,
-  `uom_code` varchar(4) NOT NULL,
-  `unit_price` decimal(8,2) NOT NULL,
+  `bar_code` varchar(14) DEFAULT NULL,
+  `uom_code` varchar(4) DEFAULT NULL,
+  `unit_price` decimal(8,2) DEFAULT NULL,
   `sale_price` decimal(8,2) NOT NULL,
-  `disc_rate` decimal(5,2) NOT NULL,
+  `disc_rate` decimal(5,2) DEFAULT NULL,
   `vat_rate` decimal(5,2) NOT NULL,
   `qty` decimal(8,2) NOT NULL,
   `amt` decimal(8,2) NOT NULL,
-  `disc_amt` decimal(8,2) NOT NULL,
-  `vat_amt` decimal(8,2) NOT NULL,
-  `net_amt` decimal(8,2) NOT NULL,
+  `disc_amt` decimal(8,2) DEFAULT NULL,
+  `vat_amt` decimal(8,2) DEFAULT NULL,
+  `net_amt` decimal(8,2) DEFAULT NULL,
   `ds_no` varchar(12) DEFAULT NULL,
   `sku` varchar(22) DEFAULT NULL,
+  `sp_size` varchar(1) DEFAULT NULL,
+  `sp_size_desc` varchar(10) DEFAULT NULL,
   `created_by` varchar(15) NOT NULL,
   `created_at` datetime NOT NULL,
-  `updated_by` varchar(15) NOT NULL,
-  `updated_at` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+  `updated_by` varchar(15) DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+--
+-- Dumping data for table `cos_invdet`
+--
+
+INSERT INTO `cos_invdet` (`id`, `cos_invmast_id`, `cos_entity`, `cos_no`, `doc_code`, `doc_no`, `item`, `prod_code`, `prod_name`, `bar_code`, `uom_code`, `unit_price`, `sale_price`, `disc_rate`, `vat_rate`, `qty`, `amt`, `disc_amt`, `vat_amt`, `net_amt`, `ds_no`, `sku`, `sp_size`, `sp_size_desc`, `created_by`, `created_at`, `updated_by`, `updated_at`) VALUES
+(1, 10, 'B10', '01', 'PO', 'PO0116010004', 1, 'RNS', 'RENAISSANCE', NULL, NULL, NULL, '169000.00', NULL, '7.00', '1.00', '169000.00', NULL, NULL, NULL, NULL, NULL, 'Y', '', 'admin', '2016-01-27 14:56:51', NULL, NULL),
+(2, 10, 'B10', '01', 'PO', 'PO0116010004', 2, 'RNS', 'RENAISSANCE', NULL, NULL, NULL, '152000.00', NULL, '7.00', '1.00', '152000.00', NULL, NULL, NULL, NULL, NULL, 'Y', '6.5', 'admin', '2016-01-27 14:56:51', NULL, NULL),
+(3, 11, 'B10', '01', 'PO', 'PO0116010005', 1, 'RNS', 'RENAISSANCE', NULL, NULL, NULL, '121000.00', NULL, '7.00', '1.00', '121000.00', NULL, NULL, NULL, NULL, NULL, 'Y', '4', 'admin', '2016-01-27 15:04:28', NULL, NULL),
+(4, 11, 'B10', '01', 'PO', 'PO0116010005', 2, 'RNS', 'RENAISSANCE', NULL, NULL, NULL, '121000.00', NULL, '7.00', '1.00', '121000.00', NULL, NULL, NULL, NULL, NULL, 'Y', '', 'admin', '2016-01-27 15:04:28', NULL, NULL),
+(5, 12, 'B10', '01', 'PO', 'PO0116010006', 1, 'RNS', 'RENAISSANCE', NULL, NULL, NULL, '169000.00', NULL, '7.00', '1.00', '169000.00', NULL, NULL, NULL, NULL, NULL, 'Y', '5', 'admin', '2016-01-27 15:06:09', NULL, NULL),
+(6, 12, 'B10', '01', 'PO', 'PO0116010006', 2, 'RNS', 'RENAISSANCE', NULL, NULL, NULL, '152000.00', NULL, '7.00', '1.00', '152000.00', NULL, NULL, NULL, NULL, NULL, 'Y', '', 'admin', '2016-01-27 15:06:09', NULL, NULL),
+(7, 13, 'B10', '01', 'PO', 'PO0116010007', 1, 'RNS', 'RENAISSANCE', NULL, NULL, NULL, '169000.00', NULL, '7.00', '1.00', '169000.00', NULL, NULL, NULL, NULL, NULL, 'Y', '', 'admin', '2016-01-27 15:12:39', NULL, NULL),
+(8, 13, 'B10', '01', 'PO', 'PO0116010007', 2, 'RNS', 'RENAISSANCE', NULL, NULL, NULL, '121000.00', NULL, '7.00', '1.00', '121000.00', NULL, NULL, NULL, NULL, NULL, 'Y', '7', 'admin', '2016-01-27 15:12:39', NULL, NULL),
+(9, 14, 'B10', '01', 'PO', 'PO0116010008', 1, 'RNS', 'RENAISSANCE', NULL, NULL, NULL, '169000.00', NULL, '7.00', '1.00', '169000.00', NULL, NULL, NULL, NULL, NULL, NULL, '', 'admin', '2016-01-27 15:23:26', NULL, NULL),
+(10, 14, 'B10', '01', 'PO', 'PO0116010008', 2, 'RNS', 'RENAISSANCE', NULL, NULL, NULL, '169000.00', NULL, '7.00', '1.00', '169000.00', NULL, NULL, NULL, NULL, NULL, NULL, '4', 'admin', '2016-01-27 15:23:26', NULL, NULL),
+(11, 15, 'B10', '01', 'PO', 'PO0116010009', 1, 'RNS', 'RENAISSANCE', NULL, NULL, NULL, '169000.00', NULL, '7.00', '1.00', '169000.00', NULL, NULL, NULL, NULL, NULL, NULL, '', 'admin', '2016-01-27 15:27:12', NULL, NULL),
+(12, 15, 'B10', '01', 'PO', 'PO0116010009', 2, 'RNS', 'RENAISSANCE', NULL, NULL, NULL, '152000.00', NULL, '7.00', '1.00', '152000.00', NULL, NULL, NULL, NULL, NULL, NULL, '8', 'admin', '2016-01-27 15:27:12', NULL, NULL),
+(13, 16, 'B10', '01', 'PO', 'PO0116010010', 1, 'RNS', 'RENAISSANCE', NULL, NULL, NULL, '169000.00', NULL, '7.00', '1.00', '169000.00', NULL, NULL, NULL, NULL, NULL, 'Y', '', 'admin', '2016-01-27 15:33:36', NULL, NULL),
+(14, 16, 'B10', '01', 'PO', 'PO0116010010', 2, 'RNS', 'RENAISSANCE', NULL, NULL, NULL, '152000.00', NULL, '7.00', '1.00', '152000.00', NULL, NULL, NULL, NULL, NULL, 'Y', '2', 'admin', '2016-01-27 15:33:36', NULL, NULL),
+(15, 17, 'B10', '01', 'PO', 'PO0116010001', 1, 'RNS', 'RENAISSANCE', NULL, NULL, NULL, '152000.00', NULL, '7.00', '1.00', '152000.00', NULL, NULL, NULL, NULL, NULL, 'Y', '', 'admin', '2016-01-27 15:45:22', NULL, NULL),
+(16, 17, 'B10', '01', 'PO', 'PO0116010001', 2, 'RNS', 'RENAISSANCE', NULL, NULL, NULL, '169000.00', NULL, '7.00', '1.00', '169000.00', NULL, NULL, NULL, NULL, NULL, 'Y', '', 'admin', '2016-01-27 15:45:22', NULL, NULL),
+(17, 18, 'B10', '01', 'PO', 'PO0116010001', 1, 'RNS', 'RENAISSANCE', NULL, NULL, NULL, '169000.00', NULL, '7.00', '1.00', '169000.00', NULL, NULL, NULL, NULL, NULL, 'Y', '', 'admin', '2016-01-27 15:46:41', NULL, NULL),
+(18, 18, 'B10', '01', 'PO', 'PO0116010001', 2, 'RNS', 'RENAISSANCE', NULL, NULL, NULL, '169000.00', NULL, '7.00', '1.00', '169000.00', NULL, NULL, NULL, NULL, NULL, 'Y', '', 'admin', '2016-01-27 15:46:41', NULL, NULL),
+(19, 19, 'B10', '01', 'PO', 'PO0116010001', 1, 'RNS', 'RENAISSANCE', NULL, NULL, NULL, '169000.00', NULL, '7.00', '1.00', '169000.00', NULL, NULL, NULL, NULL, NULL, 'Y', '', 'admin', '2016-01-27 15:47:05', NULL, NULL),
+(20, 19, 'B10', '01', 'PO', 'PO0116010001', 2, 'RNS', 'RENAISSANCE', NULL, NULL, NULL, '169000.00', NULL, '7.00', '1.00', '169000.00', NULL, NULL, NULL, NULL, NULL, 'Y', '', 'admin', '2016-01-27 15:47:05', NULL, NULL),
+(21, 20, 'B10', '01', 'PO', 'PO0116010001', 1, 'RNS', 'RENAISSANCE', NULL, NULL, NULL, '169000.00', NULL, '7.00', '1.00', '169000.00', NULL, NULL, NULL, NULL, NULL, 'Y', '', 'admin', '2016-01-27 15:47:28', NULL, NULL),
+(22, 21, 'B10', '01', 'PO', 'PO0116010001', 1, 'RNS', 'RENAISSANCE', NULL, NULL, NULL, '169000.00', NULL, '7.00', '1.00', '169000.00', NULL, NULL, NULL, NULL, NULL, NULL, '', 'admin', '2016-01-27 15:48:16', NULL, NULL),
+(23, 21, 'B10', '01', 'PO', 'PO0116010001', 2, 'RNS', 'RENAISSANCE', NULL, NULL, NULL, '152000.00', NULL, '7.00', '1.00', '152000.00', NULL, NULL, NULL, NULL, NULL, NULL, '', 'admin', '2016-01-27 15:48:16', NULL, NULL),
+(24, 22, 'B10', '01', 'PO', 'PO0116010001', 1, 'RNS', 'RENAISSANCE', NULL, NULL, NULL, '169000.00', NULL, '7.00', '1.00', '169000.00', NULL, NULL, NULL, NULL, NULL, NULL, '', 'admin', '2016-01-27 15:48:32', NULL, NULL),
+(25, 23, 'B10', '01', 'PO', 'PO0116010001', 1, 'RNS', 'RENAISSANCE', NULL, NULL, NULL, '169000.00', NULL, '7.00', '1.00', '169000.00', NULL, NULL, NULL, NULL, NULL, NULL, '', 'admin', '2016-01-27 15:50:06', NULL, NULL),
+(26, 23, 'B10', '01', 'PO', 'PO0116010001', 2, 'RNS', 'RENAISSANCE', NULL, NULL, NULL, '152000.00', NULL, '7.00', '1.00', '152000.00', NULL, NULL, NULL, NULL, NULL, NULL, '', 'admin', '2016-01-27 15:50:06', NULL, NULL),
+(27, 24, 'B10', '01', 'PO', 'PO0116010011', 1, 'RNS', 'RENAISSANCE', NULL, NULL, NULL, '152000.00', NULL, '7.00', '1.00', '152000.00', NULL, NULL, NULL, NULL, NULL, NULL, '', 'admin', '2016-01-27 15:52:54', NULL, NULL),
+(28, 25, 'B10', '01', 'PO', 'PO0116010012', 1, 'RNS', 'RENAISSANCE', NULL, NULL, NULL, '169000.00', NULL, '7.00', '1.00', '169000.00', NULL, NULL, NULL, NULL, NULL, 'N', '', 'admin', '2016-01-27 16:04:39', NULL, NULL),
+(29, 25, 'B10', '01', 'PO', 'PO0116010012', 2, 'RNS', 'RENAISSANCE', NULL, NULL, NULL, '152000.00', NULL, '7.00', '1.00', '152000.00', NULL, NULL, NULL, NULL, NULL, 'N', '', 'admin', '2016-01-27 16:04:39', NULL, NULL),
+(30, 26, 'B10', '01', 'PO', 'PO0116010013', 1, 'RNS', 'RENAISSANCE', NULL, NULL, NULL, '169000.00', NULL, '7.00', '1.00', '169000.00', NULL, NULL, NULL, NULL, NULL, 'Y', '', 'admin', '2016-01-27 16:06:38', NULL, NULL),
+(31, 26, 'B10', '01', 'PO', 'PO0116010013', 2, 'RNS', 'RENAISSANCE', NULL, NULL, NULL, '152000.00', NULL, '7.00', '1.00', '152000.00', NULL, NULL, NULL, NULL, NULL, 'Y', '', 'admin', '2016-01-27 16:06:38', NULL, NULL),
+(32, 27, 'B10', '01', 'PO', 'PO0116010014', 1, 'RNS', 'RENAISSANCE', NULL, NULL, NULL, '169000.00', NULL, '7.00', '1.00', '169000.00', NULL, NULL, NULL, NULL, NULL, 'N', '', 'admin', '2016-01-27 16:07:17', NULL, NULL),
+(33, 27, 'B10', '01', 'PO', 'PO0116010014', 2, 'RNS', 'RENAISSANCE', NULL, NULL, NULL, '169000.00', NULL, '7.00', '1.00', '169000.00', NULL, NULL, NULL, NULL, NULL, 'N', '', 'admin', '2016-01-27 16:07:17', NULL, NULL),
+(34, 28, 'B10', '01', 'PO', 'PO0116010015', 1, 'RNS', 'RENAISSANCE', NULL, NULL, NULL, '169000.00', NULL, '7.00', '1.00', '169000.00', NULL, NULL, NULL, NULL, NULL, 'Y', '', 'admin', '2016-01-27 16:16:22', NULL, NULL),
+(35, 28, 'B10', '01', 'PO', 'PO0116010015', 2, 'RNS', 'RENAISSANCE', NULL, NULL, NULL, '152000.00', NULL, '7.00', '1.00', '152000.00', NULL, NULL, NULL, NULL, NULL, 'Y', '', 'admin', '2016-01-27 16:16:22', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -147,7 +191,7 @@ CREATE TABLE IF NOT EXISTS `cos_invmast` (
   `pmt_no` varchar(12) NOT NULL,
   `cust_code` varchar(8) NOT NULL,
   `cust_name` varchar(50) NOT NULL,
-  `ship_titlename` varchar(10) NOT NULL,
+  `ship_titlename` varchar(10) DEFAULT NULL,
   `ship_custcode` varchar(8) NOT NULL,
   `ship_custname` varchar(50) NOT NULL,
   `ship_custsurname` varchar(50) NOT NULL,
@@ -155,24 +199,27 @@ CREATE TABLE IF NOT EXISTS `cos_invmast` (
   `ship_address2` varchar(50) DEFAULT NULL,
   `ship_tel` varchar(30) NOT NULL,
   `prov_code` varchar(2) NOT NULL,
+  `prov_name` varchar(30) NOT NULL,
   `post_code` varchar(5) NOT NULL,
   `email_address` varchar(30) DEFAULT NULL,
-  `po_file` varchar(30) NOT NULL,
+  `po_file` varchar(30) DEFAULT NULL,
   `map_file` varchar(30) DEFAULT NULL,
   `gp1` decimal(5,2) NOT NULL,
   `gp2` decimal(5,2) DEFAULT NULL,
   `gp3` decimal(5,2) DEFAULT NULL,
   `disc_cust` decimal(5,2) DEFAULT NULL,
   `ref_no` varchar(20) DEFAULT NULL,
-  `sm_code` varchar(8) NOT NULL,
-  `wh_code` varchar(8) NOT NULL,
-  `vat_rate` decimal(9,2) NOT NULL,
-  `tot_qty` decimal(9,2) NOT NULL,
-  `tot_amt` decimal(9,2) NOT NULL,
-  `tot_vatamt` decimal(9,2) NOT NULL,
-  `tot_netamt` decimal(9,2) NOT NULL,
-  `tot_discamt` decimal(9,2) NOT NULL,
-  `tot_subamt` decimal(9,2) NOT NULL,
+  `sm_code` varchar(8) DEFAULT NULL,
+  `wh_code` varchar(8) DEFAULT NULL,
+  `vat_rate` decimal(9,2) DEFAULT NULL,
+  `tot_qty` decimal(9,2) DEFAULT NULL,
+  `tot_amt` decimal(9,2) DEFAULT NULL,
+  `tot_vatamt` decimal(9,2) DEFAULT NULL,
+  `tot_netamt` decimal(9,2) DEFAULT NULL,
+  `tot_discamt` decimal(9,2) DEFAULT NULL,
+  `tot_subamt` decimal(9,2) DEFAULT NULL,
+  `pay_code` varchar(10) NOT NULL,
+  `pay_name` varchar(50) NOT NULL,
   `remark1` varchar(50) DEFAULT NULL,
   `remark2` varchar(50) DEFAULT NULL,
   `doccan_by` varchar(15) DEFAULT NULL,
@@ -187,7 +234,41 @@ CREATE TABLE IF NOT EXISTS `cos_invmast` (
   `created_at` datetime NOT NULL,
   `updated_by` varchar(15) NOT NULL,
   `updated_at` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `cos_invmast`
+--
+
+INSERT INTO `cos_invmast` (`id`, `cos_entity`, `cos_no`, `doc_code`, `doc_no`, `doc_date`, `req_date`, `pmt_no`, `cust_code`, `cust_name`, `ship_titlename`, `ship_custcode`, `ship_custname`, `ship_custsurname`, `ship_address1`, `ship_address2`, `ship_tel`, `prov_code`, `prov_name`, `post_code`, `email_address`, `po_file`, `map_file`, `gp1`, `gp2`, `gp3`, `disc_cust`, `ref_no`, `sm_code`, `wh_code`, `vat_rate`, `tot_qty`, `tot_amt`, `tot_vatamt`, `tot_netamt`, `tot_discamt`, `tot_subamt`, `pay_code`, `pay_name`, `remark1`, `remark2`, `doccan_by`, `doccan_date`, `doccan_rem`, `tf_st`, `tf_by`, `tf_date`, `ictran_code`, `doc_status`, `created_by`, `created_at`, `updated_by`, `updated_at`) VALUES
+(1, 'CXXXX', '01', 'PO', 'PO0116010001', '0000-00-00', NULL, '', '', '', '', '', '', '', '', NULL, '', '', '', '', NULL, '', NULL, '0.00', NULL, NULL, NULL, NULL, '', '', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '', '', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, '', '', '', '0000-00-00 00:00:00', '', '0000-00-00 00:00:00'),
+(2, 'B10', '01', 'PO', 'PO0116010002', '2016-01-27', '2016-01-27', '', 'CXXXX', 'aa', NULL, '', '', '', '', '', '', '', '', '', '', NULL, NULL, '0.00', '0.00', '0.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, '', '', '', '2016-01-27 14:33:22', '', '0000-00-00 00:00:00'),
+(3, 'B10', '01', 'PO', 'PO0116010003', '2016-01-05', '2016-01-27', 'MBS2015001', 'CXXXX', 'aa', NULL, '', 'สมศักดิ์', 'นาดี', '112 ถนนสุขุมวิท', 'คลองเตย', '0812222222', 'BK', 'กรุงเทพมหานคร', '10260', 'test@test', NULL, NULL, '0.25', '0.00', '0.00', NULL, NULL, NULL, NULL, '7.00', NULL, NULL, NULL, NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, '', 'PAL', 'admin', '2016-01-27 14:44:03', '', '0000-00-00 00:00:00'),
+(4, 'B10', '01', 'PO', 'PO0116010003', '2016-01-05', '2016-01-27', 'MBS2015001', 'CXXXX', 'aa', NULL, '', 'สมศักดิ์', 'นาดี', '112 ถนนสุขุมวิท', 'คลองเตย', '0812222222', 'BK', 'กรุงเทพมหานคร', '10260', 'test@test', NULL, NULL, '0.25', '0.00', '0.00', NULL, NULL, NULL, NULL, '7.00', NULL, NULL, NULL, NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, '', 'PAL', 'admin', '2016-01-27 14:44:50', '', '0000-00-00 00:00:00'),
+(5, 'B10', '01', 'PO', 'PO0116010003', '2016-01-05', '2016-01-27', 'MBS2015001', 'CXXXX', 'aa', NULL, '', 'สมศักดิ์', 'นาดี', '112 ถนนสุขุมวิท', 'คลองเตย', '0812222222', 'BK', 'กรุงเทพมหานคร', '10260', 'test@test', NULL, NULL, '0.25', '0.00', '0.00', NULL, NULL, NULL, NULL, '7.00', NULL, NULL, NULL, NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, '', 'PAL', 'admin', '2016-01-27 14:45:59', '', '0000-00-00 00:00:00'),
+(6, 'B10', '01', 'PO', 'PO0116010003', '2016-01-05', '2016-01-27', 'MBS2015001', 'CXXXX', 'aa', NULL, '', 'สมศักดิ์', 'นาดี', '112 ถนนสุขุมวิท', 'คลองเตย', '0812222222', 'BK', 'กรุงเทพมหานคร', '10260', 'test@test', NULL, NULL, '0.25', '0.00', '0.00', NULL, NULL, NULL, NULL, '7.00', NULL, NULL, NULL, NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, '', 'PAL', 'admin', '2016-01-27 14:50:15', '', '0000-00-00 00:00:00'),
+(7, 'B10', '01', 'PO', 'PO0116010004', '2016-01-05', '2016-01-27', 'MBS2015001', 'CXXXX', 'aa', 'คุณ', '', 'นธิ', 'ใจดี', 'ฟฟฟ', 'กกกก', '015', 'KA', 'กระบี่', '81000', 'test@test.com', NULL, NULL, '0.25', '0.00', '0.00', NULL, NULL, NULL, NULL, '7.00', NULL, NULL, NULL, NULL, NULL, NULL, '', 'ผ่อนชำระด้วยบัตรร่วมรายการ 0% 6 เดือน', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, '', 'PAL', 'admin', '2016-01-27 14:53:39', '', '0000-00-00 00:00:00'),
+(8, 'B10', '01', 'PO', 'PO0116010004', '2016-01-05', '2016-01-27', 'MBS2015001', 'CXXXX', 'aa', 'คุณ', '', 'นธิ', 'ใจดี', 'ฟฟฟ', 'กกกก', '015', 'KA', 'กระบี่', '81000', 'test@test.com', NULL, NULL, '0.25', '0.00', '0.00', NULL, NULL, NULL, NULL, '7.00', NULL, NULL, NULL, NULL, NULL, NULL, '', 'ผ่อนชำระด้วยบัตรร่วมรายการ 0% 6 เดือน', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, '', 'PAL', 'admin', '2016-01-27 14:55:12', '', '0000-00-00 00:00:00'),
+(9, 'B10', '01', 'PO', 'PO0116010004', '2016-01-05', '2016-01-27', 'MBS2015001', 'CXXXX', 'aa', 'คุณ', '', 'นธิ', 'ใจดี', 'ฟฟฟ', 'กกกก', '015', 'KA', 'กระบี่', '81000', 'test@test.com', NULL, NULL, '0.25', '0.00', '0.00', NULL, NULL, NULL, NULL, '7.00', NULL, NULL, NULL, NULL, NULL, NULL, '', 'ผ่อนชำระด้วยบัตรร่วมรายการ 0% 6 เดือน', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, '', 'PAL', 'admin', '2016-01-27 14:56:21', '', '0000-00-00 00:00:00'),
+(10, 'B10', '01', 'PO', 'PO0116010004', '2016-01-05', '2016-01-27', 'MBS2015001', 'CXXXX', 'aa', 'คุณ', '', 'นธิ', 'ใจดี', 'ฟฟฟ', 'กกกก', '015', 'KA', 'กระบี่', '81000', 'test@test.com', NULL, NULL, '0.25', '0.00', '0.00', NULL, NULL, NULL, NULL, '7.00', NULL, NULL, NULL, NULL, NULL, NULL, '', 'ผ่อนชำระด้วยบัตรร่วมรายการ 0% 6 เดือน', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, '', 'PAL', 'admin', '2016-01-27 14:56:51', '', '0000-00-00 00:00:00'),
+(11, 'B10', '01', 'PO', 'PO0116010005', '2016-01-05', '2016-01-27', 'MBS2015001', 'CXXXX', 'aa', 'คุณ', '', 'ประสิทธิ์', 'พนา', 'ฟกห', 'ฟหก', '012', 'KB', 'กาญจนบุรี', '71001', 'test@test.com', NULL, NULL, '0.25', '0.00', '0.00', NULL, NULL, NULL, NULL, '7.00', NULL, NULL, NULL, NULL, NULL, NULL, '', 'ชำระด้วยเงินสด', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, '', 'PAL', 'admin', '2016-01-27 15:04:28', '', '0000-00-00 00:00:00'),
+(12, 'B10', '01', 'PO', 'PO0116010006', '2016-01-05', '2016-01-27', 'MBS2015001', 'CXXXX', 'aa', 'นางสาว', '', 'นาสา', 'ปาการ', 'ฟหก', 'ฟหก', '015', 'KB', 'กาญจนบุรี', '71000', 'test@test.com', NULL, NULL, '0.25', '0.00', '0.00', NULL, NULL, NULL, NULL, '7.00', NULL, NULL, NULL, NULL, NULL, NULL, '', 'ชำระด้วยเงินสด', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, '', 'PAL', 'admin', '2016-01-27 15:06:09', '', '0000-00-00 00:00:00'),
+(13, 'B10', '01', 'PO', 'PO0116010007', '2016-01-05', '2016-01-27', 'MBS2015001', 'CXXXX', 'aa', 'คุณ', '', 'ดารณี', 'ใจสุข', 'ฟหก', 'ฟหก', '6465', 'NW', 'นครสวรรค์', '60001', 'test@re.com', NULL, NULL, '0.25', '0.00', '0.00', NULL, NULL, NULL, NULL, '7.00', NULL, NULL, NULL, NULL, NULL, NULL, 'PAY-CASH', 'ชำระด้วยเงินสด', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, '', 'PAL', 'admin', '2016-01-27 15:12:39', '', '0000-00-00 00:00:00'),
+(14, 'B10', '01', 'PO', 'PO0116010008', '2016-01-05', '2016-01-27', 'MBS2015001', 'CXXXX', 'aa', 'คุณ', '', 'as', 'asd', 'asd', 'asd', 'sd', 'KS', 'กาฬสินธ์', '46120', 'ads', NULL, NULL, '0.25', '0.00', '0.00', NULL, NULL, NULL, NULL, '7.00', NULL, NULL, NULL, NULL, NULL, NULL, 'PAY-CARD06', 'ผ่อนชำระด้วยบัตรร่วมรายการ 0% 6 เดือน', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, '', 'PAL', 'admin', '2016-01-27 15:23:26', '', '0000-00-00 00:00:00'),
+(15, 'B10', '01', 'PO', 'PO0116010009', '2016-01-05', '2016-01-27', 'MBS2015001', 'CXXXX', 'aa', '', '', '', '', '', '', '', '', '', '', '', NULL, NULL, '0.25', '0.00', '0.00', NULL, NULL, NULL, NULL, '7.00', NULL, NULL, NULL, NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, '', 'PAL', 'admin', '2016-01-27 15:27:12', '', '0000-00-00 00:00:00'),
+(16, 'B10', '01', 'PO', 'PO0116010010', '2016-01-05', '2016-01-27', 'MBS2015001', 'CXXXX', 'aa', '', '', '', '', '', '', '', '', '', '', '', NULL, NULL, '0.25', '0.00', '0.00', NULL, NULL, NULL, NULL, '7.00', NULL, NULL, NULL, NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, '', 'PAL', 'admin', '2016-01-27 15:33:36', '', '0000-00-00 00:00:00'),
+(17, 'B10', '01', 'PO', 'PO0116010001', '2016-01-05', '2016-01-27', 'MBS2015001', 'CXXXX', 'aa', '', '', '', '', '', '', '', '', '', '', '', NULL, NULL, '0.25', '0.00', '0.00', NULL, NULL, NULL, NULL, '7.00', NULL, NULL, NULL, NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, '', 'PAL', 'admin', '2016-01-27 15:45:22', '', '0000-00-00 00:00:00'),
+(18, 'B10', '01', 'PO', 'PO0116010001', '2016-01-05', '2016-01-27', 'MBS2015001', 'CXXXX', 'aa', '', '', '', '', '', '', '', '', '', '', '', NULL, NULL, '0.25', '0.00', '0.00', NULL, NULL, NULL, NULL, '7.00', NULL, NULL, NULL, NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, '', 'PAL', 'admin', '2016-01-27 15:46:41', '', '0000-00-00 00:00:00'),
+(19, 'B10', '01', 'PO', 'PO0116010001', '2016-01-05', '2016-01-27', 'MBS2015001', 'CXXXX', 'aa', '', '', '', '', '', '', '', '', '', '', '', NULL, NULL, '0.25', '0.00', '0.00', NULL, NULL, NULL, NULL, '7.00', NULL, NULL, NULL, NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, '', 'PAL', 'admin', '2016-01-27 15:47:05', '', '0000-00-00 00:00:00'),
+(20, 'B10', '01', 'PO', 'PO0116010001', '2016-01-05', '2016-01-27', 'MBS2015001', 'CXXXX', 'aa', '', '', '', '', '', '', '', '', '', '', '', NULL, NULL, '0.25', '0.00', '0.00', NULL, NULL, NULL, NULL, '7.00', NULL, NULL, NULL, NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, '', 'PAL', 'admin', '2016-01-27 15:47:28', '', '0000-00-00 00:00:00'),
+(21, 'B10', '01', 'PO', 'PO0116010001', '2016-01-05', '2016-01-27', 'MBS2015001', 'CXXXX', 'aa', '', '', '', '', '', '', '', '', '', '', '', NULL, NULL, '0.25', '0.00', '0.00', NULL, NULL, NULL, NULL, '7.00', NULL, NULL, NULL, NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, '', 'PAL', 'admin', '2016-01-27 15:48:16', '', '0000-00-00 00:00:00'),
+(22, 'B10', '01', 'PO', 'PO0116010001', '2016-01-05', '2016-01-27', 'MBS2015001', 'CXXXX', 'aa', '', '', '', '', '', '', '', '', '', '', '', NULL, NULL, '0.25', '0.00', '0.00', NULL, NULL, NULL, NULL, '7.00', NULL, NULL, NULL, NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, '', 'PAL', 'admin', '2016-01-27 15:48:32', '', '0000-00-00 00:00:00'),
+(23, 'B10', '01', 'PO', 'PO0116010001', '2016-01-05', '2016-01-27', 'MBS2015001', 'CXXXX', 'aa', '', '', '', '', '', '', '', '', '', '', '', NULL, NULL, '0.25', '0.00', '0.00', NULL, NULL, NULL, NULL, '7.00', NULL, NULL, NULL, NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, '', 'PAL', 'admin', '2016-01-27 15:50:06', '', '0000-00-00 00:00:00'),
+(24, 'B10', '01', 'PO', 'PO0116010011', '2016-01-05', '2016-01-27', 'MBS2015001', 'CXXXX', 'aa', '', '', '', '', '', '', '', '', '', '', '', NULL, NULL, '0.25', '0.00', '0.00', NULL, NULL, NULL, NULL, '7.00', NULL, NULL, NULL, NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, '', 'PAL', 'admin', '2016-01-27 15:52:54', '', '0000-00-00 00:00:00'),
+(25, 'B10', '01', 'PO', 'PO0116010012', '2016-01-05', '2016-01-27', 'MBS2015001', 'CXXXX', 'aa', '', '', '', '', '', '', '', '', '', '', '', NULL, NULL, '0.25', '0.00', '0.00', NULL, NULL, NULL, NULL, '7.00', NULL, NULL, NULL, NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, '', 'PAL', 'admin', '2016-01-27 16:04:38', '', '0000-00-00 00:00:00'),
+(26, 'B10', '01', 'PO', 'PO0116010013', '2016-01-05', '2016-01-27', 'MBS2015001', 'CXXXX', 'aa', '', '', '', '', '', '', '', '', '', '', '', NULL, NULL, '0.25', '0.00', '0.00', NULL, NULL, NULL, NULL, '7.00', NULL, NULL, NULL, NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, '', 'PAL', 'admin', '2016-01-27 16:06:38', '', '0000-00-00 00:00:00'),
+(27, 'B10', '01', 'PO', 'PO0116010014', '2016-01-05', '2016-01-27', 'MBS2015001', 'CXXXX', 'aa', '', '', '', '', '', '', '', '', '', '', '', NULL, NULL, '0.25', '0.00', '0.00', NULL, NULL, NULL, NULL, '7.00', NULL, NULL, NULL, NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, '', 'PAL', 'admin', '2016-01-27 16:07:17', '', '0000-00-00 00:00:00'),
+(28, 'B10', '01', 'PO', 'PO0116010015', '2016-01-05', '2016-01-27', 'MBS2015001', 'CXXXX', 'aa', '', '', '', '', '', '', '', '', '', '', '', NULL, NULL, '0.25', '0.00', '0.00', NULL, NULL, NULL, NULL, '7.00', NULL, NULL, NULL, NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, '', 'PAL', 'admin', '2016-01-27 16:16:22', '', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -500,7 +581,7 @@ CREATE TABLE IF NOT EXISTS `doc_mast` (
   `created_at` datetime NOT NULL,
   `updated_by` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
   `updated_at` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `doc_mast`
@@ -508,7 +589,8 @@ CREATE TABLE IF NOT EXISTS `doc_mast` (
 
 INSERT INTO `doc_mast` (`id`, `doc_code`, `doc_desc`, `doc_ctrl`, `ictran_code`, `post_type`, `created_by`, `created_at`, `updated_by`, `updated_at`) VALUES
 (1, 'DO', 'Delivery Order', 'DO', 'REC', 'HO', 'admin', '2016-01-06 06:45:43', 'admin', '2016-01-06 07:10:47'),
-(3, 'DS', 'Daily Sales', 'DS', 'ISS', 'COS', 'admin', '2016-01-06 06:50:09', 'admin', '2016-01-06 06:50:09');
+(3, 'DS', 'Daily Sales', 'DS', 'ISS', 'COS', 'admin', '2016-01-06 06:50:09', 'admin', '2016-01-06 06:50:09'),
+(4, 'PO', 'Purchase Order', 'PO', 'ISS', 'COS', 'admin', '2016-01-25 08:30:04', 'admin', '2016-01-25 08:30:04');
 
 -- --------------------------------------------------------
 
@@ -542,7 +624,7 @@ CREATE TABLE IF NOT EXISTS `entity` (
 INSERT INTO `entity` (`id`, `entity_code`, `entity_tname`, `entity_ename`, `cust_grp`, `tax_rate`, `ent_ctrl`, `cos_no`, `dsgrp_type`, `sale_type`, `ret_type`, `created_by`, `created_at`, `updated_by`, `updated_at`) VALUES
 (9, 'C0003', 'เซ็นทรัล บางนา', 'Central bangna', 'MDS', '7.00', '', '03', 'SKU', 'SO', 'RTDC', 'admin', '2015-12-16 04:25:09', 'admin', '2016-01-14 07:24:39'),
 (10, 'C0002', 'เซ็นทรัล ลาดพร้าว', 'Central Ladprad', 'CDR', '7.00', '', '02', 'SKU', 'SO', 'RTDC', 'admin', '2016-01-14 07:24:30', 'admin', '2016-01-14 07:24:30'),
-(11, 'C0001', 'aa', 'aa', 'CDR', '7.00', '', '01', 'SKU', 'CO', 'RTCO', 'admin', '2016-01-14 07:29:23', 'admin', '2016-01-14 07:29:23');
+(11, 'CXXXX', 'aa', 'aa', 'CDR', '7.00', '', '01', 'SKU', 'CO', 'RTCO', 'admin', '2016-01-14 07:29:23', 'admin', '2016-01-25 08:26:08');
 
 -- --------------------------------------------------------
 
@@ -637,14 +719,21 @@ DROP TABLE IF EXISTS `pmt_consignee`;
 CREATE TABLE IF NOT EXISTS `pmt_consignee` (
   `consignee_id` int(10) unsigned NOT NULL,
   `pmt_mast_id` int(10) NOT NULL,
-  `entity_id` varchar(255) NOT NULL,
+  `entity_code` varchar(255) NOT NULL,
   `discount_amt` decimal(18,4) NOT NULL,
   `rec_status` varchar(15) DEFAULT NULL,
   `updated_by` varchar(15) DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `created_by` varchar(15) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `pmt_consignee`
+--
+
+INSERT INTO `pmt_consignee` (`consignee_id`, `pmt_mast_id`, `entity_code`, `discount_amt`, `rec_status`, `updated_by`, `updated_at`, `created_by`, `created_at`) VALUES
+(1, 1, 'CXXXX', '0.0000', NULL, NULL, '2016-01-22 08:04:59', '', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -1017,7 +1106,7 @@ DROP TABLE IF EXISTS `pmt_transaction_mast`;
 CREATE TABLE IF NOT EXISTS `pmt_transaction_mast` (
   `transaction_code` varchar(10) NOT NULL DEFAULT '',
   `pmt_group_code` varchar(10) DEFAULT NULL,
-  `trnsaction_name` varchar(50) NOT NULL,
+  `transaction_name` varchar(50) NOT NULL,
   `rec_status` varchar(15) DEFAULT NULL,
   `updated_by` varchar(15) DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -1029,7 +1118,7 @@ CREATE TABLE IF NOT EXISTS `pmt_transaction_mast` (
 -- Dumping data for table `pmt_transaction_mast`
 --
 
-INSERT INTO `pmt_transaction_mast` (`transaction_code`, `pmt_group_code`, `trnsaction_name`, `rec_status`, `updated_by`, `updated_at`, `created_by`, `created_at`) VALUES
+INSERT INTO `pmt_transaction_mast` (`transaction_code`, `pmt_group_code`, `transaction_name`, `rec_status`, `updated_by`, `updated_at`, `created_by`, `created_at`) VALUES
 ('DISC-CASH', 'DISCOUNT', 'ส่วนลดเงินสด', 'ACTIVE', NULL, '2016-01-08 01:08:42', '', '0000-00-00 00:00:00'),
 ('DISC-PM', 'DISCOUNT', 'ส่วนลดให้ชุดของแถม', 'ACTIVE', NULL, '2016-01-08 01:21:54', '', '0000-00-00 00:00:00'),
 ('PAY-CARD06', 'PAYMENT', 'ผ่อนชำระด้วยบัตรร่วมรายการ 0% 6 เดือน', 'ACTIVE', NULL, '2016-01-08 01:23:59', '', '0000-00-00 00:00:00'),
@@ -2777,12 +2866,12 @@ ALTER TABLE `commission_pc`
 -- AUTO_INCREMENT for table `cos_invdet`
 --
 ALTER TABLE `cos_invdet`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=36;
 --
 -- AUTO_INCREMENT for table `cos_invmast`
 --
 ALTER TABLE `cos_invmast`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=29;
 --
 -- AUTO_INCREMENT for table `cos_itemdet`
 --
@@ -2822,7 +2911,7 @@ ALTER TABLE `cust_mast`
 -- AUTO_INCREMENT for table `doc_mast`
 --
 ALTER TABLE `doc_mast`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `entity`
 --
@@ -2842,7 +2931,7 @@ ALTER TABLE `incentive_pc`
 -- AUTO_INCREMENT for table `pmt_consignee`
 --
 ALTER TABLE `pmt_consignee`
-  MODIFY `consignee_id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+  MODIFY `consignee_id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `pmt_discount`
 --

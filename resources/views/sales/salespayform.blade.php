@@ -11,7 +11,7 @@
 						<td>
 							<div class="radio">
 								<label>
-									<input type="radio" name="radpay" data-payname="{{$dbarr->transaction_name}}"   value="{{$dbarr->transaction_code_code}}">
+									<input type="radio" name="radpay" data-payname="{{$dbarr->transaction_name}}"   value="{{$dbarr->transaction_code}}">
 									{{$dbarr->transaction_name}}
 								</label>
 							</div>

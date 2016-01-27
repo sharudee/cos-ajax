@@ -13,6 +13,8 @@ Route::get('salestitleform','SaleController@salestitleform');
 Route::get('salesprovform','SaleController@salesprovform');
 Route::get('salespostform/{prov}','SaleController@salespostform');
 Route::get('salespayform','SaleController@salespayform');
+Route::post('submitOrder','SaleController@submitOrder');
+
 
 Route::get('commissionclass_cust','ComclassController@commissioncust');
 Route::get('incentive_model','IncentiveController@incentivemodel');
