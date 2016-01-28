@@ -1,7 +1,4 @@
-<div class="modal-header">
-	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-	<h4 class="modal-title">New Sales</h4>
-</div>
+
 <div class="modal-body">
 	<div class="container"> 
 				<div class="row form-group">
@@ -9,14 +6,15 @@
 						<label>เลขที่</label>
 					</div>
 					<div class="col-sm-2">
-						<input type="text" name="doc_no" id="doc_no" class="form-control input-sm" value="{{$doc_no}}" readonly>
+						<input type="hidden" name="id" id="id" value="{{$data_mast->id}}">
+						<input type="text" name="doc_no" id="doc_no" class="form-control input-sm" value="{{$data_mast->doc_no}}" readonly>
 					</div>
 					<div class="col-sm-1 ">
 						<label >วันที่</label>
 					</div>
 
 					<div class="col-sm-2">
-						<input type="text"  name="doc_date" id="doc_date" class="form-control input-sm" value="<?php echo date('d/m/Y'); ?>">
+						<input type="text"  name="doc_date" id="doc_date" class="form-control input-sm" value="{{Carbon::parse($data_mast->doc_date)->format('d/m/Y') }}">
 					</div>
 					<script type="text/javascript">
 
@@ -33,7 +31,7 @@
 					</div>
 
 					<div class="col-sm-2">
-						<input type="text"  name="req_date" id="req_date" class="form-control input-sm" value="<?php echo date('d/m/Y'); ?>">
+						<input type="text"  name="req_date" id="req_date" class="form-control input-sm" value="{{Carbon::parse($data_mast->req_date)->format('d/m/Y') }}">
 					</div>
 					<script type="text/javascript">
 
@@ -56,19 +54,19 @@
 					<div class="col-sm-3">
 						<div class="input-group ">
 
-							<input type="text" name="ship_titlename" id="ship_titlename" class="form-control input-sm">
+							<input type="text" name="ship_titlename" id="ship_titlename" class="form-control input-sm"  value="{{$data_mast->ship_titlename}}">
 								<span class="input-group-btn">
 								<a  href="#addtitle" rel="addtitle" class="btn btn-sm btn-primary">
 								<sapn class="glyphicon glyphicon-triangle-bottom"></span></a>
 								</sapn>
-								<input type="text" name="ship_custname" id="ship_custname" class="form-control input-sm">
+								<input type="text" name="ship_custname" id="ship_custname" class="form-control input-sm"  value="{{$data_mast->ship_custname}}">
 									
 								
 						</div>
 					</div>	
 					
 					<div class="col-sm-2">
-						<input type="text" name="ship_custsurname" id="ship_custsurname" class="form-control input-sm">
+						<input type="text" name="ship_custsurname" id="ship_custsurname" class="form-control input-sm"  value="{{$data_mast->ship_custsurname}}">
 					</div>
 
 					<div class="col-sm-1">
@@ -78,7 +76,7 @@
 					<div class="input-group ">
 
 						
-						<input type="text" name="pmt_no" id="pmt_no" class="form-control input-sm">
+						<input type="text" name="pmt_no" id="pmt_no" class="form-control input-sm"  value="{{$data_mast->pmt_no}}">
 						
 						<span class="input-group-btn">
 						<a  href="#addpmt" rel="addpromotion" class="btn btn-sm btn-primary"><sapn class="glyphicon glyphicon-triangle-bottom"></span></a>
@@ -96,10 +94,10 @@
 						<label>ที่อยู่</label>
 					</div>
 					<div class="col-sm-4">
-						<input type="text" name="ship_address1" id="ship_address1" class="form-control input-sm">
+						<input type="text" name="ship_address1" id="ship_address1" class="form-control input-sm"  value="{{$data_mast->ship_address1}}">
 					</div>
 					<div class="col-sm-4">
-						<input type="text" name="ship_address2" id="ship_address2" class="form-control input-sm">
+						<input type="text" name="ship_address2" id="ship_address2" class="form-control input-sm"  value="{{$data_mast->ship_address2}}">
 					</div>
 
 					
@@ -112,8 +110,8 @@
 					</div>
 					<div class="col-sm-2">
 					    	<div class="input-group ">
-							<input type ="hidden" name="prov_code" id="prov_code" >
-							<input type="text" name="prov_name" id="prov_name" class="form-control input-sm">
+							<input type ="hidden" name="prov_code" id="prov_code"  value="{{$data_mast->prov_code}}">
+							<input type="text" name="prov_name" id="prov_name" class="form-control input-sm"  value="{{$data_mast->prov_name}}">
 								<span class="input-group-btn">
 								<a  href="#addprov" rel="addprov" class="btn btn-sm btn-primary">
 								<sapn class="glyphicon glyphicon-triangle-bottom"></span></a>
@@ -125,7 +123,7 @@
 						<div class="col-sm-2">
 							<div class="input-group ">
 
-							<input type="text" name="post_code" id="post_code" class="form-control input-sm">
+							<input type="text" name="post_code" id="post_code" class="form-control input-sm"  value="{{$data_mast->post_code}}">
 								<span class="input-group-btn">
 								<a  href="#addpost" rel="addpost" class="btn btn-sm btn-primary">
 								<sapn class="glyphicon glyphicon-triangle-bottom"></span></a>
@@ -147,7 +145,7 @@
 					</div>
 
 					<div class="col-sm-2">
-						<input type="text" name="tel" id="tel" class="form-control input-sm">
+						<input type="text" name="tel" id="tel" class="form-control input-sm"  value="{{$data_mast->ship_tel}}">
 					</div>
 
 					<div class="col-sm-1 col-sm-offset-2">
@@ -155,7 +153,7 @@
 					</div>
 
 					<div class="col-sm-2">
-						<input type="text" name="email" id="email" class="form-control input-sm">
+						<input type="text" name="email" id="email" class="form-control input-sm"  value="{{$data_mast->email_address}}">
 					</div>
 				</div>
 
@@ -189,13 +187,13 @@
 						<label>GP</label>
 					</div>
 					<div class="col-sm-1">
-						<input type="text" name="gp1"  id="gp1" class="form-control input-sm">
+						<input type="text" name="gp1"  id="gp1" class="form-control input-sm"  value="{{$data_mast->gp1}}">
 					</div>
 					<div class="col-sm-1">
-						<input type="text" name="gp2"  id="gp2" class="form-control input-sm">
+						<input type="text" name="gp2"  id="gp2" class="form-control input-sm"  value="{{$data_mast->gp2}}">
 					</div>
 					<div class="col-sm-1">
-						<input type="text" name="gp3"  id="gp3" class="form-control input-sm">
+						<input type="text" name="gp3"  id="gp3" class="form-control input-sm"  value="{{$data_mast->gp3}}">
 					</div>
 
 					</div>
@@ -227,14 +225,18 @@
 			</thead>		
 			
 			<tbody>
-				<!--<tr>
-					<td colspan=3></td>
-					<td><span id='total_qty'></span></td>
-					<td></td>
-					<td><span id='total_price'></span></td>
-					<td></td>
-					<td></td>
-				</tr>-->
+				@foreach($data_det as $dbarr)
+				<tr class="rprod">
+					<td>{{$dbarr->item}}</td>
+					<td>{{$dbarr->prod_code}}<input type="hidden" name="procode[]" value="{{$dbarr->prod_code}}"></td>
+					<td>{{$dbarr->prod_name}}<input type="hidden" name="proname[]" value="{{$dbarr->prod_name}}"></td>
+					<td class="c_qty"><input type="text" name="qty[]" id="qty" class="form-control" style="width: 50px;" value="{{$dbarr->qty}}"></td>
+					<td class="c_price">{{$dbarr->sale_price}}<input type="hidden" name="price[]" value="{{$dbarr->sale_price}}"></td>
+					<td class="c_amt">{{$dbarr->amt}}</td>
+					<td><div class="form-inline"><div class="checkbox"><label><input type="checkbox" name="sp_size[]"  value="{{$dbarr->sp_size}}"></label> <input type="text" name="sp_size_desc[]" id="sp_size_desc" class="form-control"  style="width: 50px;" value="{{$dbarr->sp_size_desc}}"></div></div></td>
+					<td><a href="#delete" rel="pro_delete" class="btn btn-sm btn-danger">Delete</a></td>
+				</tr>				
+				@endforeach
 				
 
 			</tbody>
@@ -246,9 +248,9 @@
 		<table class='table '>
 			<tr>
 					<td >จำนวนสินค้า</td>
-					<td><span id='total_qty'></span></td>
+					<td><span id='total_qty'></span>{{$data_mast->tot_qty}}</td>
 					<td>ราคารวมทั้งสิ้น</td>
-					<td><span id='total_price'></span></td>
+					<td><span id='total_price'></span>{{$data_mast->tot_amt}}</td>
 					<td></td>
 					<td></td>
 			</tr>
@@ -261,8 +263,8 @@
 		<div class="col-sm-4">
 			<div class="input-group ">
 				
-				<input type ="hidden" name="pay_code" id="pay_code" >
-				<input type="text" name="pay_name" id="pay_name" class="form-control input-sm">
+				<input type ="hidden" name="pay_code" id="pay_code"  value="{{$data_mast->pay_code}}">
+				<input type="text" name="pay_name" id="pay_name" class="form-control input-sm"  value="{{$data_mast->pay_name}}">
 						
 					<span class="input-group-btn">
 					<a  href="#addpay" rel="addpay" class="btn btn-sm btn-primary"><sapn class="glyphicon glyphicon-triangle-bottom"></span></a>
@@ -270,10 +272,20 @@
 			</div>
 		</div>
 
+		<div class="col-sm-2 col-sm-offset-3">
+			<div class="checkbox">
+				<label>
+					<input type="checkbox" ืname="can" id="can" value="Y">
+					ยกเลิกเอกสาร
+				</label>
+			</div>
+		</div>
+
+
 	</div>
 	
 </div>
 <div class="modal-footer">
-	<button type="button" id="SubmitOrder" class="btn btn-primary">Submit Order</button>
+	<button type="button" id="EditOrder" class="btn btn-primary">Submit Order</button>
 	<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 </div>

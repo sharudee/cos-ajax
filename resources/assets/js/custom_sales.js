@@ -8,6 +8,17 @@ $(function(){
 		});
 	});
 
+	/*$("a[rel=showpo]").click(function(){
+		//var id = $("a[rel=showpo]").attr('data-id');
+
+		//console.log(id);
+		$.get('salesshow',function(data){
+			$("#showpomodal").html(data);
+			// เปิด modal
+			$(".showpomodal").modal('show');
+		});
+	});
+	*/
 
 	// Event Add Customer Form
 	/*$('body').on('click','a[rel=addcustomer]',function(){
@@ -277,7 +288,7 @@ $(function(){
 	});
 	
 	
-
+	
 
 	$('body').on('change','td.c_qty input', function() {
 		$('.rprod').each(function(){
@@ -474,6 +485,7 @@ $(function(){
 				gp3:gp3,
 				pay_code:pay_code,
 				pay_name:pay_name,
+				
 
 
 				
@@ -498,5 +510,147 @@ $(function(){
 
 		},"json");
 	});
+
+
+	// Event Edit Order
+	
+	$('body').on("click",'button#EditOrder',function(){
+
+		
+		var id = $("input#id").val();
+		//alert(id);
+		var doc_no = $("input#doc_no").val();
+		var doc_date = $("input#doc_date").val();
+		var req_date = $("input#req_date").val();
+		var pmt_no = $("input#pmt_no").val();
+		var ship_titlename = $("input#ship_titlename").val();
+		var ship_custname = $("input#ship_custname").val();
+		var ship_custsurname = $("input#ship_custsurname").val();
+		var ship_address1 = $("input#ship_address1").val();
+		var ship_address2 = $("input#ship_address2").val();
+		var ship_titlename = $("input#ship_titlename").val();
+		var prov_code = $("input#prov_code").val();
+		var prov_name = $("input#prov_name").val();
+		var post_code = $("input#post_code").val();
+		var tel = $("input#tel").val();
+		var email_address = $("input#email").val();
+		var po_file = $("file#po").val();
+		var gp1 = $("input#gp1").val();
+		var gp2 = $("input#gp2").val();
+		var gp3 = $("input#gp3").val();
+		var pay_code = $("input#pay_code").val();
+		var pay_name = $("input#pay_name").val();
+		var can = $("input#can:checked").val();
+	
+		//console.log(can);
+
+		var _token = $("input[name=_token]").val();
+
+		var procode = [];
+		$("input[name='procode[]']").each(function ()
+		{
+			procode.push($(this).val());
+		});
+
+		var proname = [];
+		$("input[name='proname[]']").each(function ()
+		{
+			proname.push($(this).val());
+		});
+
+		var qty = [];
+		$("input[name='qty[]']").each(function ()
+		{
+			qty.push($(this).val());
+		});
+
+		var price = [];
+
+		$("input[name='price[]']").each(function ()
+		{
+			price.push($(this).val());
+		});
+
+		var sp_size = [];
+
+		$("input[name='sp_size[]']").each(function ()
+		{
+			
+			sp_size.push($(this).val());
+			//console.log(sp_size);
+		});
+
+		//console.log(sp_size);
+
+		var sp_size_desc = [];
+
+		$("input[name='sp_size_desc[]']").each(function ()
+		{
+			sp_size_desc.push($(this).val());
+		});
+
+		$.ajax({
+
+			beforeSend:function() { 
+				// Loading...
+			},
+
+			complete:function() {
+				// Close Loading...
+			},
+
+			url:'editOrder',
+			type:'POST',
+			cache:false,
+			data:{
+				_token:_token,
+				id:id,
+				doc_no:doc_no,
+				doc_date:doc_date,
+				req_date:req_date,
+				pmt_no:pmt_no,
+				ship_titlename:ship_titlename,
+				ship_custname:ship_custname,
+				ship_custsurname:ship_custsurname,
+				ship_address1:ship_address1,
+				ship_address2:ship_address2,
+				prov_code:prov_code,
+				prov_name:prov_name,
+				post_code:post_code,
+				tel:tel,
+				email_address:email_address,
+				po_file:po_file,
+				gp1:gp1,
+				gp2:gp2,
+				gp3:gp3,
+				pay_code:pay_code,
+				pay_name:pay_name,
+				can:can,
+				
+
+
+				
+				procode:procode,
+				proname:proname,
+				qty:qty,
+				price:price,
+				sp_size:sp_size,
+				sp_size_desc:sp_size_desc,
+			},
+
+			success: function(data)
+			{
+				if(data=="Edit_Success")
+				{
+					// แสดง popup ด้วย sweet alert
+					swal("Record Save!", "บันทึกรายการเรียบร้อย!", "success");
+					// ปิด modal
+					$("#solsoCrudModal").modal('hide');
+				}
+			},
+
+		},"json");
+	});
+
 
 });

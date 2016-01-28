@@ -7,6 +7,8 @@ Route::get('/',"HomeController@index");
 
 Route::get('sales','SaleController@sales');
 Route::get('salesform','SaleController@salesform');
+Route::get('salesshow/{id}','SaleController@salesshow');
+Route::get('salesedit/{id}','SaleController@salesedit');
 Route::get('salesproductform/{pmt_no}','SaleController@productform');
 Route::get('salespromotionform/{pdate}','SaleController@salespromotionform');
 Route::get('salestitleform','SaleController@salestitleform');
@@ -14,6 +16,7 @@ Route::get('salesprovform','SaleController@salesprovform');
 Route::get('salespostform/{prov}','SaleController@salespostform');
 Route::get('salespayform','SaleController@salespayform');
 Route::post('submitOrder','SaleController@submitOrder');
+Route::post('editOrder','SaleController@editOrder');
 
 
 Route::get('commissionclass_cust','ComclassController@commissioncust');
