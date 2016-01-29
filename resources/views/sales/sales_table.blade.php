@@ -36,7 +36,7 @@
 								data-href="{{URL::to('salesshow/'.$dbarr->id)}}" data-modal-title="Show Sales" >
 								 View Detail</button>
 								<!--<a href="#showpo/{{$dbarr->id}}"  id ="{{$crt}}" rel="showpo" data-id="{{$dbarr->id}}" class="btn btn-sm btn-primary">View Detail</a>-->
-								<a href="#" class="btn btn-sm btn-success">Print</a>
+								<a href="{{URL::to('salesreport/'.$dbarr->id)}}" class="btn btn-sm btn-success">Print</a>
 								<!--<a href="#" class="btn btn-sm btn-danger">Edit</a>-->
 								<button type="button" class="btn btn-sm btn-danger solsoShowModal"  
 								data-toggle="modal" data-target="#solsoCrudModal" 

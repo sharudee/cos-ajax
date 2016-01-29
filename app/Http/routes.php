@@ -17,6 +17,7 @@ Route::get('salespostform/{prov}','SaleController@salespostform');
 Route::get('salespayform','SaleController@salespayform');
 Route::post('submitOrder','SaleController@submitOrder');
 Route::post('editOrder','SaleController@editOrder');
+Route::get('salesreport/{id}','SaleController@salesreport');
 
 
 Route::get('commissionclass_cust','ComclassController@commissioncust');

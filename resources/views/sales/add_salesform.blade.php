@@ -57,11 +57,13 @@
 						<div class="input-group ">
 
 							<input type="text" name="ship_titlename" id="ship_titlename" class="form-control input-sm">
+							{!!$errors->first('ship_titlename','<p class="error">:message</p>')!!}
 								<span class="input-group-btn">
 								<a  href="#addtitle" rel="addtitle" class="btn btn-sm btn-primary">
 								<sapn class="glyphicon glyphicon-triangle-bottom"></span></a>
 								</sapn>
 								<input type="text" name="ship_custname" id="ship_custname" class="form-control input-sm">
+								{!!$errors->first('ship_custname','<p class="error">:message</p>')!!}
 									
 								
 						</div>
@@ -69,6 +71,7 @@
 					
 					<div class="col-sm-2">
 						<input type="text" name="ship_custsurname" id="ship_custsurname" class="form-control input-sm">
+						{!!$errors->first('ship_custsurname','<p class="error">:message</p>')!!}
 					</div>
 
 					<div class="col-sm-1">
@@ -96,10 +99,12 @@
 						<label>ที่อยู่</label>
 					</div>
 					<div class="col-sm-4">
-						<input type="text" name="ship_address1" id="ship_address1" class="form-control input-sm">
+						<input type="text" name="ship_address1" id="ship_address1" class="form-control input-sm required" required>
+						{!!$errors->first('ship_address1','<p class="error">:message</p>')!!}
 					</div>
 					<div class="col-sm-4">
 						<input type="text" name="ship_address2" id="ship_address2" class="form-control input-sm">
+						{!!$errors->first('ship_address2','<p class="error">:message</p>')!!}
 					</div>
 
 					

@@ -137,6 +137,8 @@ return [
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Html\HtmlServiceProvider',
 		'Felixkiss\UniqueWithValidator\UniqueWithValidatorServiceProvider',
+		'Barryvdh\DomPDF\ServiceProvider',
+		
 
 
 		/*
@@ -198,6 +200,8 @@ return [
 		'Form'      => 'Illuminate\Html\FormFacade',
 		'Html'      => 'Illuminate\Html\HtmlFacade',
 		'Carbon' => 'Carbon\Carbon',
+		'PDF' => 'Barryvdh\DomPDF\Facade',
+		
 
 	],
 

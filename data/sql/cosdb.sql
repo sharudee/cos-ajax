@@ -1,30 +1,4 @@
--- phpMyAdmin SQL Dump
--- version 4.4.14
--- http://www.phpmyadmin.net
---
--- Host: 127.0.0.1
--- Generation Time: Jan 27, 2016 at 10:24 AM
--- Server version: 5.6.26
--- PHP Version: 5.6.12
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Database: `cosdb`
---
-
--- --------------------------------------------------------
-
---
--- Table structure for table `commission_class`
---
+﻿
 
 DROP TABLE IF EXISTS `commission_class`;
 CREATE TABLE IF NOT EXISTS `commission_class` (
@@ -36,7 +10,7 @@ CREATE TABLE IF NOT EXISTS `commission_class` (
   `created_by` varchar(15) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_by` varchar(15) NOT NULL,
-  `updated_at` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP
+  `updated_at` datetime NOT NULL 
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
@@ -63,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `commission_mast` (
   `created_by` varchar(15) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_by` varchar(15) NOT NULL,
-  `updated_at` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP
+  `updated_at` datetime NOT NULL 
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
@@ -91,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `commission_pc` (
   `created_by` varchar(15) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_by` varchar(15) NOT NULL,
-  `updated_at` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP
+  `updated_at` datetime NOT NULL 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- --------------------------------------------------------
@@ -129,7 +103,7 @@ CREATE TABLE IF NOT EXISTS `cos_invdet` (
   `created_by` varchar(15) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_by` varchar(15) DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
+  `updated_at` datetime DEFAULT NULL 
 ) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 --
@@ -233,7 +207,7 @@ CREATE TABLE IF NOT EXISTS `cos_invmast` (
   `created_by` varchar(15) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_by` varchar(15) NOT NULL,
-  `updated_at` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP
+  `updated_at` datetime NOT NULL 
 ) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 
 --
@@ -294,7 +268,7 @@ CREATE TABLE IF NOT EXISTS `cos_itemdet` (
   `created_by` varchar(15) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_by` varchar(15) NOT NULL,
-  `updated_at` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP
+  `updated_at` datetime NOT NULL 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- --------------------------------------------------------
@@ -326,7 +300,7 @@ CREATE TABLE IF NOT EXISTS `cos_itemmast` (
   `created_by` varchar(15) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_by` varchar(15) NOT NULL,
-  `updated_at` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP
+  `updated_at` datetime NOT NULL 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- --------------------------------------------------------
@@ -346,7 +320,7 @@ CREATE TABLE IF NOT EXISTS `cos_pcmast` (
   `created_by` varchar(15) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_by` varchar(15) NOT NULL,
-  `updated_at` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP
+  `updated_at` datetime NOT NULL 
 ) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
 
 --
@@ -379,7 +353,7 @@ CREATE TABLE IF NOT EXISTS `cos_pcwork` (
   `created_by` varchar(15) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_by` varchar(15) NOT NULL,
-  `updated_at` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP
+  `updated_at` datetime NOT NULL 
 ) ENGINE=InnoDB AUTO_INCREMENT=551 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 --
@@ -495,7 +469,7 @@ CREATE TABLE IF NOT EXISTS `cos_product` (
   `created_by` varchar(15) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_by` varchar(15) NOT NULL,
-  `updated_at` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP
+  `updated_at` datetime NOT NULL 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -513,7 +487,7 @@ CREATE TABLE IF NOT EXISTS `cos_product_img` (
   `created_by` varchar(15) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_by` varchar(15) NOT NULL,
-  `updated_at` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP
+  `updated_at` datetime NOT NULL 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -560,7 +534,7 @@ CREATE TABLE IF NOT EXISTS `cust_mast` (
   `created_by` varchar(15) NOT NULL,
   `creared_at` datetime NOT NULL,
   `updated_by` varchar(15) NOT NULL,
-  `updated_at` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP
+  `updated_at` datetime NOT NULL 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -580,7 +554,7 @@ CREATE TABLE IF NOT EXISTS `doc_mast` (
   `created_by` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_by` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
-  `updated_at` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP
+  `updated_at` datetime NOT NULL 
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -614,7 +588,7 @@ CREATE TABLE IF NOT EXISTS `entity` (
   `created_by` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_by` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
-  `updated_at` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP
+  `updated_at` datetime NOT NULL 
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -642,7 +616,7 @@ CREATE TABLE IF NOT EXISTS `incentive_mast` (
   `created_by` varchar(15) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_by` varchar(15) NOT NULL,
-  `updated_at` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP
+  `updated_at` datetime NOT NULL 
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
@@ -670,7 +644,7 @@ CREATE TABLE IF NOT EXISTS `incentive_pc` (
   `created_by` varchar(15) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_by` varchar(15) NOT NULL,
-  `updated_at` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP
+  `updated_at` datetime NOT NULL 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- --------------------------------------------------------
@@ -723,7 +697,7 @@ CREATE TABLE IF NOT EXISTS `pmt_consignee` (
   `discount_amt` decimal(18,4) NOT NULL,
   `rec_status` varchar(15) DEFAULT NULL,
   `updated_by` varchar(15) DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ,
   `created_by` varchar(15) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
@@ -751,7 +725,7 @@ CREATE TABLE IF NOT EXISTS `pmt_discount` (
   `created_by` varchar(15) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_by` varchar(15) NOT NULL,
-  `updated_at` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP
+  `updated_at` datetime NOT NULL 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- --------------------------------------------------------
@@ -770,7 +744,7 @@ CREATE TABLE IF NOT EXISTS `pmt_disc_payment_rate` (
   `discount_amt` decimal(18,4) DEFAULT NULL,
   `rec_status` varchar(15) DEFAULT NULL,
   `updated_by` varchar(15) DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ,
   `created_by` varchar(15) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -790,7 +764,7 @@ CREATE TABLE IF NOT EXISTS `pmt_disc_premium_deny` (
   `discount_amt` decimal(18,4) DEFAULT NULL,
   `rec_status` varchar(15) DEFAULT NULL,
   `updated_by` varchar(15) DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ,
   `created_by` varchar(15) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -813,7 +787,7 @@ CREATE TABLE IF NOT EXISTS `pmt_disc_shop_rate` (
   `premium_amt` decimal(18,2) DEFAULT NULL,
   `rec_status` varchar(15) DEFAULT NULL,
   `updated_by` varchar(15) DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ,
   `created_by` varchar(15) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -830,7 +804,7 @@ CREATE TABLE IF NOT EXISTS `pmt_group_mast` (
   `pmt_group_code_name` varchar(25) NOT NULL,
   `rec_status` varchar(15) DEFAULT NULL,
   `updated_by` varchar(15) DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ,
   `created_by` varchar(15) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -866,7 +840,7 @@ CREATE TABLE IF NOT EXISTS `pmt_mast` (
   `gp_amt` decimal(10,4) DEFAULT NULL,
   `rec_status` varchar(15) DEFAULT NULL,
   `updated_by` varchar(15) DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ,
   `created_by` varchar(15) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
@@ -896,7 +870,7 @@ CREATE TABLE IF NOT EXISTS `pmt_package_det` (
   `uom` varchar(15) NOT NULL,
   `rec_status` varchar(15) DEFAULT NULL,
   `updated_by` varchar(15) DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ,
   `created_by` varchar(15) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
@@ -935,7 +909,7 @@ CREATE TABLE IF NOT EXISTS `pmt_package_mast` (
   `special2_price_amt` decimal(18,2) DEFAULT NULL,
   `rec_status` varchar(15) DEFAULT NULL,
   `updated_by` varchar(15) DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ,
   `created_by` varchar(15) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
@@ -964,7 +938,7 @@ CREATE TABLE IF NOT EXISTS `pmt_premium_set_det` (
   `created_by` varchar(15) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_by` varchar(15) NOT NULL,
-  `updated_at` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP
+  `updated_at` datetime NOT NULL 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- --------------------------------------------------------
@@ -982,7 +956,7 @@ CREATE TABLE IF NOT EXISTS `pmt_prenium_set` (
   `created_by` varchar(15) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_by` varchar(15) NOT NULL,
-  `updated_at` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP
+  `updated_at` datetime NOT NULL 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- --------------------------------------------------------
@@ -1013,7 +987,7 @@ CREATE TABLE IF NOT EXISTS `pmt_product` (
   `unit_price_amt` decimal(10,2) NOT NULL,
   `sale_default` char(1) DEFAULT NULL,
   `updated_by` varchar(15) DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ,
   `created_by` varchar(15) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
@@ -1053,7 +1027,7 @@ CREATE TABLE IF NOT EXISTS `pmt_product_set` (
   `discount_amt` decimal(18,4) DEFAULT NULL,
   `rec_status` varchar(15) DEFAULT NULL,
   `updated_by` varchar(15) DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ,
   `created_by` varchar(15) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
@@ -1093,7 +1067,7 @@ CREATE TABLE IF NOT EXISTS `pmt_product_set_det` (
   `created_by` varchar(15) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_by` varchar(15) NOT NULL,
-  `updated_at` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP
+  `updated_at` datetime NOT NULL 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -1109,7 +1083,7 @@ CREATE TABLE IF NOT EXISTS `pmt_transaction_mast` (
   `transaction_name` varchar(50) NOT NULL,
   `rec_status` varchar(15) DEFAULT NULL,
   `updated_by` varchar(15) DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ,
   `created_by` varchar(15) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -2352,7 +2326,7 @@ CREATE TABLE IF NOT EXISTS `product` (
   `unit_price_amt` decimal(10,2) NOT NULL,
   `rec_status` varchar(15) DEFAULT NULL,
   `updated_by` varchar(15) DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ,
   `created_by` varchar(15) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8;
@@ -2592,7 +2566,7 @@ CREATE TABLE IF NOT EXISTS `wh_mast` (
   `created_by` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_by` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
-  `updated_at` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP
+  `updated_at` datetime NOT NULL 
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --

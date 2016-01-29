@@ -7,7 +7,10 @@
 	"require": {
 		"laravel/framework": "5.0.*",
 		"illuminate/html": "^5.0",
-		"felixkiss/uniquewith-validator": "2.*"
+		"felixkiss/uniquewith-validator": "2.*",
+		"barryvdh/laravel-dompdf": "0.6",
+		"servit/l5mpdf": "dev-master"
+
 	},
 	"require-dev": {
 		"phpunit/phpunit": "~4.0",
