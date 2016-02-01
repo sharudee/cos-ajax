@@ -138,6 +138,7 @@ return [
 		'Illuminate\Html\HtmlServiceProvider',
 		'Felixkiss\UniqueWithValidator\UniqueWithValidatorServiceProvider',
 		'Barryvdh\DomPDF\ServiceProvider',
+		'Kendu\Mpdf\ServiceProvider',
 		
 
 
@@ -201,6 +202,7 @@ return [
 		'Html'      => 'Illuminate\Html\HtmlFacade',
 		'Carbon' => 'Carbon\Carbon',
 		'PDF' => 'Barryvdh\DomPDF\Facade',
+		'MPDF' => 'Kendu\Mpdf\Facades\Pdf',
 		
 
 	],

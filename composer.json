@@ -9,7 +9,7 @@
 		"illuminate/html": "^5.0",
 		"felixkiss/uniquewith-validator": "2.*",
 		"barryvdh/laravel-dompdf": "0.6",
-		"servit/l5mpdf": "dev-master"
+		"kendu/l5-mpdf" : "dev-master"
 
 	},
 	"require-dev": {

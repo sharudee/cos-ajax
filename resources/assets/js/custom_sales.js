@@ -184,7 +184,25 @@ $(function(){
 	});
 
 
+	//Upload file
 
+	/*$('body').on('change','input:file[name="po"]', function() {
+
+		$.ajax({
+			url: 'submitOrder', // Url to which the request is send
+			type: 'POST',             // Type of request to be send, called as method
+			data: new FormData(this ),
+			 // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+			contentType: false,       // The content type used when sending data to the server.
+			cache: false,             // To unable request pages to be cached
+			processData:false,        // To send DOMDocument or non processed data file it is set to false
+			success: function(data)   // A function to be called if request succeeds
+			{
+				$('#loading').hide();
+				$("#message").html(data);
+			}
+		});
+	});*/	
 
 
 
@@ -197,6 +215,15 @@ $(function(){
 		});
 	});
 
+	// Event Add Premium Form
+	$('body').on('click','a[rel=addpremium]',function(){
+		$.get('salespremiumform/'+$('input#pmt_no').val(),function(data){
+			$("#premiummodal").html(data);
+			// เปิด modal
+			$(".premiummodal").modal('show');
+		});
+	});
+
 
 	// Event Submit Product
 	$('body').on('click','button#submitproduct',function(){
@@ -206,6 +233,7 @@ $(function(){
 		var proname = [];
 		var qty = [];
 		var price = [];
+		var prodset = [];
 
 
 		$("input[name='product[]']:checked").each(function ()
@@ -214,6 +242,7 @@ $(function(){
 			proname.push($(this).attr('data-proname'));
 			qty.push($(this).attr('data-qty'));
 			price.push($(this).attr('data-price'));
+			prodset.push($(this).attr('data-prodset'));
 		});
 
 		//alert(JSON.stringify(proname));
@@ -244,7 +273,7 @@ $(function(){
 				new_row.className="rprod";
 				data = rowCount ;
 				new_row.insertCell(0).innerHTML = data;
-				data = procode[(rows-1)]+'<input type="hidden" name="procode[]" value="'+procode[(rows-1)]+'">';
+				data = procode[(rows-1)]+'<input type="hidden" name="procode[]" value="'+procode[(rows-1)]+'">'+'<input type="hidden" name="prodset[]" value="'+prodset[(rows-1)]+'">';
 				new_row.insertCell(1).innerHTML = data;
 				
 				data = proname[(rows-1)]+'<input type="hidden" name="proname[]" value="'+proname[(rows-1)]+'">';
@@ -280,6 +309,107 @@ $(function(){
 			// เรียกใช้ฟังก์ชันนับจำนวนรายการและราคารวม
 			sum_qty_and_price();
 			$(".productmodal").modal('hide');
+			procode.length = 0;
+			//$(".premiummodal").modal('hide');
+
+		}else{
+			alert('กรุณาเลือกอย่างน้อย 1 รายการ');
+		}
+	
+	});
+
+
+	// Event Submit Premium
+	$('body').on('click','button#submitpremium',function(){
+		
+		var rows;
+		var precode = [];
+		var prename = [];
+		var pqty = [];
+		var pprice = [];
+		var pprodset = [];
+
+
+
+		$("input[name='premium[]']:checked").each(function ()
+		{
+			precode.push($(this).val());
+			prename.push($(this).attr('data-proname'));
+			pqty.push($(this).attr('data-qty'));
+			pprice.push($(this).attr('data-price'));
+			pprodset.push($(this).attr('data-prodset'));
+		});
+
+		//alert(JSON.stringify(proname));
+
+		console.log(precode.length);
+
+		if(precode.length){
+
+			var rowCount = $('#po_table tr').length; // นับจำนวนแถวของตาราง
+			var mytable;
+			//var i=1;
+			table = document.getElementById('po_table');
+  			//new_row = table.insertRow(table.rows.length);
+
+  			//console.log(rowCount);
+
+			for(rows=1;rows<=precode.length;rows++)
+			{
+				/*mytable += "<tr>"+
+						//"<td>"+((rowCount+rows)-2)+"</td>"+
+						"<td>"+i+"</td>"+
+						"<td>"+procode[(rows-1)]+"<input type='hidden' name='procode[]' value='"+procode[(rows-1)]+"'></td>"+
+						"<td>"+proname[(rows-1)]+"<input type='hidden' name='proname[]' value='"+proname[(rows-1)]+"'></td>"+
+						"<td><input type=\"text\" name=\"qty[]\" id=\"qty\" class=\"form-control\" style=\"width: 50px;\" value='"+qty[(rows-1)]+"'></td>"+
+						"<td><input type=\"text\" name=\"price[]\" id=\"price\" class=\"form-control\" style=\"width: 100px;\" value='"+price[(rows-1)]+"'></td>"+
+						"<td><input type=\"text\" name=\"price[]\" id=\"price\" class=\"form-control\"  style=\"width: 100px;\"value='"+price[(rows-1)]+"'></td>"+
+						"<td><div class=\"form-inline\"><div class=\"checkbox\"><label><input type=\"checkbox\" name=\"sp_size\" value=\"\"></label> <input type=\"text\" name=\"sp_size_desc\" id=\"sp_size_desc\" class=\"form-control\"  style=\"width: 50px;\" value=\"\"></div></div></td>"+
+						"<td><a href=\"#delete\" rel='pro_delete' class=\"btn btn-sm btn-danger\">Delete</a></td>"+
+					        "</tr>"; 
+				*/
+				new_row = table.insertRow(table.rows.length);
+				new_row.className="rprod";
+				data = rowCount ;
+				new_row.insertCell(0).innerHTML = data;
+				data = precode[(rows-1)]+'<input type="hidden" name="procode[]" value="'+precode[(rows-1)]+'">'+'<input type="hidden" name="prodset[]" value="'+pprodset[(rows-1)]+'">';
+				new_row.insertCell(1).innerHTML = data;
+				
+				data = prename[(rows-1)]+'<input type="hidden" name="proname[]" value="'+prename[(rows-1)]+'">';
+				new_row.insertCell(2).innerHTML = data;
+				
+				data = '<input type="text" name="qty[]" id="qty" class="form-control" style="width: 50px;" data-price="' +pprice[(rows-1)] +'"value="'+pqty[(rows-1)]+'">';
+				newcell = new_row.insertCell(3)
+				newcell.innerHTML  = data;
+				newcell.className = "c_qty";
+				//data = '<input type="text" name="price[]" id="price" class="form-control" style="width: 100px;" value="'+price[(rows-1)]+'">';
+				data = pprice[(rows-1)]+'<input type="hidden" name="price[]" value="'+pprice[(rows-1)]+'">';
+				newcell = new_row.insertCell(4)
+				newcell.innerHTML  = data;
+				newcell.className = "c_price";
+				//data = '<input type="text" name="amt[]" id="amt" class="form-control" style="width: 100px;" value="'+qty[(rows-1)]*price[(rows-1)]+'">';
+				data = pqty[(rows-1)]*pprice[(rows-1)];
+				newcell = new_row.insertCell(5)
+				newcell.innerHTML  = data;
+				newcell.className = "c_amt";
+
+				data = '<div class="form-inline"><div class="checkbox"><label><input type="checkbox" name="sp_size[]"  value="Y"></label> <input type="text" name="sp_size_desc[]" id="sp_size_desc" class="form-control"  style="width: 50px;" value=""></div></div></td>';
+				new_row.insertCell(6).innerHTML = data;
+				data = '<a href="#delete" rel="pro_delete" class="btn btn-sm btn-danger">Delete</a>';
+				new_row.insertCell(7).innerHTML = data;
+
+				rowCount++;
+				//i = i+rows;       
+			}
+
+			//new_row.insertCell(0).innerHTML = data;
+			//$('#po_table tbody').prepend(mytable);
+
+			// เรียกใช้ฟังก์ชันนับจำนวนรายการและราคารวม
+			sum_qty_and_price();
+			//$(".productmodal").modal('hide');
+			$(".premiummodal").modal('hide');
+			precode.length = 0;
 
 		}else{
 			alert('กรุณาเลือกอย่างน้อย 1 รายการ');
@@ -325,6 +455,8 @@ $(function(){
 		$(this).parent().parent().remove();
 		sum_qty_and_price();
 	});
+
+
 
 
 	
@@ -398,7 +530,7 @@ $(function(){
 		var post_code = $("input#post_code").val();
 		var tel = $("input#tel").val();
 		var email_address = $("input#email").val();
-		var po_file = $("file#po").val();
+		//var po_file = $("input:file#po").val();
 		var gp1 = $("input#gp1").val();
 		var gp2 = $("input#gp2").val();
 		var gp3 = $("input#gp3").val();
@@ -408,6 +540,12 @@ $(function(){
 		var _token = $("input[name=_token]").val();
 
 		var procode = [];
+
+
+		
+
+		//console.log(po_file);
+
 		$("input[name='procode[]']").each(function ()
 		{
 			procode.push($(this).val());
@@ -438,16 +576,23 @@ $(function(){
 		{
 			
 			sp_size.push($(this).val());
-			console.log(sp_size);
+			//console.log(sp_size);
 		});
 
-		console.log(sp_size);
+		//console.log(sp_size);
 
 		var sp_size_desc = [];
 
 		$("input[name='sp_size_desc[]']").each(function ()
 		{
 			sp_size_desc.push($(this).val());
+		});
+
+		var prodset = [];
+
+		$("input[name='prodset[]']").each(function ()
+		{
+			prodset.push($(this).val());
 		});
 
 		$.ajax({
@@ -479,7 +624,6 @@ $(function(){
 				post_code:post_code,
 				tel:tel,
 				email_address:email_address,
-				po_file:po_file,
 				gp1:gp1,
 				gp2:gp2,
 				gp3:gp3,
@@ -495,17 +639,24 @@ $(function(){
 				price:price,
 				sp_size:sp_size,
 				sp_size_desc:sp_size_desc,
+				prodset:prodset,
 			},
 
 			success: function(data)
 			{
+				//alert(data);
 				if(data=="Insert_Success")
 				{
+					
 					// แสดง popup ด้วย sweet alert
 					swal("Record Save!", "บันทึกรายการเรียบร้อย!", "success");
 					// ปิด modal
 					$(".pomodal").modal('hide');
+					window.location.reload();
+					
 				}
+
+				
 			},
 
 		},"json");
@@ -534,7 +685,7 @@ $(function(){
 		var post_code = $("input#post_code").val();
 		var tel = $("input#tel").val();
 		var email_address = $("input#email").val();
-		var po_file = $("file#po").val();
+		//var po_file = $("file#po").val();
 		var gp1 = $("input#gp1").val();
 		var gp2 = $("input#gp2").val();
 		var gp3 = $("input#gp3").val();
@@ -619,7 +770,6 @@ $(function(){
 				post_code:post_code,
 				tel:tel,
 				email_address:email_address,
-				po_file:po_file,
 				gp1:gp1,
 				gp2:gp2,
 				gp3:gp3,
@@ -646,6 +796,7 @@ $(function(){
 					swal("Record Save!", "บันทึกรายการเรียบร้อย!", "success");
 					// ปิด modal
 					$("#solsoCrudModal").modal('hide');
+					window.location.reload();
 				}
 			},
 

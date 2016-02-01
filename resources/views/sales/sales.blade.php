@@ -100,6 +100,16 @@
 		</div>
 	</div>
 
+	<!-- Modal Premium -->
+	
+	<div class="modal fade premiummodal" data-backdrop="static">
+		<div class="modal-dialog modal-md">
+			<div class="modal-content" id="premiummodal">
+				
+			</div>
+		</div>
+	</div>
+
 
 
 

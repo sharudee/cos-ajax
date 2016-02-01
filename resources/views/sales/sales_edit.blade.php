@@ -203,6 +203,7 @@
 
 
 	<a href="#addproduct" rel="addproduct" class="btn btn-primary">Add Product </a> 
+	<a href="#addpremium" rel="addpremium" class="btn btn-primary">Add Premium </a> 
 
 	<input type="hidden" name="_token" value="{{csrf_token()}}">
 

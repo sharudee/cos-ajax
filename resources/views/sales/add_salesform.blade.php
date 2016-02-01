@@ -3,6 +3,7 @@
 	<h4 class="modal-title">New Sales</h4>
 </div>
 <div class="modal-body">
+	<form enctype="multipart/form-data">
 	<div class="container"> 
 				<div class="row form-group">
 					<div class="col-sm-1">
@@ -16,7 +17,7 @@
 					</div>
 
 					<div class="col-sm-2">
-						<input type="text"  name="doc_date" id="doc_date" class="form-control input-sm" value="<?php echo date('d/m/Y'); ?>">
+						<input type="text"  name="doc_date" id="doc_date" class="form-control input-sm required" value="<?php echo date('d/m/Y'); ?>">
 					</div>
 					<script type="text/javascript">
 
@@ -33,7 +34,7 @@
 					</div>
 
 					<div class="col-sm-2">
-						<input type="text"  name="req_date" id="req_date" class="form-control input-sm" value="<?php echo date('d/m/Y'); ?>">
+						<input type="text"  name="req_date" id="req_date" class="form-control input-sm required" value="<?php echo date('d/m/Y'); ?>">
 					</div>
 					<script type="text/javascript">
 
@@ -56,13 +57,13 @@
 					<div class="col-sm-3">
 						<div class="input-group ">
 
-							<input type="text" name="ship_titlename" id="ship_titlename" class="form-control input-sm">
+							<input type="text" name="ship_titlename" id="ship_titlename" class="form-control input-sm required" required>
 							{!!$errors->first('ship_titlename','<p class="error">:message</p>')!!}
 								<span class="input-group-btn">
 								<a  href="#addtitle" rel="addtitle" class="btn btn-sm btn-primary">
 								<sapn class="glyphicon glyphicon-triangle-bottom"></span></a>
 								</sapn>
-								<input type="text" name="ship_custname" id="ship_custname" class="form-control input-sm">
+								<input type="text" name="ship_custname" id="ship_custname" class="form-control input-sm required" required>
 								{!!$errors->first('ship_custname','<p class="error">:message</p>')!!}
 									
 								
@@ -70,7 +71,7 @@
 					</div>	
 					
 					<div class="col-sm-2">
-						<input type="text" name="ship_custsurname" id="ship_custsurname" class="form-control input-sm">
+						<input type="text" name="ship_custsurname" id="ship_custsurname" class="form-control input-sm required" required>
 						{!!$errors->first('ship_custsurname','<p class="error">:message</p>')!!}
 					</div>
 
@@ -81,7 +82,7 @@
 					<div class="input-group ">
 
 						
-						<input type="text" name="pmt_no" id="pmt_no" class="form-control input-sm">
+						<input type="text" name="pmt_no" id="pmt_no" class="form-control input-sm required">
 						
 						<span class="input-group-btn">
 						<a  href="#addpmt" rel="addpromotion" class="btn btn-sm btn-primary"><sapn class="glyphicon glyphicon-triangle-bottom"></span></a>
@@ -118,7 +119,7 @@
 					<div class="col-sm-2">
 					    	<div class="input-group ">
 							<input type ="hidden" name="prov_code" id="prov_code" >
-							<input type="text" name="prov_name" id="prov_name" class="form-control input-sm">
+							<input type="text" name="prov_name" id="prov_name" class="form-control input-sm required">
 								<span class="input-group-btn">
 								<a  href="#addprov" rel="addprov" class="btn btn-sm btn-primary">
 								<sapn class="glyphicon glyphicon-triangle-bottom"></span></a>
@@ -130,7 +131,7 @@
 						<div class="col-sm-2">
 							<div class="input-group ">
 
-							<input type="text" name="post_code" id="post_code" class="form-control input-sm">
+							<input type="text" name="post_code" id="post_code" class="form-control input-sm required">
 								<span class="input-group-btn">
 								<a  href="#addpost" rel="addpost" class="btn btn-sm btn-primary">
 								<sapn class="glyphicon glyphicon-triangle-bottom"></span></a>
@@ -165,12 +166,12 @@
 				</div>
 
 				<div class="row form-group">
-					<div class="col-sm-1">
+					<!--<div class="col-sm-1">
 						<label>PO</label>
 					</div>
 					<div class="col-sm-3">
 						<input type="file" name="po"  id="po" class="form-control input-sm">
-					</div>
+					</div>-->
 					<!--<div class="col-sm-1 col-sm-offset-1">-->
 						<!--<a class="btn btn-sm btn-primary" data-toggle="modal" href='#modal-map'>Map</a>
 						<div class="modal fade" id="modal-map">
@@ -190,7 +191,7 @@
 								</div>
 							</div>
 						</div>-->
-					<div class="col-sm-1 col-sm-offset-1">
+					<div class="col-sm-1">
 						<label>GP</label>
 					</div>
 					<div class="col-sm-1">
@@ -210,6 +211,7 @@
 
 
 	<a href="#addproduct" rel="addproduct" class="btn btn-primary">Add Product </a> 
+	<a href="#addpremium" rel="addpremium" class="btn btn-primary">Add Premium </a> 
 
 	<input type="hidden" name="_token" value="{{csrf_token()}}">
 
@@ -267,7 +269,7 @@
 			<div class="input-group ">
 				
 				<input type ="hidden" name="pay_code" id="pay_code" >
-				<input type="text" name="pay_name" id="pay_name" class="form-control input-sm">
+				<input type="text" name="pay_name" id="pay_name" class="form-control input-sm required">
 						
 					<span class="input-group-btn">
 					<a  href="#addpay" rel="addpay" class="btn btn-sm btn-primary"><sapn class="glyphicon glyphicon-triangle-bottom"></span></a>

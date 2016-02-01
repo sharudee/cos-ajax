@@ -7,8 +7,13 @@ use App\Http\Controllers\Controller;
 
 use Request;
 use App;
-use PDF;
+use MPDF;
 use Validator;
+use Carbon;
+use File;
+use Response;
+use URL;
+
 
 
 use DB;
@@ -22,12 +27,14 @@ use App\Http\Model\Entity;
 use App\Http\Model\Docmast;
 use App\Http\Model\CosInvmast;
 use App\Http\Model\CosInvdet;
+use App\Http\Model\CosInvdetProduct;
+use App\Http\Model\PmtProductModel;
 
 class SaleController extends Controller {
 
 	public function sales()
 	{
-		$data_sales = CosInvmast::where('cust_code','CXXXX')->OrderBy('doc_date','desc')->get();
+		$data_sales = CosInvmast::where('cust_code','CXXXX')->OrderBy('doc_no','desc')->get();
 		return view('sales.sales')->with('sales',$data_sales);
 	}
 
@@ -56,6 +63,8 @@ class SaleController extends Controller {
 							'data_det'=>$data_det]);
 	}
 
+
+
 	public function salesedit($id)
 	{	
 		
@@ -67,12 +76,86 @@ class SaleController extends Controller {
 							'data_det'=>$data_det]);
 	}
 
+	public function salesfile($id)
+	{	
+		
+		
+		//dd($data_sales);
+		return view('sales.sales_upload')->with('id',$id);
+	}
+
+	public function salesupload($id)
+	{	
+		
+		 if (Request::hasFile('pofile')){
+			$file = Request::file('pofile');
+					//dd($file);
+			$name = time() . '-' . $file->getClientOriginalName();
+			 		
+			$extension = Request::file('pofile')->getClientOriginalExtension();
+
+			$path = 'resources/views/atth_file';
+
+			 		// Moves file to folder on server
+			if($file->move($path, $name))
+			{
+
+			
+				$data_file = array(
+						'po_file' => $name,			
+						'updated_by' => 'admin'
+				);
+
+
+				$po =CosInvmast::find($id);
+				$po->update($data_file);
+
+
+			}
+		}
+
+
+
+
+		$data_sales = CosInvmast::where('cust_code','CXXXX')->OrderBy('doc_no','desc')->get();
+		return view('sales.sales')->with('sales',$data_sales);
+	}
+
+
+	public function salesshowfile($id)
+	{	
+		
+		$po_name = DB::table('cos_invmast')->where('id', $id)->pluck('po_file');
+		//dd($data_sales);
+		
+		if(!empty($po_name))
+		{
+			$path = 'resources/views/atth_file/' .$po_name;
+		}
+
+
+		$file = URL::to($path);
+
+
+		return  redirect($file);
+	}
+
+
+
 	public function productform($pmt_no)
 	{
-		$sql = "select b.pdmodel_code , b.pdmodel_desc , b.pdsize_code , b.pdsize_desc, b.special1_price_amt , b.special2_price_amt from pmt_mast a , pmt_package_mast b where a.pmt_mast_id=b.pmt_mast_id and a.pmt_no='" . $pmt_no . "'";
+		$sql = "select b.pmt_product_set_id , b.pdmodel_code , b.pdmodel_desc , b.pdsize_code , b.pdsize_desc, b.special1_price_amt , b.special2_price_amt from pmt_mast a , pmt_package_mast b where a.pmt_mast_id=b.pmt_mast_id and a.pmt_no='" . $pmt_no . "'";
 		$data = DB::select($sql); 
 
 		return view('sales.salesproductform')->with('prod',$data);
+	}
+
+	public function premiumform($pmt_no)
+	{
+		$sql = "select distinct  d.pmt_product_set_id ,  d.product_set_code , d.product_set_desc , d.set_qty , d.set_price_amt from pmt_mast a , pmt_package_mast b , pmt_package_det c , pmt_product_set d where a.pmt_mast_id=b.pmt_mast_id and b.package_mast_id = c.package_mast_id and c.pmt_product_set_id = d.pmt_product_set_id and a.pmt_no='" . $pmt_no . "'";
+		$data = DB::select($sql); 
+
+		return view('sales.salespremiumform')->with('prod',$data);
 	}
 
 	public function salespromotionform($pdate)
@@ -138,6 +221,9 @@ class SaleController extends Controller {
 
 			if(!empty(Request::input('doc_no')))
 			{	
+				
+
+
 				$data_entity = Entity::where('entity_code','CXXXX')->get(['entity_tname','cos_no','sale_type','tax_rate']);
 				
 				$cos_entity = "B10";
@@ -185,7 +271,7 @@ class SaleController extends Controller {
 					'post_code'	=> Request::input('post_code'),
 					'ship_tel'		=> Request::input('tel'),
 					'email_address'	=> Request::input('email_address'),
-					'po_file'	=> Request::input('po_file'),
+					//'po_file'		=> Request::input('po_file'),
 					'gp1'		=> Request::input('gp1'),
 					'gp2'		=> Request::input('gp2'),
 					'gp3'		=> Request::input('gp3'),
@@ -193,7 +279,7 @@ class SaleController extends Controller {
 					'pay_name'	=> Request::input('pay_name'),
 					'vat_rate'	=> $tax_rate,
 					'doc_status'	=> 'PAL',
-					'tot_qty'	=> $tot_qty,
+					'tot_qty'		=> $tot_qty,
 					'tot_amt'	=> $tot_amt,
 					'created_by'	=> 'admin',
 					'created_at'	=> date('Y-m-d H:i:s')
@@ -215,6 +301,8 @@ class SaleController extends Controller {
 					$getsp_size = Request::input('sp_size');
 					$getsp_size_desc = Request::input('sp_size_desc');
 
+					$getprodset = Request::input('prodset');
+
 					$count_item = count($getprodcode);
 
 					//dd($count_item);
@@ -223,6 +311,7 @@ class SaleController extends Controller {
 					if($count_item)
 					{
 						$item = 1;
+						$item_prod = 1;
 						for($i=0;$i<$count_item;$i++)
 						{
 							$data_cos_det = array(
@@ -248,9 +337,45 @@ class SaleController extends Controller {
 
 							DB::table('cos_invdet')->insert($data_cos_det);
 
+							//echo $getprodset[$i];
+
+							$data_prod = PmtProductModel::where('pmt_product_set_id',$getprodset[$i])->first();
+							
+							$data_set = array(
+								'cos_invmast_id'	=> $cos_invmast_insert,
+								'item'			=> $item_prod,
+								'prod_code'		=> $data_prod->prod_code,
+								'prod_name'		=> $data_prod->prod_tname,
+								'barcode'		=> $data_prod->bar_code,
+								'uom_code'		=> $data_prod->uom_code,
+								'sale_price'		=> $getprice[$i],
+								'qty'			=> $getqty[$i],	
+								'amt'			=> $getqty[$i] * $getprice[$i],
+								'sp_size_desc'		=> $getsp_size_desc[$i],
+								'created_by'		=> 'admin',
+								'created_at'		=> date('Y-m-d H:i:s')
+
+							);
+
+							//dd($data_set);
+
+							DB::table('cos_invdet_product')->insert($data_set);
+
+
+							$item_prod ++;
+
+							//dd($data_prod);	
+
 							$item ++;
 
 						}
+
+						/*$sales = array(
+							'sales' 		=> CosInvmast::where('cust_code','CXXXX')->OrderBy('doc_date','desc')->get(),
+							'refresh'	=> true,
+							'data_success'		=>"Insert_Success"
+						);*/
+						
 
 						return "Insert_Success";
 					}
@@ -259,6 +384,9 @@ class SaleController extends Controller {
 
 				}
 			}
+
+			
+
 		}else{
 			if( Request::ajax() ) 
 			{
@@ -347,7 +475,7 @@ class SaleController extends Controller {
 				'post_code'	=> Request::input('post_code'),
 				'ship_tel'		=> Request::input('tel'),
 				'email_address'	=> Request::input('email_address'),
-				'po_file'	=> Request::input('po_file'),
+				//'po_file'	=> Request::input('po_file'),
 				'gp1'		=> Request::input('gp1'),
 				'gp2'		=> Request::input('gp2'),
 				'gp3'		=> Request::input('gp3'),
@@ -377,6 +505,9 @@ class SaleController extends Controller {
 				$getsp_size = Request::input('sp_size');
 				$getsp_size_desc = Request::input('sp_size_desc');
 
+				$getprodset = Request::input('prodset');
+
+
 				$count_item = count($getprodcode);
 
 				//dd($count_item);
@@ -385,6 +516,7 @@ class SaleController extends Controller {
 				if($count_item)
 				{
 					$item = 1;
+					$item_prod = 1;
 					for($i=0;$i<$count_item;$i++)
 					{
 						$data_cos_det = array(
@@ -410,6 +542,32 @@ class SaleController extends Controller {
 
 						DB::table('cos_invdet')->insert($data_cos_det);
 
+						$data_prod = PmtProductModel::where('pmt_product_set_id',$getprodset[$i])->first();
+							
+							$data_set = array(
+								'cos_invmast_id'	=> $cos_invmast_insert,
+								'item'			=> $item_prod,
+								'prod_code'		=> $data_prod->prod_code,
+								'prod_name'		=> $data_prod->prod_tname,
+								'barcode'		=> $data_prod->bar_code,
+								'uom_code'		=> $data_prod->uom_code,
+								'sale_price'		=> $getprice[$i],
+								'qty'			=> $getqty[$i],	
+								'amt'			=> $getqty[$i] * $getprice[$i],
+								'sp_size_desc'		=> $getsp_size_desc[$i],
+								'created_by'		=> 'admin',
+								'created_at'		=> date('Y-m-d H:i:s')
+
+							);
+
+							//dd($data_set);
+
+							DB::table('cos_invdet_product')->insert($data_set);
+
+
+							$item_prod ++;
+
+
 						$item ++;
 
 					}
@@ -418,6 +576,7 @@ class SaleController extends Controller {
 					{
 						$delete_mast=CosInvmast::where('id',$id)->delete();
 						$delete_det = CosInvdet::where('cos_invmast_id',$id)->delete();
+						$delete_product = CosInvdetProduct::where('cos_invmast_id',$id)->delete();
 					}
 
 					return "Edit_Success";
@@ -436,42 +595,98 @@ class SaleController extends Controller {
 	public function  salesreport($id)
 	{
 		$data_mast = CosInvmast::find($id);
-		$data_det = CosInvdet::where('cos_invmast_id',$id)->OrderBy('item','asc')->get();
+		$data_det = CosInvdetProduct::where('cos_invmast_id',$id)->OrderBy('item','asc')->get();
 
+		$cust_name = DB::table('entity')->where('entity_code',$data_mast->cust_code)->pluck('entity_tname');
+		$content ='
+		<p><h2>Purchase Order</h2></p>
+		     	<table>
+		     	<tr>
+		     	<td width="100">เลขที่</td>
+			<td width="300">' . $data_mast->doc_no . '</td>
+			<td width="80">วันที่</td>
+			<td width="120">' . Carbon::parse($data_mast->doc_date)->format('d/m/Y') . '</td>
+			<td width="80">วันที่ส่ง</td>
+			<td width="120">'. Carbon::parse($data_mast->req_date)->format('d/m/Y') . '</td>
+			</tr>
 
-		$content ='<!doctype html>
-		<html>
-		    <head>
-		        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		        <meta name="description" content="">
-		        <meta name="viewport" content="width=device-width, initial-scale=1">
-		        <title>Sales Report</title>
+			<tr>
+		     	<td width="100">ห้าง</td>
+			<td width="300">' . $cust_name . '</td>
+			<td width="80">ผู้ซื้อ</td>
+			<td  colspan=3 width="320">' . $data_mast->ship_titlename . $data_mast->ship_custname . ' ' . $data_mast->ship_custsurname. '</td>
+			
+			</tr>
 
 			
 
-		    </head>
+			<tr>
+		     	<td width="100">Promotion</td>
+			<td width="300">' . $data_mast->pmt_no . '</td>
+			<td width="80">ที่อยู่</td>
+			<td  colspan=3 width="320">' . $data_mast->ship_address1 . '</td>
+			</tr>
 
-		    <body>
-		       <table>
-		       <tr>
-		       <td>
-		        Purchase Order
-		        </td>
-		        </tr>
-		        <tr>
-		        <td>ห้าง ' .  $data_mast->cust_code   . 
-		        '</td>
-		        <td>' .  $data_mast->id   . 
-		        '</td>
-		        </tr>
-		        
-		    </body>
-		</html>';
 
-		$pdf = App::make('dompdf.wrapper');
-		$pdf->loadHTML($content);
+			<tr>
+		     	<td width="100">GP</td>
+			<td width="300">' . $data_mast->gp1 . '   ' . $data_mast->gp2 . '   ' . $data_mast->gp3 . '</td>
+			<td width="80"> </td>
+			<td  colspan=3 width="320">' . $data_mast->ship_address2 . '  ' . $data_mast->prov_name . '  ' . $data_mast->post_code .  '</td>
+			</tr>
 
-		return $pdf->stream();
+			<tr>
+		     	<td width="100"></td>
+			<td width="300"></td>
+			<td width="80">โทรศัพท์</td>
+			<td width="120">' . $data_mast->ship_tel . '</td>
+			<td width="80">Email</td>
+			<td width="120">'. $data_mast->email_address  . '</td>
+			</tr>
+			</table><br>
+
+			<table border="1" bordercolor="#424242" cellpadding="0" cellspacing="0">
+			<tr>
+			<td align="center" bgcolor="#D5D5D5" height="25">Item</td>	
+			<td align="center" bgcolor="#D5D5D5">Product Code</td>
+			<td align="center" bgcolor="#D5D5D5">Product Name</td>	
+			<td align="center" bgcolor="#D5D5D5">Qty</td>	
+			<td align="center" bgcolor="#D5D5D5">Price</td>	
+			<td align="center" bgcolor="#D5D5D5">Amount</td>	
+			<td align="center" bgcolor="#D5D5D5">Special Size</td>
+			</tr align="center" bgcolor="#D5D5D5">';
+
+			 foreach ($data_det as  $dbarr) { 
+				
+			
+			$content = $content . '<tr>
+			<td width="50" align="right" height="25">' . $dbarr->item . '</td>	
+			<td width="150">' . $dbarr->prod_code . '</td>
+			<td width="200">' . $dbarr->prod_name . '</td>	
+			<td width="80" align="right" >' . $dbarr->qty . '</td>	
+			<td width="100" align="right">' . $dbarr->sale_price . '</td>	
+			<td width="100" align="right">' . $dbarr->amt . '</td>	
+			<td width="100">' . $dbarr->sp_size_desc . '</td>
+			</tr>';
+			} 
 		
+		$content = $content . '
+			<tr>
+			<td width="50" align="right" height="25"></td>	
+			<td width="150"></td>
+			<td width="200">รวม</td>	
+			<td width="80" align="right" >' . $data_mast->tot_qty . '</td>	
+			<td width="100" align="right"></td>	
+			<td width="100" align="right">' .$data_mast->tot_amt . '</td>	
+			<td width="100"></td>
+			</tr></table><br>';
+		$content = $content . 'ชำระเงินโดย : ' . $data_mast->pay_name;
+
+
+		$mpdf = new mPDF('th', 'A4', '0', 'Tahoma'); 
+		$mpdf->WriteHTML($content);
+		$mpdf->Output();
+
+
 	}
 }

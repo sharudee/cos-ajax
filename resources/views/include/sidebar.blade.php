@@ -16,17 +16,18 @@
 	                                    <a href="{{URL::to('entity')}}">รหัสลูกค้า (Entity)</a>
 	                                </li>
 	                                <li>
-	                                    <a href="{{URL::to('docmast')}}">รหัสเอกสาร</a>
+	                                    <a href="{{URL::to('sales/docmast')}}">รหัสเอกสาร</a>
 	                                </li>
 	                                <li>
-	                                    <a href="{{URL::to('whmast')}}">รหัสคลังสินค้า</a>
+	                                    <a href="{{URL::to('sales/whmast')}}">รหัสคลังสินค้า</a>
 	                                </li>
 	                                <li>
-	                                    <a href="{{URL::to('commission')}}">กำหนดข้อมูล Commission</a>
+	                                    <a href="{{URL::to('sales/commission')}}">กำหนดข้อมูล Commission</a>
 	                                </li>
 	                                <li>
-	                                    <a href="{{URL::to('incentive')}}">กำหนดข้อมูล Incentive</a>
+	                                    <a href="{{URL::to('sales/incentive')}}">กำหนดข้อมูล Incentive</a>
 	                                </li>
+
 	                            </ul>
 	                            <!-- /.nav-second-level -->
 	                        </li>
@@ -38,16 +39,36 @@
 	                                    <a href="{{URL::to('sales/promotion')}}">Promotion</a>
 	                                </li>-->
 	                                <li>
-	                                    <a href="{{URL::to('sales/pmtmast')}}">Promotion</a>
+	                                    <a href="{{URL::to('pmtgrpmast')}}">กลุ่มข้อมูล</a>
 	                                </li>
 	                                <li>
-	                                    <a href="{{URL::to('sales/promotioncust')}}">Consignee</a>
+	                                    <a href="{{URL::to('pmttrnsmast')}}">ประเภทรายการ</a>
 	                                </li>
 	                                <li>
-	                                    <a href="{{URL::to('sales/promotionprod')}}">Product</a>
+	                                    <a href="{{URL::to('pmtproductset')}}">กำหนดชุดเช็ทสินค้า</a>
+	                                </li>
+
+	                                <li>
+	                                    <a href="{{URL::to('promotion')}}">บันทึกโปรโมชั่น</a>
+	                                </li>
+
+	                                <li>
+	                                    <a href="{{URL::to('pmtconsignnee')}}">บันทึกห้างจัดรายการ</a>
+	                                </li>
+
+	                                <li>
+	                                    <a href="{{URL::to('pmtpackage')}}">โปรโมชั่นแพคเกจ</a>
+	                                </li>
+
+	                                <li>
+	                                    <a href="{{URL::to('pmtdiscpremiumdeny')}}">ส่วนลด ไม่เอาของแถม</a>
+	                                </li>
+
+	                                <li>
+	                                    <a href="{{URL::to('pmtdiscshop')}}">ส่วนลด ซื้อสินค้าครบ</a>
 	                                </li>
 	                                <li>
-	                                    <a href="{{URL::to('sales/promotiondisc')}}">Discount</a>
+	                                    <a href="{{URL::to('pmtdiscpay')}}">ส่วนลด การชำระเงิน</a>
 	                                </li>
 	                            </ul>
 	                            <!-- /.nav-second-level -->
@@ -68,7 +89,7 @@
 	                            <a href="#"><i class="fa fa-th-list"></i> Transaction<span class="fa arrow"></span></a>
 	                            <ul class="nav nav-second-level">
 	                                <li>
-	                                    <a href="{{URL::to('sales')}}">บันทึกขายสินค้า</a>
+	                                    <a href="{{URL::to('sales/addsales')}}">บันทึกขายสินค้า</a>
 	                                </li>
 	                                <li>
 	                                    <a href="{{URL::to('sales/addremand')}}">ส่งคืนสินค้า</a>
@@ -83,7 +104,7 @@
 	                            <a href="#"><i class="fa fa-money"></i> Commission<span class="fa arrow"></span></a>
 	                            <ul class="nav nav-second-level">
 	                                <li>
-	                                    <a href="{{URL::to('pc')}}">บันทึกข้อมูลพนักงาน</a>
+	                                    <a href="{{URL::to('sales/pc')}}">บันทึกข้อมูลพนักงาน</a>
 	                                </li>
 	                                <li>
 	                                    <a href="{{URL::to('sales/addpctime')}}">บันทึกเวลาทำงาน</a>

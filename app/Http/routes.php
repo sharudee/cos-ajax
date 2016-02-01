@@ -18,6 +18,12 @@ Route::get('salespayform','SaleController@salespayform');
 Route::post('submitOrder','SaleController@submitOrder');
 Route::post('editOrder','SaleController@editOrder');
 Route::get('salesreport/{id}','SaleController@salesreport');
+Route::get('salesfile/{id}','SaleController@salesfile');
+Route::post('salesupload/{id}','SaleController@salesupload');
+Route::get('salesshowfile/{id}','SaleController@salesshowfile');
+//Route::get('uploadfile/{file_name}','SaleController@uploadfile');
+
+Route::get('salespremiumform/{pmt_no}','SaleController@premiumform');
 
 
 Route::get('commissionclass_cust','ComclassController@commissioncust');

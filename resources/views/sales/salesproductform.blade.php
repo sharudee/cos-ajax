@@ -12,6 +12,7 @@
 						<label>
 							<input type="checkbox" name="product[]" 
 							data-proname="{{$dbarr->pdmodel_desc}}" 
+							data-prodset = "{{$dbarr->pmt_product_set_id}}"
 							data-qty="1"
 							data-price="{{$dbarr->special1_price_amt}}"
 							value="{{$dbarr->pdmodel_code}}">
