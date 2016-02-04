@@ -74,21 +74,101 @@ $( document ).on('click', '.solsoSave', function(e){
 });
 
 
+
+$('#solsoDeleteModal').on('show.bs.modal', function (e) {
+	
+   //alert("ok");		
+   /*   $message = $(e.relatedTarget).attr('data-message');
+      $(this).find('.modal-body p').text($message);
+      $title = $(e.relatedTarget).attr('data-title');
+      $(this).find('.modal-title').text($title);
+*/
+      var url = $(e.relatedTarget).attr('data-href');
+      var id = $(e.relatedTarget).attr('data-id');
+      var token = $('input[name="_token"]').val();
+      var solsoFormData	= $('.solsoForm').serialize();
+      var solsoSelector 	= $('.solsoDelete');
+      //console.log($(e.relatedTarget).attr('data-href'));
+
+      // Pass form reference to modal for submission on yes/ok
+      var form = $(e.relatedTarget).closest('form');
+
+      //console.log(form);
+      $(this).find('.modal-footer #solsoDelete').data('form', form);
+
+      
+       $.ajax(
+	        {
+	            url: url,
+	            type: 'DELETE',
+	            dataType: "html",
+	            data: {
+	              "_token": token,
+	                "id": id,
+	              //"table_data" : solsoFormData,
+	              
+
+	            },
+	            success: function (data)
+	            {
+	                //console.log("it Work");
+	                	
+		                	//console.log(data);
+			            	if ($(data).filter('table.solsoRefresh').length == 1) {
+							//alert("OK");
+				
+					$('#solsoDeleteModal').modal('hide');
+					$('#ajaxTable').html(data);
+					$('#countClients').text( $('.solsoTable').attr('data-all') ); // นับจำนวน Record ในตารางใหม่
+					$.growl.notice({ 
+						title: solsoSelector.attr('data-message-title'), 
+					 	message: solsoSelector.attr('data-message-success') 
+					});
+		 		}else {
+					//$('.solsoShowForm').html(data);
+					$.growl.error({ 
+						title: solsoSelector.attr('data-message-title'), 
+					 	message: solsoSelector.attr('data-message-error') 
+					});
+				}
+			
+	            }
+	        });
+
+      	
+  });
+
+
+/*$('#solsoDeleteModal').find('.modal-footer #confirm').on('click', function(e){
+          var url = $(e.relatedTarget).attr('data-href');
+      var id = $(e.relatedTarget).attr('data-id');
+      var token = $('input[name="_token"]').val();
+      var solsoFormData	= $('.solsoForm').serialize();
+         alert(url);
+         $(this).data('form').submit();
+
+});*/
+
+
+
 /* ==== Event Delete data ===*/
-$( document ).on('click', '.solsoDelete', function(e){
+/*$( document ).on('click', '.solsoDelete', function(e){
 	e.preventDefault();
 
 	var solsoSelector 	= $(this);
 
 	var url = $('.solsoConfirm').attr('data-href');
+	var id = $('.solsoConfirm').attr('data-id');
 	//$(id).submit();
 	//$.ajax({
+
+	alert(url);
 	var token = $('input[name="_token"]').val();
 
-	var id = $('.solsoConfirm').data("id");
-	var solsoFormData	= $('.solsoForm').serialize();
+	//var id = $('.solsoConfirm').data("id");
+	//var solsoFormData	= $('.solsoForm').serialize();
         	
-
+	
 	$.ajax(
 	        {
 	            url: url,
@@ -97,20 +177,20 @@ $( document ).on('click', '.solsoDelete', function(e){
 	            data: {
 	              "_token": token,
 	                "id": id,
-	                "table_data" : solsoFormData,
+	                //"table_data" : solsoDeleteModal,
 	              
 
 	            },
-	            success: function (table_data)
+	            success: function (data)
 	            {
 	                //console.log("it Work");
 	                	
-		                	console.log(table_data);
-			            	if ($(table_data).filter('table.solsoRefresh').length == 1) {
+		                	console.log(data);
+			            	if ($(data).filter('table.solsoRefresh').length == 1) {
 							//alert("OK");
 				
 					$('#solsoDeleteModal').modal('hide');
-					$('#ajaxTable').html(table_data);
+					$('#ajaxTable').html(data);
 					$('#countClients').text( $('.solsoTable').attr('data-all') ); // นับจำนวน Record ในตารางใหม่
 					$.growl.notice({ 
 						title: solsoSelector.attr('data-message-title'), 
@@ -130,7 +210,7 @@ $( document ).on('click', '.solsoDelete', function(e){
         		//console.log("It failed");
 
 	
-});
+});*/
 
 
 

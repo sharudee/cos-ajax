@@ -206,6 +206,14 @@
 
 		<table class='table '>
 			<tr>
+					<td ></td>
+					<td></td>
+					<td>ส่วนลด</td>
+					<td >{{$data_mast->tot_discamt}}</td>
+					<td></td>
+					<td></td>
+			</tr>
+			<tr>
 					<td >จำนวนสินค้า</td>
 					<td>{{$data_mast->tot_qty}}</td>
 					<td>ราคารวมทั้งสิ้น</td>

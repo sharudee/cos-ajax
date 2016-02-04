@@ -17,7 +17,7 @@
 		@foreach($entity as $crt => $v)
 		<tr>
 			
-			<td>{{$v->entity_code}}</td>
+			<td>{{$v->entity_code }}</td>
 			<td>{{$v->entity_tname}}</td>
 			<td>{{$v->cos_no}}</td>
 			<td>{{$v->tax_rate}}</td>
@@ -46,6 +46,9 @@
 				data-id={{$v->id}}>
 				<i class="fa fa-trash"></i> Delete
 				</button>
+				
+
+				
 				
 				
 					

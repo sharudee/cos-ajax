@@ -15,7 +15,7 @@
 						@foreach($sales as $crt =>$dbarr)
 						<tr>
 							<?php
-								if($dbarr->doc_status=="OCL")
+								if($dbarr->doc_status<>"PAL")
 								{
 									$edit_st = "disabled";
 								}

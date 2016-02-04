@@ -12,19 +12,21 @@
 				 <h4 class="modal-title">Delete dialog</h4>
 			</div>
 			<div class="modal-body">
-				<p>You are about to delete this item this procedure is irreversible !</p>
-            				<p>Do you want to proceed ? <p>
+				<p>คุณต้องการลบข้อมูล ? </p>
+            				
 
 			</div>
 			<div class="modal-footer">
 				
-				{!! Form::open(array('id' => 'solsoDeleteForm' )) !!} 
+				{!! Form::open(array('id' => 'solsoDeleteForm')) !!}
+				
+
 					
 					<button type="button" class="btn btn-primary" data-dismiss="modal"> NO</button>
 					<input type ="hidden" name="_token"  value="{{csrf_token()}}"> 
 					<button class="btn btn-danger solsoDelete" id="confirm" data-message-title="Delete notification" data-message-success="Data was deleted" data-message-error="Validation error messages" >YES</button>
 					
-				{!! Form::close() !!} 
+				{!! Form::close() !!}  
 			</div>
 		</div>
 	</div>

@@ -8,26 +8,9 @@ $(function(){
 		});
 	});
 
-	/*$("a[rel=showpo]").click(function(){
-		//var id = $("a[rel=showpo]").attr('data-id');
 
-		//console.log(id);
-		$.get('salesshow',function(data){
-			$("#showpomodal").html(data);
-			// เปิด modal
-			$(".showpomodal").modal('show');
-		});
-	});
-	*/
 
-	// Event Add Customer Form
-	/*$('body').on('click','a[rel=addcustomer]',function(){
-		$.get('customerform/'+$('select#cust_group').val(),function(data){
-			$("#custmodal").html(data);
-			// เปิด modal
-			$(".custmodal").modal('show');
-		});
-	});*/
+
 
 	// Event Add Promotion Form
 	$('body').on('click','a[rel=addpromotion]',function(){
@@ -184,35 +167,54 @@ $(function(){
 	});
 
 
-	//Upload file
+	//Validate 
+	$(document).ready(function () {
 
-	/*$('body').on('change','input:file[name="po"]', function() {
-
-		$.ajax({
-			url: 'submitOrder', // Url to which the request is send
-			type: 'POST',             // Type of request to be send, called as method
-			data: new FormData(this ),
-			 // Data sent to server, a set of key/value pairs (i.e. form fields and values)
-			contentType: false,       // The content type used when sending data to the server.
-			cache: false,             // To unable request pages to be cached
-			processData:false,        // To send DOMDocument or non processed data file it is set to false
-			success: function(data)   // A function to be called if request succeeds
-			{
-				$('#loading').hide();
-				$("#message").html(data);
+	    $('#po_form').validate({ // initialize the plugin
+	        rules: {
+	            ship_titlename: {
+	                required: true
+	         
+	            },
+	            ship_custname: {
+	                required: true,
+	                minlength: 50
+	            }
+	        },
+	        messages: {
+				ship_titlename: "Please enter your firstname",
+				ship_custname: "Please enter your lastname",
+				
 			}
-		});
-	});*/	
+	    });
+
+	});
+
+
+
+
+	
+
+	//
 
 
 
 	// Event Add Product Form
 	$('body').on('click','a[rel=addproduct]',function(){
-		$.get('salesproductform/'+$('input#pmt_no').val(),function(data){
-			$("#productmodal").html(data);
-			// เปิด modal
-			$(".productmodal").modal('show');
-		});
+
+		if($('input#pmt_no').val() == '')
+		{
+			alert("ต้องเลือก Promtion !!!");
+		}
+		else
+		{
+
+			$.get('salesproductform/'+$('input#pmt_no').val(),function(data){
+				$("#productmodal").html(data);
+				// เปิด modal
+				$(".productmodal").modal('show');
+			});
+		}
 	});
 
 	// Event Add Premium Form
@@ -234,16 +236,52 @@ $(function(){
 		var qty = [];
 		var price = [];
 		var prodset = [];
+		var proddisc = [];
+		var premium = [];
+		var pmprice = [];
+		
 
 
 		$("input[name='product[]']:checked").each(function ()
 		{
+			
 			procode.push($(this).val());
 			proname.push($(this).attr('data-proname'));
 			qty.push($(this).attr('data-qty'));
 			price.push($(this).attr('data-price'));
 			prodset.push($(this).attr('data-prodset'));
+			proddisc.push($(this).attr('data-disc'));	
+			pmprice.push($(this).attr('data-pmprice'));	
+			//pmprice += parseFloat($(this).attr('data-pmprice'));	
+
+			
+			//console.log(pmprice);
+
 		});
+
+		$("input[name='pmprice']").val(pmprice);
+
+
+		$("input[name='nopremium[]']").each(function ()
+		{
+			//console.log($("input[name='nopremium[]']").prop("checked"));
+			if($(this).prop('checked') == true)
+			{
+				premium.push('Y');
+				//console.log(premium);
+
+			}
+			else
+			{
+				premium.push('N');
+			}
+
+			//console.log(premium);
+		});
+
+
+		
+
 
 		//alert(JSON.stringify(proname));
 
@@ -253,6 +291,8 @@ $(function(){
 			var mytable;
 			//var i=1;
 			table = document.getElementById('po_table');
+
+			var net_price;
   			//new_row = table.insertRow(table.rows.length);
 
 			for(rows=1;rows<=procode.length;rows++)
@@ -269,6 +309,16 @@ $(function(){
 						"<td><a href=\"#delete\" rel='pro_delete' class=\"btn btn-sm btn-danger\">Delete</a></td>"+
 					        "</tr>"; 
 				*/
+				if(premium[(rows-1)] =='Y')
+				{
+
+					net_price = price[(rows-1)] - proddisc[(rows-1)];
+				}
+				else
+				{
+					net_price = price[(rows-1)];
+				}
+
 				new_row = table.insertRow(table.rows.length);
 				new_row.className="rprod";
 				data = rowCount ;
@@ -284,12 +334,12 @@ $(function(){
 				newcell.innerHTML  = data;
 				newcell.className = "c_qty";
 				//data = '<input type="text" name="price[]" id="price" class="form-control" style="width: 100px;" value="'+price[(rows-1)]+'">';
-				data = price[(rows-1)]+'<input type="hidden" name="price[]" value="'+price[(rows-1)]+'">';
+				data = net_price+'<input type="hidden" name="price[]" value="'+net_price+'">';
 				newcell = new_row.insertCell(4)
 				newcell.innerHTML  = data;
 				newcell.className = "c_price";
 				//data = '<input type="text" name="amt[]" id="amt" class="form-control" style="width: 100px;" value="'+qty[(rows-1)]*price[(rows-1)]+'">';
-				data = qty[(rows-1)]*price[(rows-1)];
+				data = qty[(rows-1)]*net_price;
 				newcell = new_row.insertCell(5)
 				newcell.innerHTML  = data;
 				newcell.className = "c_amt";
@@ -313,7 +363,7 @@ $(function(){
 			//$(".premiummodal").modal('hide');
 
 		}else{
-			alert('กรุณาเลือกอย่างน้อย 1 รายการ');
+			swal("Warning!", "กรุณาเลือกอย่างน้อย 1 รายการ!", "warning");
 		}
 	
 	});
@@ -328,8 +378,13 @@ $(function(){
 		var pqty = [];
 		var pprice = [];
 		var pprodset = [];
+		var ppmsetprice = [];
+		var tot_pmprice = 0;
+		var tprice = parseFloat($("input[name='pmsetprice']").val());
+		var pmprice = parseFloat($("input[name='pmprice']").val());
+		var total = 0;
 
-
+		tprice = isNaN(tprice) ? 0 : tprice;	
 
 		$("input[name='premium[]']:checked").each(function ()
 		{
@@ -338,11 +393,29 @@ $(function(){
 			pqty.push($(this).attr('data-qty'));
 			pprice.push($(this).attr('data-price'));
 			pprodset.push($(this).attr('data-prodset'));
+			ppmsetprice.push($(this).attr('data-pmprice'));	
+			tot_pmprice += parseFloat($(this).attr('data-pmprice'));
 		});
+
+
+		total  =  parseInt(tprice) + tot_pmprice;
+
+		//console.log(total);
+
+		if(total > pmprice)
+		{
+			//alert("มูลค่าของแถมเกินที่กำนหด");
+			swal("Error!", "มูลค่าของแถมเกินที่กำนหด!", "error");
+			return false;
+		}
+		$("input[name='pmsetprice']").val(total);
+
+
+
 
 		//alert(JSON.stringify(proname));
 
-		console.log(precode.length);
+		//console.log(precode.length);
 
 		if(precode.length){
 
@@ -353,6 +426,7 @@ $(function(){
   			//new_row = table.insertRow(table.rows.length);
 
   			//console.log(rowCount);
+  			//var pnet_price;
 
 			for(rows=1;rows<=precode.length;rows++)
 			{
@@ -368,6 +442,9 @@ $(function(){
 						"<td><a href=\"#delete\" rel='pro_delete' class=\"btn btn-sm btn-danger\">Delete</a></td>"+
 					        "</tr>"; 
 				*/
+
+				
+
 				new_row = table.insertRow(table.rows.length);
 				new_row.className="rprod";
 				data = rowCount ;
@@ -383,7 +460,7 @@ $(function(){
 				newcell.innerHTML  = data;
 				newcell.className = "c_qty";
 				//data = '<input type="text" name="price[]" id="price" class="form-control" style="width: 100px;" value="'+price[(rows-1)]+'">';
-				data = pprice[(rows-1)]+'<input type="hidden" name="price[]" value="'+pprice[(rows-1)]+'">';
+				data = pprice[(rows-1)]+'<input type="hidden" name="price[]" value="'+pprice[(rows-1)] + '"> <input type="hidden" name="ppmprice[]" value="'+ppmsetprice[(rows-1)]+'">';
 				newcell = new_row.insertCell(4)
 				newcell.innerHTML  = data;
 				newcell.className = "c_price";
@@ -412,7 +489,8 @@ $(function(){
 			precode.length = 0;
 
 		}else{
-			alert('กรุณาเลือกอย่างน้อย 1 รายการ');
+			//alert('กรุณาเลือกอย่างน้อย 1 รายการ');
+			swal("Warning!", "กรุณาเลือกอย่างน้อย 1 รายการ!", "warning");
 		}
 	
 	});
@@ -435,6 +513,17 @@ $(function(){
 	});
 
 
+	/*$('body').on('change','td.c_disc input', function() {
+		
+		sum_qty_and_price();
+
+			//alert("Loop");
+		
+		
+			//alert("ok");
+	});
+*/
+	
 	
 	
 	// Test Prepend
@@ -445,15 +534,29 @@ $(function(){
 	
 
 	// หาผลรวมของจำนวนชิ้น
-	$('body').on("input","input#qty,input#price",function(){
+	$('body').on("input","input#qty,input#price,input#disc_amt",function(){
 
 		sum_qty_and_price();
 	});
 
 	// ลบรายการออกจากตาราง
 	$("body").on("click","a[rel=pro_delete]",function(){
+		var sum_pm_price=0;
 		$(this).parent().parent().remove();
 		sum_qty_and_price();
+
+		// Cal PM Price
+		$("input[name='ppmprice[]']").each(function ()
+		{
+			sum_pm_price += parseInt($(this).val());
+
+			
+		});
+
+		
+
+		$("input[name='pmsetprice']").val(sum_pm_price);
+		
 	});
 
 
@@ -469,12 +572,16 @@ $(function(){
 		var i;
 		var total_qty = 0;
 		var total_price = 0;
+		var total_amt = 0;
 		var amt = 0;
 
 		var pro_qty = [];
 		var pro_price = [];
 		var pro_amt = [];
+
+		var sum_pm_price = 0;
 		
+		var discount_amt = parseInt($("input[name='disc_amt']").val());
 
 		// เก็บจำนวนชิ้นลง array
 		$("input[name='qty[]']").each(function ()
@@ -489,15 +596,19 @@ $(function(){
 
 		});
 
+		
+
 		for(rows=1;rows<=pro_qty.length;rows++)
 		{
 			
 			
 			total_qty += pro_qty[(rows-1)];
-			total_price += pro_qty[(rows-1)]*pro_price[(rows-1)];
+			total_amt += pro_qty[(rows-1)]*pro_price[(rows-1)];
 		}
 
-		
+		discount_amt = isNaN(discount_amt) ? 0 : discount_amt;
+		total_price = total_amt - discount_amt;
+
 		
 		
 
@@ -511,9 +622,42 @@ $(function(){
 
 
 
+
 	// Event Submit Order
 	
 	$('body').on("click",'button#SubmitOrder',function(){
+
+
+		/****/
+
+		 /*$('#po_form').validate({ // initialize the plugin
+		        rules: {
+		            ship_titlename: {
+		                required: true
+		         
+		            },
+		            ship_custname: {
+		                required: true,
+		                minlength: 50
+		            }
+		        },
+		        messages: {
+					ship_titlename: "Please enter your firstname",
+					ship_custname: "Please enter your lastname",
+					
+				}
+		    });	
+		*/
+
+
+		/****/
+
+
+		
+
+
+
+
 
 		var doc_no = $("input#doc_no").val();
 		var doc_date = $("input#doc_date").val();
@@ -536,13 +680,13 @@ $(function(){
 		var gp3 = $("input#gp3").val();
 		var pay_code = $("input#pay_code").val();
 		var pay_name = $("input#pay_name").val();
+		var disc_amt = $("input#disc_amt").val();
 	
 		var _token = $("input[name=_token]").val();
 
 		var procode = [];
 
 
-		
 
 		//console.log(po_file);
 
@@ -575,7 +719,17 @@ $(function(){
 		$("input[name='sp_size[]']").each(function ()
 		{
 			
-			sp_size.push($(this).val());
+			if($(this).prop('checked') == true)
+			{
+				sp_size.push('Y');
+				//console.log(premium);
+
+			}
+			else
+			{
+				sp_size.push('N');
+			}
+			//sp_size.push($(this).val());
 			//console.log(sp_size);
 		});
 
@@ -629,6 +783,7 @@ $(function(){
 				gp3:gp3,
 				pay_code:pay_code,
 				pay_name:pay_name,
+				disc_amt:disc_amt,
 				
 
 
@@ -657,7 +812,25 @@ $(function(){
 				}
 
 				
+					
+					//$("span#ship_titlename").text('aaaa');
+				            
+								             
+
+				
+
+				
 			},
+			 error: function(data)
+				            {
+				                var errors = '';
+				                for(datos in data.responseJSON){
+				                    errors += data.responseJSON[datos] + '<br>';
+				                }
+				           
+				               //$( '#form-errors' ).html( errors); //this is my div with messages
+				                $('#orm-errors').show().html(errors); //this is my div with messages
+				            },
 
 		},"json");
 	});
@@ -692,6 +865,8 @@ $(function(){
 		var pay_code = $("input#pay_code").val();
 		var pay_name = $("input#pay_name").val();
 		var can = $("input#can:checked").val();
+		var disc_amt = $("input#disc_amt").val();
+
 	
 		//console.log(can);
 
@@ -727,7 +902,17 @@ $(function(){
 		$("input[name='sp_size[]']").each(function ()
 		{
 			
-			sp_size.push($(this).val());
+			if($(this).prop('checked') == true)
+			{
+				sp_size.push('Y');
+				//console.log(premium);
+
+			}
+			else
+			{
+				sp_size.push('N');
+			}
+			//sp_size.push($(this).val());
 			//console.log(sp_size);
 		});
 
@@ -776,6 +961,7 @@ $(function(){
 				pay_code:pay_code,
 				pay_name:pay_name,
 				can:can,
+				disc_amt:disc_amt,
 				
 
 

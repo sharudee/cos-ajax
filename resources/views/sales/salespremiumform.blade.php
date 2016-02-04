@@ -15,6 +15,7 @@
 							data-prodset = "{{$dbarr->pmt_product_set_id}}"
 							data-qty="{{$dbarr->set_qty}}"
 							data-price="0"
+							data-pmprice = "{{$dbarr->set_price_amt}}"
 							value="{{$dbarr->product_set_code}}">
 							{{$dbarr->product_set_code}}
 						</label>

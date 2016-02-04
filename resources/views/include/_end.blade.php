@@ -22,6 +22,7 @@
 <script type="text/javascript" src="<?php echo URL::to('resources/assets/js/jquery-ui.min.js'); ?>"></script>
 <script src="<?php echo URL::to('resources/assets/js/jquery-ui-timepicker-addon.js');?>"></script> 
 <script src="<?php echo URL::to('resources/assets/js/jquery-ui-sliderAccess.js');?>"></script> 
+<script src="<?php echo URL::to('resources/assets/js/jquery.validate.min.js');?>"></script> 
 
 
 

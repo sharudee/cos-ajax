@@ -5,7 +5,10 @@
 <div class="modal-body">
 	<table class="table table-bordered">
 		<tbody>
+			
 			@foreach($prod as $dbarr)
+			
+			
 			<tr>
 				<td>
 					<div class="checkbox">
@@ -15,6 +18,8 @@
 							data-prodset = "{{$dbarr->pmt_product_set_id}}"
 							data-qty="1"
 							data-price="{{$dbarr->special1_price_amt}}"
+							data-disc="{{$dbarr->discount_amt}}"
+							data-pmprice ="{{$dbarr->pm_total_price}}"
 							value="{{$dbarr->pdmodel_code}}">
 							{{$dbarr->pdmodel_code}}
 						</label>
@@ -23,8 +28,11 @@
 				<td>{{$dbarr->pdmodel_desc}}</td>
 				<td>{{$dbarr->pdsize_desc}}</td>
 				<td>{{$dbarr->special1_price_amt}}</td>
+				<td><input type="checkbox" name="nopremium[]" <?php if($dbarr->discount_amt == 0) { echo "disabled"; }  ?>> No Premium</td>
+				
 				
 			</tr>
+			
 			@endforeach
 			
 			

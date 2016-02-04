@@ -3,7 +3,8 @@
 	<h4 class="modal-title">New Sales</h4>
 </div>
 <div class="modal-body">
-	<form enctype="multipart/form-data">
+
+	<form enctype="multipart/form-data" id="po_form" name="po_form">
 	<div class="container"> 
 				<div class="row form-group">
 					<div class="col-sm-1">
@@ -51,14 +52,16 @@
 				
 				<div class="row form-group">
 					<div class="col-sm-1">
-						<label>ชื่อลูกค้า</label>
+						<label >ชื่อลูกค้า</label>
 					</div>
 					
 					<div class="col-sm-3">
 						<div class="input-group ">
 
 							<input type="text" name="ship_titlename" id="ship_titlename" class="form-control input-sm required" required>
+							
 							{!!$errors->first('ship_titlename','<p class="error">:message</p>')!!}
+
 								<span class="input-group-btn">
 								<a  href="#addtitle" rel="addtitle" class="btn btn-sm btn-primary">
 								<sapn class="glyphicon glyphicon-triangle-bottom"></span></a>
@@ -161,7 +164,7 @@
 					</div>
 
 					<div class="col-sm-2">
-						<input type="text" name="email" id="email" class="form-control input-sm">
+						<input type="email" name="email" id="email" class="form-control input-sm">
 					</div>
 				</div>
 
@@ -217,7 +220,11 @@
 
 	</form>	
 
+	<script>
 	
+
+	
+	</script>
 	<div id="product_table">
 		<table class='table table-bordered' id='po_table'>
 			<thead>	
@@ -251,6 +258,14 @@
 		</table>
 
 		<table class='table '>
+			<tr>
+					<td ><input type="hidden" name="pmprice"></td>
+					<td><input type="hidden" name="pmsetprice"></td>
+					<td>ส่วนลด</td>
+					<td ><input type="text" name="disc_amt" id="disc_amt" class="form-control" style="width: 80px;"></td>
+					<td></td>
+					<td></td>
+			</tr>
 			<tr>
 					<td >จำนวนสินค้า</td>
 					<td><span id='total_qty'></span></td>

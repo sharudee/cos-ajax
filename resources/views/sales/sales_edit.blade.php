@@ -234,7 +234,7 @@
 					<td class="c_qty"><input type="text" name="qty[]" id="qty" class="form-control" style="width: 50px;" value="{{$dbarr->qty}}"></td>
 					<td class="c_price">{{$dbarr->sale_price}}<input type="hidden" name="price[]" value="{{$dbarr->sale_price}}"></td>
 					<td class="c_amt">{{$dbarr->amt}}</td>
-					<td><div class="form-inline"><div class="checkbox"><label><input type="checkbox" name="sp_size[]"  value="{{$dbarr->sp_size}}"></label> <input type="text" name="sp_size_desc[]" id="sp_size_desc" class="form-control"  style="width: 50px;" value="{{$dbarr->sp_size_desc}}"></div></div></td>
+					<td><div class="form-inline"><div class="checkbox"><label><input type="checkbox" name="sp_size[]"  value="{{$dbarr->sp_size}}" <?php if($dbarr->sp_size =='Y') { echo "checked"; } ?>></label> <input type="text" name="sp_size_desc[]" id="sp_size_desc" class="form-control"  style="width: 50px;" value="{{$dbarr->sp_size_desc}}"></div></div></td>
 					<td><a href="#delete" rel="pro_delete" class="btn btn-sm btn-danger">Delete</a></td>
 				</tr>				
 				@endforeach
@@ -247,6 +247,14 @@
 		</table>
 
 		<table class='table '>
+			<tr>
+					<td ></td>
+					<td></td>
+					<td>ส่วนลด</td>
+					<td ><input type="text" name="disc_amt" id="disc_amt" class="form-control" style="width: 80px;" value="{{$data_mast->tot_discamt}}"></td>
+					<td></td>
+					<td></td>
+			</tr>
 			<tr>
 					<td >จำนวนสินค้า</td>
 					<td><span id='total_qty'></span>{{$data_mast->tot_qty}}</td>

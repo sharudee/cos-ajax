@@ -13,6 +13,7 @@ use Carbon;
 use File;
 use Response;
 use URL;
+use Redirect;
 
 
 
@@ -29,6 +30,8 @@ use App\Http\Model\CosInvmast;
 use App\Http\Model\CosInvdet;
 use App\Http\Model\CosInvdetProduct;
 use App\Http\Model\PmtProductModel;
+use App\Http\Model\Pcwork;
+use App\Http\Model\Pcmast;
 
 class SaleController extends Controller {
 
@@ -144,7 +147,7 @@ class SaleController extends Controller {
 
 	public function productform($pmt_no)
 	{
-		$sql = "select b.pmt_product_set_id , b.pdmodel_code , b.pdmodel_desc , b.pdsize_code , b.pdsize_desc, b.special1_price_amt , b.special2_price_amt from pmt_mast a , pmt_package_mast b where a.pmt_mast_id=b.pmt_mast_id and a.pmt_no='" . $pmt_no . "'";
+		$sql = "select b.pmt_product_set_id , b.pdmodel_code , b.pdmodel_desc , b.pdsize_code , b.pdsize_desc, b.special1_price_amt , b.special2_price_amt , ifnull(c.discount_amt,0) discount_amt , ifnull(b.pm_total_price,0) pm_total_price from pmt_mast a , pmt_package_mast b Left JOIN pmt_disc_premium_deny c on b.pdsize_code = c.pdsize_code where a.pmt_mast_id=b.pmt_mast_id and a.pmt_no='" . $pmt_no . "'";
 		$data = DB::select($sql); 
 
 		return view('sales.salesproductform')->with('prod',$data);
@@ -216,6 +219,9 @@ class SaleController extends Controller {
 		);
 
 		$validator = Validator::make(Request::all(), $rules,$message);
+
+		
+
 		if ($validator->passes())
 		{
 
@@ -240,14 +246,17 @@ class SaleController extends Controller {
 
 				$getqty = Request::input('qty');
 				$getprice = Request::input('price');
+				$disc_amt = Request::input('disc_amt');
 				$count_qty = count($getqty);
 				$tot_amt = 0;
+				$net_amt = 0;
 
 				for($j=0;$j<$count_qty;$j++)
 				{	
 					$tot_amt += $getqty[$j] * $getprice[$j];
 				}
 
+				$net_amt = $tot_amt - $disc_amt;
 				$tot_qty = array_sum($getqty);
 
 
@@ -281,6 +290,8 @@ class SaleController extends Controller {
 					'doc_status'	=> 'PAL',
 					'tot_qty'		=> $tot_qty,
 					'tot_amt'	=> $tot_amt,
+					'tot_netamt'	=> $net_amt,
+					'tot_discamt'	=> Request::input('disc_amt'),
 					'created_by'	=> 'admin',
 					'created_at'	=> date('Y-m-d H:i:s')
 				);
@@ -400,7 +411,16 @@ class SaleController extends Controller {
 				$data = DB::select($sql);
 				$doc_no = $doc_head . str_pad($data[0]->no,4,'0',STR_PAD_LEFT);
 				
-				return view('sales.add_salesform')->withErrors($validator)->withInput(Request::all())->with('doc_no',$doc_no);				
+				
+				return  view('sales.add_salesform')->withErrors($validator)->withInput(Request::all())->with('doc_no',$doc_no);				
+				
+				/*$errors = $validator->errors();
+				    $errors =  json_decode($errors); 
+
+				    return response()->json([
+				        'success' => false,
+				        'message' => $errors
+				    ]);*/
 			}
 
 			return 0;
@@ -444,14 +464,17 @@ class SaleController extends Controller {
 
 			$getqty = Request::input('qty');
 			$getprice = Request::input('price');
+			$disc_amt = Request::input('disc_amt');
 			$count_qty = count($getqty);
 			$tot_amt = 0;
+			$net_amt = 0;
 
 			for($j=0;$j<$count_qty;$j++)
 			{	
 				$tot_amt += $getqty[$j] * $getprice[$j];
 			}
 
+			$net_amt = $tot_amt - $disc_amt;
 			$tot_qty = array_sum($getqty);
 
 
@@ -483,8 +506,10 @@ class SaleController extends Controller {
 				'pay_name'	=> Request::input('pay_name'),
 				'vat_rate'	=> $tax_rate,
 				'doc_status'	=> $status,
-				'tot_qty'	=> $tot_qty,
+				'tot_qty'		=> $tot_qty,
 				'tot_amt'	=> $tot_amt,
+				'tot_netamt'	=> $net_amt,
+				'tot_discamt'	=> Request::input('disc_amt'),
 				'created_by'	=> 'admin',
 				'created_at'	=> date('Y-m-d H:i:s')
 			);
@@ -597,7 +622,11 @@ class SaleController extends Controller {
 		$data_mast = CosInvmast::find($id);
 		$data_det = CosInvdetProduct::where('cos_invmast_id',$id)->OrderBy('item','asc')->get();
 
+		$sql = "select a.emp_code , a.emp_name from cos_pcmast a , cos_pcwork b where b.cust_code='" . $data_mast->cust_code . "' and  b.work_date='" . $data_mast->doc_date. "' and b.work_type='1' and a.emp_code = b.emp_code and a.cust_code=b.cust_code";
+		$data_sale = DB::select($sql);
+
 		$cust_name = DB::table('entity')->where('entity_code',$data_mast->cust_code)->pluck('entity_tname');
+		$i =1;
 		$content ='
 		<p><h2>Purchase Order</h2></p>
 		     	<table>
@@ -664,23 +693,49 @@ class SaleController extends Controller {
 			<td width="150">' . $dbarr->prod_code . '</td>
 			<td width="200">' . $dbarr->prod_name . '</td>	
 			<td width="80" align="right" >' . $dbarr->qty . '</td>	
-			<td width="100" align="right">' . $dbarr->sale_price . '</td>	
-			<td width="100" align="right">' . $dbarr->amt . '</td>	
+			<td width="100" align="right">' . number_format($dbarr->sale_price,2) . '</td>	
+			<td width="100" align="right">' . number_format($dbarr->amt,2) . '</td>	
 			<td width="100">' . $dbarr->sp_size_desc . '</td>
 			</tr>';
 			} 
 		
 		$content = $content . '
 			<tr>
-			<td width="50" align="right" height="25"></td>	
+			<td width="50" align="right" height="30"></td>	
 			<td width="150"></td>
 			<td width="200">รวม</td>	
 			<td width="80" align="right" >' . $data_mast->tot_qty . '</td>	
 			<td width="100" align="right"></td>	
-			<td width="100" align="right">' .$data_mast->tot_amt . '</td>	
+			<td width="100" align="right">' . number_format($data_mast->tot_amt,2) . '</td>	
 			<td width="100"></td>
-			</tr></table><br>';
+			</tr>
+			<tr>
+			<td width="480" align="right" height="30" colspan=4></td>	
+			<td width="100" align="right">ส่วนลด</td>	
+			<td width="100" align="right">' . number_format($data_mast->tot_discamt,2) . '</td>	
+			<td width="100"></td>
+			</tr>
+			<tr>
+			<td width="480" align="right" height="30" colspan=4></td>	
+	
+			<td width="100" align="right">รวมทั้งสิ้น</td>	
+			<td width="100" align="right">' . number_format($data_mast->tot_netamt,2) . '</td>	
+			<td width="100"></td>
+			</tr>
+			</table><br>';
 		$content = $content . 'ชำระเงินโดย : ' . $data_mast->pay_name;
+
+		$content = $content .'<br><br>พนักงานขาย';
+		$content = $content . '<table>';
+		 foreach ($data_sale as  $dbsale) { 
+				
+			
+			$content = $content . '<tr>
+			<td width="50" align="right" height="25">' . $i . '</td>	
+			<td width="150">' . $dbsale->emp_name . '</td>
+			</tr>';
+			} 
+		$content = $content . '</table>';
 
 
 		$mpdf = new mPDF('th', 'A4', '0', 'Tahoma'); 
