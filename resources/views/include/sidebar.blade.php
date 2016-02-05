@@ -16,16 +16,16 @@
 	                                    <a href="{{URL::to('entity')}}">รหัสลูกค้า (Entity)</a>
 	                                </li>
 	                                <li>
-	                                    <a href="{{URL::to('sales/docmast')}}">รหัสเอกสาร</a>
+	                                    <a href="{{URL::to('docmast')}}">รหัสเอกสาร</a>
 	                                </li>
 	                                <li>
-	                                    <a href="{{URL::to('sales/whmast')}}">รหัสคลังสินค้า</a>
+	                                    <a href="{{URL::to('whmast')}}">รหัสคลังสินค้า</a>
 	                                </li>
 	                                <li>
-	                                    <a href="{{URL::to('sales/commission')}}">กำหนดข้อมูล Commission</a>
+	                                    <a href="{{URL::to('commission')}}">กำหนดข้อมูล Commission</a>
 	                                </li>
 	                                <li>
-	                                    <a href="{{URL::to('sales/incentive')}}">กำหนดข้อมูล Incentive</a>
+	                                    <a href="{{URL::to('incentive')}}">กำหนดข้อมูล Incentive</a>
 	                                </li>
 
 	                            </ul>
@@ -89,7 +89,7 @@
 	                            <a href="#"><i class="fa fa-th-list"></i> Transaction<span class="fa arrow"></span></a>
 	                            <ul class="nav nav-second-level">
 	                                <li>
-	                                    <a href="{{URL::to('sales/addsales')}}">บันทึกขายสินค้า</a>
+	                                    <a href="{{URL::to('sales')}}">บันทึกขายสินค้า</a>
 	                                </li>
 	                                <li>
 	                                    <a href="{{URL::to('sales/addremand')}}">ส่งคืนสินค้า</a>
@@ -104,10 +104,10 @@
 	                            <a href="#"><i class="fa fa-money"></i> Commission<span class="fa arrow"></span></a>
 	                            <ul class="nav nav-second-level">
 	                                <li>
-	                                    <a href="{{URL::to('sales/pc')}}">บันทึกข้อมูลพนักงาน</a>
+	                                    <a href="{{URL::to('pc')}}">บันทึกข้อมูลพนักงาน</a>
 	                                </li>
 	                                <li>
-	                                    <a href="{{URL::to('sales/addpctime')}}">บันทึกเวลาทำงาน</a>
+	                                    <a href="{{URL::to('pctime')}}">บันทึกเวลาทำงาน</a>
 	                                </li>
 	                                <!--<li>
 	                                    <a href="#">.. <span class="fa arrow"></span></a>

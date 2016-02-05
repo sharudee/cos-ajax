@@ -5,10 +5,10 @@ use App\Http\Controllers\Controller;
 
 //use Illuminate\Http\Request;
 
-
 use Request;
 use Validator;
 use Carbon;
+use DB;
 
 // Model
 use App\Http\Model\Pcwork;
@@ -230,6 +230,82 @@ class PcworkController extends Controller {
 	public function destroy($id)
 	{
 		//
+	}
+
+
+	public function pctime()
+	{
+		return view('sales.pctime');
+	}
+
+	public function workIn()
+	{
+
+		
+		$emp_code = Request::input('emp_code');
+		$time_start = date('H:i:s');
+		$updated_by = 'admin';
+		
+		$code = DB::table('cos_pcmast')->where('cust_code','CXXXX')->where('emp_code',$emp_code)->pluck('emp_code');
+		if(!empty($code))
+		{	
+			$time = DB::table('cos_pcwork')->where('cust_code','CXXXX')->where('work_date',date('Y-m-d'))->where('emp_code',$emp_code)->pluck('time_start');
+
+			if(empty($time))
+			{
+				$pc 	=Pcwork::where('cust_code','CXXXX')->where('work_date',date('Y-m-d'))->where('emp_code',$emp_code);
+				$pc->update(array('time_start' => $time_start , 'updated_by' => $updated_by));
+
+				if($pc)
+				{
+					return "Insert_Success";
+				}
+			}
+			else
+			{
+				return "Insert_Fail";
+			}
+		}
+		else
+		{
+			return "No_Data";
+		}
+
+	}
+
+
+	public function workOut()
+	{
+
+		
+		$emp_code = Request::input('emp_code');
+		$time_end = date('H:i:s');
+		$updated_by = 'admin';
+		
+		$code = DB::table('cos_pcmast')->where('cust_code','CXXXX')->where('emp_code',$emp_code)->pluck('emp_code');
+		if(!empty($code))
+		{	
+			$time = DB::table('cos_pcwork')->where('cust_code','CXXXX')->where('work_date',date('Y-m-d'))->where('emp_code',$emp_code)->pluck('time_end');
+
+			if(empty($time))
+			{
+				$pc 	=Pcwork::where('cust_code','CXXXX')->where('work_date',date('Y-m-d'))->where('emp_code',$emp_code);
+				$pc->update(array('time_end' => $time_end , 'updated_by' => $updated_by));
+
+				if($pc)
+				{
+					return "Insert_Success";
+				}
+			}
+			else
+			{
+				return "Insert_Fail";
+			}
+		}
+		else
+		{
+			return "No_Data";
+		}
 	}
 
 }

@@ -32,6 +32,10 @@ Route::get('incentive_model','IncentiveController@incentivemodel');
 Route::get('pcwork/{emp_code}', ['as' => 'pcwork.index', 'uses' => 'PcworkController@index']);
 Route::get('pcwork/{emp_code}/create', ['as' => 'pcwork.create', 'uses' => 'PcworkController@create']);
 
+Route::get('pctime', 'PcworkController@pctime');
+Route::post('workIn', 'PcworkController@workIn');
+Route::post('workOut', 'PcworkController@workOut');
+
 Route::get('commissionclass/{class}', ['as' => 'comclass.index', 'uses' => 'ComclassController@index']);
 
 

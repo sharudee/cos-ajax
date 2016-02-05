@@ -167,38 +167,7 @@ $(function(){
 	});
 
 
-	//Validate 
-	$(document).ready(function () {
-
-	    $('#po_form').validate({ // initialize the plugin
-	        rules: {
-	            ship_titlename: {
-	                required: true
-	         
-	            },
-	            ship_custname: {
-	                required: true,
-	                minlength: 50
-	            }
-	        },
-	        messages: {
-				ship_titlename: "Please enter your firstname",
-				ship_custname: "Please enter your lastname",
-				
-			}
-	    });
-
-	});
-
-
-
-
 	
-
-	//
-
-
-
 	// Event Add Product Form
 	$('body').on('click','a[rel=addproduct]',function(){
 
@@ -495,7 +464,145 @@ $(function(){
 	
 	});
 	
-	
+
+	// Validate Form
+	function checkform()
+	{
+		if($('form input[name="ship_titlename"]').val() == "")
+		{
+			$('form input[name="ship_titlename"]').focus();
+			
+			$("span#ship_titlename").addClass("error");
+			$("span#ship_titlename").text('ต้องใส่ข้อมูล');
+			//swal("Warning!", "ต้องใส่ข้อมูล", "warning");
+			return false;
+		}
+
+
+		if($('form input[name="ship_titlename"]').val().length > 10)
+		{
+			$('form input[name="ship_titlename"]').focus();
+			$("span#ship_titlename").addClass("error");
+			$("span#ship_titlename").text('ข้อมูลเกิน 10 ตัวอักษร');
+			//swal("Warning!", "ต้องใส่ข้อมูล", "warning");
+			return false;
+		}
+
+		if($('form input[name="ship_custname"]').val() == "")
+		{
+			$('form input[name="ship_custname"]').focus();
+			$("span#ship_custname").addClass("error");
+			$("span#ship_custname").text('ต้องใส่ข้อมูล');
+			//swal("Warning!", "ต้องใส่ข้อมูล", "warning");
+			return false;
+		}
+
+		if($('form input[name="ship_custsurname"]').val() == "")
+		{
+			$('form input[name="ship_custsurname"]').focus();
+			$("span#ship_custsurname").addClass("error");
+			$("span#ship_custsurname").text('ต้องใส่ข้อมูล');
+			//swal("Warning!", "ต้องใส่ข้อมูล", "warning");
+			return false;
+		}
+
+		if($('form input[name="pmt_no"]').val() == "")
+		{
+			$('form input[name="pmt_no"]').focus();
+			$("span#pmt_no").addClass("error");
+			$("span#pmt_no").text('ต้องใส่ข้อมูล');
+			//swal("Warning!", "ต้องใส่ข้อมูล", "warning");
+			return false;
+		}
+
+		if($('form input[name="ship_address1"]').val() == "")
+		{
+			$('form input[name="ship_address1"]').focus();
+			$("span#ship_address1").addClass("error");
+			$("span#ship_address1").text('ต้องใส่ข้อมูล');
+			//swal("Warning!", "ต้องใส่ข้อมูล", "warning");
+			return false;
+		}
+
+		if($('form input[name="ship_address1"]').val().length > 50)
+		{
+			$('form input[name="ship_address1"]').focus();
+			$("span#ship_address1").addClass("error");
+			$("span#ship_address1").text('ข้อมูลเกิน 50 ตัวอักษร');
+			//swal("Warning!", "ต้องใส่ข้อมูล", "warning");
+			return false;
+		}
+
+		if($('form input[name="ship_address2"]').val().length > 50)
+		{
+			$('form input[name="ship_address2"]').focus();
+			$("span#ship_address2").addClass("error");
+			$("span#ship_address2").text('ข้อมูลเกิน 50 ตัวอักษร');
+			//swal("Warning!", "ต้องใส่ข้อมูล", "warning");
+			return false;
+		}
+
+
+		if($('form input[name="prov_name"]').val() == "")
+		{
+			$('form input[name="prov_name"]').focus();
+			$("span#prov_name").addClass("error");
+			$("span#prov_name").text('ต้องใส่ข้อมูล');
+			//swal("Warning!", "ต้องใส่ข้อมูล", "warning");
+			return false;
+		}
+
+		if($('form input[name="post_code"]').val() == "")
+		{
+			$('form input[name="post_code"]').focus();
+			$("span#post_code").addClass("error");
+			$("span#post_code").text('ต้องใส่ข้อมูล');
+			//swal("Warning!", "ต้องใส่ข้อมูล", "warning");
+			return false;
+		}
+
+
+		if($('form input[name="email"]').val() != "")
+		{
+			var $email = $('form input[name="email"]');
+			var re = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/igm;
+
+			if (!re.test($email.val()))
+			{
+				$('form input[name="email"]').focus();
+				$("span#email").addClass("error");
+				$("span#email").text('Email ไม่ถูกต้อง');
+
+				return false;
+			}
+
+		}	
+			//swal("Warning!", "ต้องใส่ข้อมูล", "warning");
+			
+
+		if($('form input[name="pay_name"]').val() == "")
+		{
+			$('form input[name="pay_name"]').focus();
+			$("span#pay_name").addClass("error");
+			$("span#pay_name").text('ต้องใส่ข้อมูล');
+			//swal("Warning!", "ต้องใส่ข้อมูล", "warning");
+			return false;
+		}
+		
+		/*if($('#po_table >tbody >tr').length == 0)
+		{
+			alert("No Product");
+			return false;
+		}*/
+
+		else
+		{
+			return true;
+		}
+
+
+
+	}
 	
 
 	$('body').on('change','td.c_qty input', function() {
@@ -506,24 +613,12 @@ $(function(){
 			var amt = qty * price;
 			$('td.c_amt',this).text(amt);
 
-			//alert("Loop");
 		
 			});
-			//alert("ok");
+			
 	});
 
 
-	/*$('body').on('change','td.c_disc input', function() {
-		
-		sum_qty_and_price();
-
-			//alert("Loop");
-		
-		
-			//alert("ok");
-	});
-*/
-	
 	
 	
 	// Test Prepend
@@ -627,38 +722,8 @@ $(function(){
 	
 	$('body').on("click",'button#SubmitOrder',function(){
 
-
-		/****/
-
-		 /*$('#po_form').validate({ // initialize the plugin
-		        rules: {
-		            ship_titlename: {
-		                required: true
-		         
-		            },
-		            ship_custname: {
-		                required: true,
-		                minlength: 50
-		            }
-		        },
-		        messages: {
-					ship_titlename: "Please enter your firstname",
-					ship_custname: "Please enter your lastname",
-					
-				}
-		    });	
-		*/
-
-
-		/****/
-
-
+		checkform();
 		
-
-
-
-
-
 		var doc_no = $("input#doc_no").val();
 		var doc_date = $("input#doc_date").val();
 		var req_date = $("input#req_date").val();
@@ -694,6 +759,12 @@ $(function(){
 		{
 			procode.push($(this).val());
 		});
+
+		if(procode.length == 0)
+		{
+			swal("Warning!", "กรุณาเลือกสินค้าอย่างน้อย 1 รายการ!", "warning");
+			return false;
+		}
 
 		var proname = [];
 		$("input[name='proname[]']").each(function ()
@@ -811,7 +882,7 @@ $(function(){
 					
 				}
 
-				
+				//window.location.reload();
 					
 					//$("span#ship_titlename").text('aaaa');
 				            
@@ -821,16 +892,7 @@ $(function(){
 
 				
 			},
-			 error: function(data)
-				            {
-				                var errors = '';
-				                for(datos in data.responseJSON){
-				                    errors += data.responseJSON[datos] + '<br>';
-				                }
-				           
-				               //$( '#form-errors' ).html( errors); //this is my div with messages
-				                $('#orm-errors').show().html(errors); //this is my div with messages
-				            },
+			 
 
 		},"json");
 	});
@@ -840,6 +902,7 @@ $(function(){
 	
 	$('body').on("click",'button#EditOrder',function(){
 
+		checkform();
 		
 		var id = $("input#id").val();
 		//alert(id);
@@ -877,6 +940,12 @@ $(function(){
 		{
 			procode.push($(this).val());
 		});
+
+		if(procode.length == 0)
+		{
+			swal("Warning!", "กรุณาเลือกสินค้าอย่างน้อย 1 รายการ!", "warning");
+			return false;
+		}
 
 		var proname = [];
 		$("input[name='proname[]']").each(function ()

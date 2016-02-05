@@ -24,7 +24,7 @@
 	<link rel="stylesheet" media="all" type="text/css" href="{{ url('resources/assets/css/jquery-ui.css') }}" />
 	<link rel="stylesheet" media="all" type="text/css" href="{{ url('resources/assets/css/jquery-ui-timepicker-addon.css') }}" />
 
-
+	
 
 	<!--<link href="vendor/pickadate/compressed/themes/classic.css" rel="stylesheet">
     	<link href="vendor/pickadate/compressed/themes/classic.date.css" rel="stylesheet">-->

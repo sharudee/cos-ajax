@@ -59,15 +59,15 @@
 						<div class="input-group ">
 
 							<input type="text" name="ship_titlename" id="ship_titlename" class="form-control input-sm required" required>
-							
-							{!!$errors->first('ship_titlename','<p class="error">:message</p>')!!}
+							<span id='ship_titlename'></span>
+			
 
 								<span class="input-group-btn">
 								<a  href="#addtitle" rel="addtitle" class="btn btn-sm btn-primary">
 								<sapn class="glyphicon glyphicon-triangle-bottom"></span></a>
 								</sapn>
 								<input type="text" name="ship_custname" id="ship_custname" class="form-control input-sm required" required>
-								{!!$errors->first('ship_custname','<p class="error">:message</p>')!!}
+								<p><span id='ship_custname'></span></p>
 									
 								
 						</div>
@@ -75,7 +75,7 @@
 					
 					<div class="col-sm-2">
 						<input type="text" name="ship_custsurname" id="ship_custsurname" class="form-control input-sm required" required>
-						{!!$errors->first('ship_custsurname','<p class="error">:message</p>')!!}
+						<p><span id='ship_custsurname'></span></p>
 					</div>
 
 					<div class="col-sm-1">
@@ -86,6 +86,7 @@
 
 						
 						<input type="text" name="pmt_no" id="pmt_no" class="form-control input-sm required">
+						<p><span id='pmt_no'></span></p>
 						
 						<span class="input-group-btn">
 						<a  href="#addpmt" rel="addpromotion" class="btn btn-sm btn-primary"><sapn class="glyphicon glyphicon-triangle-bottom"></span></a>
@@ -104,11 +105,11 @@
 					</div>
 					<div class="col-sm-4">
 						<input type="text" name="ship_address1" id="ship_address1" class="form-control input-sm required" required>
-						{!!$errors->first('ship_address1','<p class="error">:message</p>')!!}
+						<p><span id='ship_address1'></span></p>
 					</div>
 					<div class="col-sm-4">
 						<input type="text" name="ship_address2" id="ship_address2" class="form-control input-sm">
-						{!!$errors->first('ship_address2','<p class="error">:message</p>')!!}
+						<p><span id='ship_assress2'></span></p>
 					</div>
 
 					
@@ -123,6 +124,7 @@
 					    	<div class="input-group ">
 							<input type ="hidden" name="prov_code" id="prov_code" >
 							<input type="text" name="prov_name" id="prov_name" class="form-control input-sm required">
+							<p><span id='prov_name'></span></p>
 								<span class="input-group-btn">
 								<a  href="#addprov" rel="addprov" class="btn btn-sm btn-primary">
 								<sapn class="glyphicon glyphicon-triangle-bottom"></span></a>
@@ -135,6 +137,7 @@
 							<div class="input-group ">
 
 							<input type="text" name="post_code" id="post_code" class="form-control input-sm required">
+							<p><span id='post_code'></span></p>
 								<span class="input-group-btn">
 								<a  href="#addpost" rel="addpost" class="btn btn-sm btn-primary">
 								<sapn class="glyphicon glyphicon-triangle-bottom"></span></a>
@@ -157,6 +160,7 @@
 
 					<div class="col-sm-2">
 						<input type="text" name="tel" id="tel" class="form-control input-sm">
+						<p><span id='tel'></span></p>
 					</div>
 
 					<div class="col-sm-1 col-sm-offset-2">
@@ -165,6 +169,7 @@
 
 					<div class="col-sm-2">
 						<input type="email" name="email" id="email" class="form-control input-sm">
+						<p><span id='email'></span></p>
 					</div>
 				</div>
 
@@ -199,15 +204,20 @@
 					</div>
 					<div class="col-sm-1">
 						<input type="text" name="gp1"  id="gp1" class="form-control input-sm">
+						<p><span id='gp1'></span></p>
 					</div>
 					<div class="col-sm-1">
 						<input type="text" name="gp2"  id="gp2" class="form-control input-sm">
+						<p><span id='gp2'></span></p>
 					</div>
 					<div class="col-sm-1">
 						<input type="text" name="gp3"  id="gp3" class="form-control input-sm">
+						<p><span id='gp3'></span></p>
 					</div>
 
 					</div>
+
+					
 
 				</div>
 
@@ -220,11 +230,8 @@
 
 	</form>	
 
-	<script>
 	
 
-	
-	</script>
 	<div id="product_table">
 		<table class='table table-bordered' id='po_table'>
 			<thead>	
@@ -285,6 +292,7 @@
 				
 				<input type ="hidden" name="pay_code" id="pay_code" >
 				<input type="text" name="pay_name" id="pay_name" class="form-control input-sm required">
+				<p><span id='pay_name'></span></p>
 						
 					<span class="input-group-btn">
 					<a  href="#addpay" rel="addpay" class="btn btn-sm btn-primary"><sapn class="glyphicon glyphicon-triangle-bottom"></span></a>

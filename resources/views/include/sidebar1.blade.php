@@ -86,7 +86,7 @@
 	                                    <a href="{{URL::to('pc')}}">บันทึกข้อมูลพนักงาน</a>
 	                                </li>
 	                                <li>
-	                                    <a href="{{URL::to('sales/addpctime')}}">บันทึกเวลาทำงาน</a>
+	                                    <a href="{{URL::to('pctime')}}">บันทึกเวลาทำงาน</a>
 	                                </li>
 	                                <!--<li>
 	                                    <a href="#">.. <span class="fa arrow"></span></a>
